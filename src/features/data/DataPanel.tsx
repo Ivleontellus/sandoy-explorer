@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { buildArchive, downloadBlob, importArchive } from '../../data/archive'
 import { buildExport, downloadJson, parseGeoJsonImport } from '../../data/geojson'
 import { POI_CATEGORIES, isSensitive, type MapFeature } from '../../data/model'
 import { useFeatureStore } from '../../data/store'
@@ -12,17 +13,43 @@ export function DataPanel({ onSelect, onImportGpx }: Props) {
   const { features, dispatch } = useFeatureStore()
   const fileRef = useRef<HTMLInputElement>(null)
   const [msg, setMsg] = useState<string | null>(null)
+  const [withPhotos, setWithPhotos] = useState(true)
+  const [busy, setBusy] = useState(false)
 
   const stamp = () => new Date().toISOString().slice(0, 10)
   const shareableCount = features.filter((f) => f.properties.shareable && !isSensitive(f)).length
 
-  const importGeoJson = async (file: File) => {
+  const importFile = async (file: File) => {
+    setBusy(true)
     try {
-      const { features: imported, skipped } = parseGeoJsonImport(await file.text())
-      dispatch({ type: 'merge', features: imported })
-      setMsg(`Importerte ${imported.length} objekter${skipped ? `, hoppet over ${skipped} ukjente` : ''}.`)
+      if (/\.zip$/i.test(file.name)) {
+        const { features: imported, skipped, photoCount } = await importArchive(file)
+        dispatch({ type: 'merge', features: imported })
+        setMsg(`Importerte ${imported.length} objekter og ${photoCount} bilder${skipped ? `, hoppet over ${skipped} ukjente` : ''}.`)
+      } else {
+        const { features: imported, skipped } = parseGeoJsonImport(await file.text())
+        dispatch({ type: 'merge', features: imported })
+        setMsg(`Importerte ${imported.length} objekter${skipped ? `, hoppet over ${skipped} ukjente` : ''}.`)
+      }
     } catch (e) {
       setMsg(`Import feilet: ${(e as Error).message}`)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const exportData = async (mode: 'backup' | 'shareable') => {
+    const base = `sandoy-explorer-${mode === 'backup' ? 'sikkerhetskopi' : 'delbar'}-${stamp()}`
+    if (!withPhotos) return downloadJson(buildExport(features, mode), `${base}.geojson`)
+    setBusy(true)
+    try {
+      const { blob, photoCount } = await buildArchive(features, mode)
+      downloadBlob(blob, `${base}.zip`)
+      setMsg(`Eksporterte zip med ${photoCount} bilder.`)
+    } catch (e) {
+      setMsg(`Eksport feilet: ${(e as Error).message}`)
+    } finally {
+      setBusy(false)
     }
   }
 
@@ -31,38 +58,37 @@ export function DataPanel({ onSelect, onImportGpx }: Props) {
       <h3>Importer</h3>
       <div className="actions wrap">
         <button onClick={onImportGpx}>⤓ GPX-spor</button>
-        <button onClick={() => fileRef.current?.click()}>⤓ GeoJSON</button>
+        <button onClick={() => fileRef.current?.click()} disabled={busy}>⤓ GeoJSON / zip</button>
       </div>
       <input
         ref={fileRef}
         type="file"
-        accept=".geojson,.json,application/geo+json,application/json"
+        accept=".geojson,.json,.zip,application/geo+json,application/json,application/zip"
         hidden
         onChange={(e) => {
           const f = e.target.files?.[0]
-          if (f) importGeoJson(f)
+          if (f) importFile(f)
           e.target.value = ''
         }}
       />
 
-      <h3>Eksporter (GeoJSON)</h3>
+      <h3>Eksporter</h3>
+      <label className="toggle">
+        <input type="checkbox" checked={withPhotos} onChange={(e) => setWithPhotos(e.target.checked)} />
+        Ta med bilder (zip)
+      </label>
       <div className="actions wrap">
-        <button
-          onClick={() => downloadJson(buildExport(features, 'backup'), `sandoy-explorer-sikkerhetskopi-${stamp()}.geojson`)}
-          disabled={!features.length}
-        >
+        <button onClick={() => exportData('backup')} disabled={!features.length || busy}>
           ⤒ Privat sikkerhetskopi ({features.length})
         </button>
-        <button
-          onClick={() => downloadJson(buildExport(features, 'shareable'), `sandoy-explorer-delbar-${stamp()}.geojson`)}
-          disabled={!shareableCount}
-        >
+        <button onClick={() => exportData('shareable')} disabled={!shareableCount || busy}>
           ⤒ Delbar eksport ({shareableCount})
         </button>
       </div>
       <p className="hint">
         Sikkerhetskopien inneholder alt, også sårbare registreringer – ikke del den. Delbar eksport tar bare med objekter
-        du har merket som delbare, og aldri mineraler eller andre sårbare registreringer.
+        du har merket som delbare, og aldri sårbare registreringer. Zip-en fra delbar eksport kan pakkes rett ut i{' '}
+        <code>public/data/</code> for å publisere den.
       </p>
       {msg && <p className="notice">{msg}</p>}
 

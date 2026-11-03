@@ -77,6 +77,9 @@ function normalizeFeature(f: Feature): MapFeature | null {
     updatedAt: typeof p.updatedAt === 'string' ? p.updatedAt : t,
     sensitive: p.sensitive === true,
     shareable: p.shareable === true,
+    ...(Array.isArray(p.photos) && p.photos.some((x) => typeof x === 'string')
+      ? { photos: p.photos.filter((x): x is string => typeof x === 'string') }
+      : {}),
   }
   const g = f.geometry
 

@@ -1,6 +1,9 @@
 import { POI_CATEGORIES, type MapFeature } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
 import { lineLengthMeters } from '../details/geo'
+import { PublishedPhotos } from '../photos/PhotoGallery'
+
+const PUBLISHED_BASE = `${import.meta.env.BASE_URL}data/`
 
 interface Props {
   feature: MapFeature
@@ -36,6 +39,7 @@ export function PublishedDetails({ feature: f, canEdit, onCreatePoi, onClose }: 
           <PlaceConditions lat={f.geometry.coordinates[1]} lon={f.geometry.coordinates[0]} bestTimes={f.properties.bestTimes} />
         </>
       )}
+      <PublishedPhotos paths={p.photos ?? []} baseUrl={PUBLISHED_BASE} />
       {canEdit && (
         <div className="actions">
           <button className="primary" onClick={onCreatePoi}>Lag eget punkt her</button>

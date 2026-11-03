@@ -34,7 +34,11 @@ Nye offentlige lag legges til i [src/map/publicLayers.ts](src/map/publicLayers.t
 
 Appen starter i **Utforsk** (for alle): kart, publisert innhold, kjente turruter og plasser, kulturminner, ferge og sol – ingen redigering. **Redigering** (for den som vedlikeholder kartet) slås på under ⚙ Meny → Innstillinger og gir egne registreringer, stier, GPX og eksport. Valget lagres på enheten.
 
-**Publisert innhold** er det kuraterte datasettet alle ser. Det ligger i `public/data/publisert.geojson` og oppdateres slik: Redigering → Mine data → «Delbar eksport» → erstatt fila → bygg/publiser. Bare objekter merket «kan deles» blir med, aldri sårbare; appen filtrerer i tillegg bort eventuelle sårbare objekter ved lasting.
+**Publisert innhold** er det kuraterte datasettet alle ser. Det ligger i `public/data/publisert.geojson` og oppdateres slik: Redigering → Mine data → «Delbar eksport» (med «Ta med bilder» på) → pakk ut zip-en i `public/data/` (gir `publisert.geojson` + `bilder/`) → bygg/publiser. Bare objekter merket «kan deles» blir med, aldri sårbare; appen filtrerer i tillegg bort eventuelle sårbare objekter ved lasting.
+
+## Bilder
+
+Bilder legges til på punkter og stier i detaljvisningen (kamera eller filvelger på mobil). De komprimeres til maks 1600 px JPEG og lagres i IndexedDB på enheten (`src/features/photos/photoStore.ts`), aldri i `localStorage` eller i GeoJSON-egenskapene. Når en registrering slettes, slettes bildene. Eksport med «Ta med bilder» gir en zip med GeoJSON + `bilder/<id>.jpg`, og i den fila peker `properties.photos` på bildestiene; import av zip legger bildene tilbake i IndexedDB. Publisert innhold bruker samme `photos`-stier relativt til `public/data/`.
 
 ## Fergetider og bestilling
 
@@ -68,6 +72,7 @@ src/
     ferry/       rutetabeller, neste avgang og bestillingslenker
     heritage/    kulturminner fra Riksantikvaren (offentlig lag)
     published/   visning av publisert innhold (skrivebeskyttet)
+    photos/      bilder på registreringer (IndexedDB, komprimering, galleri)
     settings/    modusvalg og publiseringsinfo
     guide/       kjente turer og plasser fra turkart (offentlig lag)
   test/          vitest-tester
@@ -78,6 +83,6 @@ Nye moduler (terrengskygger, turforslag, bilder, strålingsmålinger) legges til
 ## Neste steg (forslag)
 
 - Terrengskygger fra Kartverkets høydedata (DTM) i en egen modul `features/terrain`
-- Bilder koblet til punkter (IndexedDB)
+- SEFRAK-bygninger fra Riksantikvaren som eget lag (info om eldre bygninger)
 - Visning av strålingsmålinger fra Radiacode-spor
 - PWA/offline-støtte og pakking som app (f.eks. Capacitor)

@@ -12,6 +12,7 @@ import { DataPanel } from './features/data/DataPanel'
 import { FeatureDetails } from './features/details/FeatureDetails'
 import { LayerPanel } from './features/layers/LayerPanel'
 import { PoiForm, EMPTY_BEST_TIMES, type PoiFormValues } from './features/poi/PoiForm'
+import { removePhotosFor } from './features/photos/photoStore'
 import { FerryPanel, loadRoute, type FerryRoute } from './features/ferry/FerryPanel'
 import { HeritageDetails } from './features/heritage/HeritageDetails'
 import { useHeritage } from './features/heritage/heritageApi'
@@ -397,6 +398,7 @@ export default function App() {
         onUpdate={(patch) => dispatch({ type: 'update', id: selected.properties.id, patch })}
         onDelete={() => {
           dispatch({ type: 'remove', id: selected.properties.id })
+          removePhotosFor(selected.properties.id).catch(() => {})
           setSelectedId(null)
           notify(`Slettet «${selected.properties.name}»`)
         }}

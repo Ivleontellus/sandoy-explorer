@@ -56,6 +56,14 @@ describe('GeoJSON-eksport', () => {
     const { features } = parseGeoJsonImport(JSON.stringify(buildExport(original, 'backup')))
     expect(features[0].properties).toMatchObject({ id: original[0].properties.id, category: 'geologi', sensitive: true })
   })
+
+  it('bildestier i publisert datasett beholdes, ugyldige verdier filtreres', () => {
+    const f = { ...poi('fiske', true, false), properties: { ...poi('fiske', true, false).properties, photos: ['bilder/a.jpg', 7] } }
+    const { features } = parseGeoJsonImport(JSON.stringify({ type: 'FeatureCollection', features: [f] }))
+    expect(features[0].properties.photos).toEqual(['bilder/a.jpg'])
+    const { features: plain } = parseGeoJsonImport(JSON.stringify(buildExport([poi('fiske', true, false)], 'shareable')))
+    expect(plain[0].properties.photos).toBeUndefined()
+  })
 })
 
 describe('Solviser', () => {

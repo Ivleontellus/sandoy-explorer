@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { POI_CATEGORIES, isSensitive, type MapFeature } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
+import { PhotoGallery } from '../photos/PhotoGallery'
 import { lineLengthMeters } from './geo'
 
 interface Props {
@@ -48,6 +49,7 @@ export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEd
           </p>
           <p className="hint">Flytt punktet: dra markøren i kartet, eller trykk «Velg i kartet» og så på riktig sted.</p>
           <PlaceConditions lat={f.geometry.coordinates[1]} lon={f.geometry.coordinates[0]} bestTimes={f.properties.bestTimes} />
+          <PhotoGallery featureId={p.id} canEdit />
           <ShareInfo sensitive={sensitive} shareable={p.shareable} />
           <div className="actions">
             <DeleteButton label="Slett" confirming={confirmDelete} onToggle={setConfirmDelete} onConfirm={onDelete} />
@@ -71,6 +73,7 @@ export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEd
             </button>
           )}
           {length !== null && <p className="muted">Lengde: {(length / 1000).toFixed(2)} km</p>}
+          {f.properties.kind === 'path' && <PhotoGallery featureId={p.id} canEdit />}
 
           {f.properties.kind === 'track' && (
             <>

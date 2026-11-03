@@ -80,6 +80,11 @@ export interface BaseProps {
   sensitive: boolean
   /** Brukeren har eksplisitt merket objektet som delbart. Standard er false. */
   shareable: boolean
+  /**
+   * Bildestier relativt til datasettets mappe (f.eks. «bilder/<id>.jpg»). Brukes BARE i eksporterte
+   * og publiserte datasett; private bilder ligger i IndexedDB (features/photos) og refereres via featureId.
+   */
+  photos?: string[]
 }
 
 export interface PoiProps extends BaseProps {
