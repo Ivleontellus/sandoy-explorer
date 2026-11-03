@@ -14,10 +14,11 @@ interface Props {
   site: HeritageSite
   onCreatePoi: () => void
   onClose: () => void
+  canEdit: boolean
 }
 
 /** Skrivebeskyttet visning av et offentlig kulturminne. Egne notater lages som eget, privat punkt. */
-export function HeritageDetails({ site, onCreatePoi, onClose }: Props) {
+export function HeritageDetails({ site, onCreatePoi, onClose, canEdit }: Props) {
   return (
     <div className="panel-section">
       <div className="details-head">
@@ -46,9 +47,11 @@ export function HeritageDetails({ site, onCreatePoi, onClose }: Props) {
         </p>
       )}
       <p className="hint">Offentlige data. Automatisk fredete kulturminner har en sikringssone på 5 meter – ikke grav eller flytt stein.</p>
-      <div className="actions">
-        <button className="primary" onClick={onCreatePoi}>Lag eget punkt her</button>
-      </div>
+      {canEdit && (
+        <div className="actions">
+          <button className="primary" onClick={onCreatePoi}>Lag eget punkt her</button>
+        </div>
+      )}
     </div>
   )
 }

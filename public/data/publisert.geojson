@@ -1,0 +1,8 @@
+{
+  "type": "FeatureCollection",
+  "app": "sandoy-explorer",
+  "version": 1,
+  "exportMode": "shareable",
+  "om": "Publisert innhold som alle brukere av Sandøy Explorer ser. Fylles ved å erstatte denne fila med en «Delbar eksport» fra appen (Mine data → Eksporter). Sårbare registreringer tas aldri med i delbar eksport.",
+  "features": []
+}

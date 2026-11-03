@@ -30,6 +30,12 @@ Nye offentlige lag legges til i [src/map/publicLayers.ts](src/map/publicLayers.t
 
 > Før appen publiseres for mange brukere: OSM sine fliser har en bruksregel som ikke tillater tung bruk i apper. Kartverket er derfor standard.
 
+## Utforsk- og redigeringsmodus
+
+Appen starter i **Utforsk** (for alle): kart, publisert innhold, kjente turruter og plasser, kulturminner, ferge og sol – ingen redigering. **Redigering** (for den som vedlikeholder kartet) slås på under ⚙ Meny → Innstillinger og gir egne registreringer, stier, GPX og eksport. Valget lagres på enheten.
+
+**Publisert innhold** er det kuraterte datasettet alle ser. Det ligger i `public/data/publisert.geojson` og oppdateres slik: Redigering → Mine data → «Delbar eksport» → erstatt fila → bygg/publiser. Bare objekter merket «kan deles» blir med, aldri sårbare; appen filtrerer i tillegg bort eventuelle sårbare objekter ved lasting.
+
 ## Fergetider og bestilling
 
 Rutetabellen ligger som TypeScript-data (én `Trip` per kolonne i PDF-en). Når en ny sesongtabell publiseres: legg til et nytt `Timetable`-objekt i `TIMETABLES` med `validFrom` (og sett `validTo` på den forrige). Appen velger tabell etter dato og advarer når ingen tabell dekker datoen.
@@ -61,6 +67,8 @@ src/
     conditions/  «beste tid» per plass og live sol/tidevann
     ferry/       rutetabeller, neste avgang og bestillingslenker
     heritage/    kulturminner fra Riksantikvaren (offentlig lag)
+    published/   visning av publisert innhold (skrivebeskyttet)
+    settings/    modusvalg og publiseringsinfo
     guide/       kjente turer og plasser fra turkart (offentlig lag)
   test/          vitest-tester
 ```

@@ -4,6 +4,10 @@ import { useCallback, useMemo, useRef, useState } from 'react'
 import { parseGpx, trackToLine } from './data/gpx'
 import { baseProps, type MapFeature, type PathFeature, type PoiFeature, type TrackFeature } from './data/model'
 import { useFeatureStore } from './data/store'
+import { useAppMode } from './data/appMode'
+import { usePublished } from './data/published'
+import { PublishedDetails } from './features/published/PublishedDetails'
+import { SettingsPanel } from './features/settings/SettingsPanel'
 import { DataPanel } from './features/data/DataPanel'
 import { FeatureDetails } from './features/details/FeatureDetails'
 import { LayerPanel } from './features/layers/LayerPanel'
@@ -31,6 +35,7 @@ import { BASEMAPS, SANDOY_CENTER, type PublicFeatureSource } from './map/publicL
 import './App.css'
 
 type Tab = 'lag' | 'data' | 'bat' | 'sol'
+const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['publisert']
 
 /** Hold zoom-til-objekt fri av panelet (sidepanel på desktop, bunnark på mobil). */
 const fitPadding = (): L.FitBoundsOptions =>
@@ -54,7 +59,7 @@ export default function App() {
   const [map, setMap] = useState<LeafletMap | null>(null)
   const [basemapId, setBasemapId] = useState(BASEMAPS[0].id)
   const [overlays, setOverlays] = useState<string[]>([])
-  const [sources, setSources] = useState<PublicFeatureSource['id'][]>([])
+  const [sources, setSources] = useState<PublicFeatureSource['id'][]>(DEFAULT_SOURCES)
   const [selectedPublic, setSelectedPublic] = useState<PublicSelection>(null)
   const [ferryRoute, setFerryRoute] = useState<FerryRoute>(loadRoute)
   const [visibility, setVisibility] = useState<LayerVisibility>(DEFAULT_VISIBILITY)
@@ -72,6 +77,11 @@ export default function App() {
   const toastTimer = useRef<number>(undefined)
 
   const selected = byId(selectedId)
+  const [appMode, setAppMode] = useAppMode()
+  const canEdit = appMode === 'redigering'
+  const [showSettings, setShowSettings] = useState(false)
+  const published = usePublished()
+  const selectedPublished = selectedPublic?.kind === 'published' ? published.features.find((f) => f.properties.id === selectedPublic.id) : undefined
   const [guideOverrides, setGuideOverrides] = useState<GuideOverrides>(loadGuideOverrides)
   const [pickingSpot, setPickingSpot] = useState<GuideSpot | null>(null)
   /** Eget punkt som skal flyttes med neste trykk i kartet. */
@@ -144,6 +154,13 @@ export default function App() {
     } else if (sel.kind === 'heritage' && map) {
       const site = heritage.sites.find((s) => s.id === sel.id)
       if (site) panToVisible(map, site.centroid)
+    } else if (sel.kind === 'published' && map) {
+      const f = published.features.find((x) => x.properties.id === sel.id)
+      if (f) {
+        const b = L.geoJSON(f).getBounds()
+        if (f.geometry.type === 'Point') panToVisible(map, [b.getCenter().lat, b.getCenter().lng])
+        else map.fitBounds(b, { ...fitPadding(), maxZoom: 17 })
+      }
     } else if (sel.kind === 'guide' && map) {
       const spot = guideSpots.find((g) => g.id === sel.id)
       const trail = GUIDE_TRAILS.find((t) => t.id === sel.id)
@@ -320,7 +337,45 @@ export default function App() {
 
   // ---- Panelinnhold ----
   let panelContent
-  if (poiForm) {
+  if (showSettings) {
+    panelContent = (
+      <SettingsPanel
+        mode={appMode}
+        onMode={(m) => {
+          setAppMode(m)
+          if (m === 'utforsk') {
+            setSelectedId(null)
+            setPoiForm(null)
+            setMode('browse')
+            if (tab === 'data') setTab('lag')
+          }
+          notify(m === 'redigering' ? 'Redigeringsmodus på' : 'Utforsk-modus: ingen redigering')
+        }}
+        publishedCount={published.features.length}
+        publishedAt={published.exportedAt}
+        publishedError={published.error}
+        onClose={() => setShowSettings(false)}
+      />
+    )
+  } else if (selectedPublished) {
+    panelContent = (
+      <PublishedDetails
+        key={selectedPublished.properties.id}
+        feature={selectedPublished}
+        canEdit={canEdit}
+        onClose={() => setSelectedPublic(null)}
+        onCreatePoi={() => {
+          if (selectedPublished.geometry.type !== 'Point' || selectedPublished.properties.kind !== 'poi') return
+          const [lon, lat] = selectedPublished.geometry.coordinates
+          setSelectedPublic(null)
+          setPoiForm({
+            id: null,
+            initial: { category: selectedPublished.properties.category, name: selectedPublished.properties.name, description: '', lat, lon, sensitive: false, shareable: false, bestTimes: EMPTY_BEST_TIMES },
+          })
+        }}
+      />
+    )
+  } else if (poiForm) {
     panelContent = (
       <PoiForm
         key={poiForm.id ?? 'new'}
@@ -370,6 +425,7 @@ export default function App() {
       <HeritageDetails
         key={selectedSite.id}
         site={selectedSite}
+        canEdit={canEdit}
         onClose={() => setSelectedPublic(null)}
         onCreatePoi={() => {
           setSelectedPublic(null)
@@ -394,6 +450,7 @@ export default function App() {
       <GuideDetails
         key={selectedGuide.id}
         item={selectedGuide}
+        canEdit={canEdit}
         onClose={() => setSelectedPublic(null)}
         onDrawTrail={startDrawTrail}
         onCopyTrail={(trail) => {
@@ -453,7 +510,9 @@ export default function App() {
               ['bat', 'Båt'],
               ['sol', 'Sol'],
             ] as const
-          ).map(([id, label]) => (
+          )
+            .filter(([id]) => canEdit || id !== 'data')
+            .map(([id, label]) => (
             <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}>
               {label}
             </button>
@@ -471,7 +530,9 @@ export default function App() {
               if (selectedPublic && ((selectedPublic.kind === 'heritage' && id === 'kulturminner') || (selectedPublic.kind === 'guide' && (id === 'turruter' || id === 'plasser'))))
                 setSelectedPublic(null)
             }}
+            showPrivate={canEdit}
             sourceStatus={{
+              publisert: published.loading ? 'Henter …' : published.error ? 'Feil' : String(published.features.length),
               kulturminner: heritage.loading ? 'Henter …' : heritage.error ? 'Feil: ' + heritage.error : heritage.sites.length ? String(heritage.sites.length) : undefined,
             }}
             visibility={visibility}
@@ -480,7 +541,7 @@ export default function App() {
             features={features}
             trailList={
               sources.includes('turruter') ? (
-                <TrailList selectedId={selectedPublic?.kind === 'guide' ? selectedPublic.id : null} onSelect={(id) => selectPublic({ kind: 'guide', id })} onDrawTrail={startDrawTrail} />
+                <TrailList selectedId={selectedPublic?.kind === 'guide' ? selectedPublic.id : null} onSelect={(id) => selectPublic({ kind: 'guide', id })} onDrawTrail={canEdit ? startDrawTrail : () => setShowSettings(true)} />
               ) : null
             }
             spotList={
@@ -533,7 +594,7 @@ export default function App() {
           <span className="logo">⛰</span>
           <div>
             <h1>Sandøy Explorer</h1>
-            <p>Søndre Sandøy · Hvaler</p>
+            <p>Søndre Sandøy · Hvaler{canEdit ? ' · redigering' : ''}</p>
           </div>
         </div>
       </header>
@@ -541,7 +602,8 @@ export default function App() {
       <MapView
         basemapId={basemapId}
         activeOverlays={overlays}
-        features={visibleFeatures}
+        features={canEdit ? visibleFeatures : []}
+        publishedFeatures={sources.includes('publisert') ? published.features : []}
         selectedId={selectedId}
         mode={mode}
         editing={editing}
@@ -589,15 +651,19 @@ export default function App() {
 
       {mode === 'browse' ? (
         <div className="toolbar">
-          <button onClick={startAddPoi} title="Nytt interessepunkt">
-            <span>📍</span>Punkt
-          </button>
-          <button onClick={startDrawPath} title="Tegn ny sti">
-            <span>✏️</span>Sti
-          </button>
-          <button onClick={() => gpxRef.current?.click()} title="Importer GPX">
-            <span>⤓</span>GPX
-          </button>
+          {canEdit && (
+            <>
+              <button onClick={startAddPoi} title="Nytt interessepunkt">
+                <span>📍</span>Punkt
+              </button>
+              <button onClick={startDrawPath} title="Tegn ny sti">
+                <span>✏️</span>Sti
+              </button>
+              <button onClick={() => gpxRef.current?.click()} title="Importer GPX">
+                <span>⤓</span>GPX
+              </button>
+            </>
+          )}
           <button
             onClick={async () => {
               const p = await locate()
@@ -620,6 +686,16 @@ export default function App() {
             title="Solviser"
           >
             <span>☀</span>Sol
+          </button>
+          <button
+            className={showSettings ? 'on' : ''}
+            onClick={() => {
+              setShowSettings((s) => !s)
+              setPanelOpen(true)
+            }}
+            title="Innstillinger"
+          >
+            <span>⚙</span>{canEdit ? 'Admin' : 'Meny'}
           </button>
         </div>
       ) : (

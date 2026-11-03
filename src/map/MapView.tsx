@@ -20,12 +20,19 @@ const renderer = L.canvas({ tolerance: 10 })
 export type MapMode = 'browse' | 'addPoi' | 'drawPath' | 'editPath' | 'pickPlace'
 
 /** Valgt OFFENTLIG objekt, holdt adskilt fra brukerens egne registreringer. */
-export type PublicSelection = { kind: 'heritage'; id: string } | { kind: 'ferry'; stop: StopId } | { kind: 'guide'; id: string } | null
+export type PublicSelection =
+  | { kind: 'heritage'; id: string }
+  | { kind: 'ferry'; stop: StopId }
+  | { kind: 'guide'; id: string }
+  | { kind: 'published'; id: string }
+  | null
 
 interface Props {
   basemapId: string
   activeOverlays: string[]
   features: MapFeature[]
+  /** Publisert, skrivebeskyttet innhold. */
+  publishedFeatures: MapFeature[]
   selectedId: string | null
   mode: MapMode
   editing: { id: string; initial: Position[] } | null
@@ -85,6 +92,24 @@ export function MapView(props: Props) {
       ))}
       <ScaleControl imperial={false} position="bottomleft" />
 
+      <FeatureLayers
+        features={props.publishedFeatures}
+        selectedId={props.selectedPublic?.kind === 'published' ? props.selectedPublic.id : null}
+        hiddenId={null}
+        interactive={mode === 'browse'}
+        readonly
+        onSelect={(id) => props.onSelectPublic({ kind: 'published', id })}
+        onMovePoi={() => {}}
+      />
+      <FeatureLayers
+        features={props.publishedFeatures}
+        selectedId={props.selectedPublic?.kind === 'published' ? props.selectedPublic.id : null}
+        hiddenId={null}
+        interactive={mode === 'browse'}
+        readonly
+        onSelect={(id) => props.onSelectPublic({ kind: 'published', id })}
+        onMovePoi={() => {}}
+      />
       <FeatureLayers
         features={props.features}
         selectedId={props.selectedId}

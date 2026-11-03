@@ -92,9 +92,11 @@ interface DetailProps {
   /** Skjul plassen i kartet på denne enheten. */
   onHide: (spot: GuideSpot) => void
   onClose: () => void
+  /** Redigeringsmodus: vis flytt/skjul/kopier-knapper. */
+  canEdit: boolean
 }
 
-export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPickInMap, onResetPosition, onHide, onClose }: DetailProps) {
+export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPickInMap, onResetPosition, onHide, onClose, canEdit }: DetailProps) {
   const isTrail = 'lengthKm' in item
   return (
     <div className="panel-section">
@@ -113,18 +115,20 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
           {item.reconstructed && (
             <p className="warning">Linja er rekonstruert ved å følge OpenStreetMaps veier og stier mellom stedene i turkartet. Kontroller på tur – lag gjerne ditt eget sti-utkast fra den.</p>
           )}
-          {!item.geometry ? (
+          {!item.geometry && !canEdit ? (
+            <p className="hint">Denne stien finnes ikke som digital linje ennå.</p>
+          ) : !item.geometry ? (
             <>
               <p className="hint">Denne stien finnes ikke som digital linje. Tegn den inn i kartet, så lagres den som ditt eget sti-utkast.</p>
               <div className="actions">
                 <button className="primary" onClick={() => onDrawTrail(item)}>Tegn inn {item.name}</button>
               </div>
             </>
-          ) : (
+          ) : canEdit ? (
             <div className="actions">
               <button className="primary" onClick={() => onCopyTrail(item)}>Lag eget sti-utkast av linja</button>
             </div>
-          )}
+          ) : null}
         </>
       ) : (
         <>
@@ -137,14 +141,16 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
             {item.position[0].toFixed(5)}, {item.position[1].toFixed(5)}
             {item.moved && <span className="muted"> · flyttet av deg</span>}
           </p>
-          {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig. Dra markøren i kartet eller trykk «Velg i kartet».</p>}
-          <p className="hint">Kilde: {item.source}. Flyttinger og skjuling lagres bare på denne enheten. Har du laget et eget punkt for stedet, kan du skjule dette.</p>
+          {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig{canEdit ? '. Dra markøren i kartet eller trykk «Velg i kartet»' : ''}.</p>}
+          <p className="hint">Kilde: {item.source}.{canEdit ? ' Flyttinger og skjuling lagres bare på denne enheten. Har du laget et eget punkt for stedet, kan du skjule dette.' : ''}</p>
+          {canEdit && (
           <div className="actions wrap">
             <button className="danger" onClick={() => onHide(item)}>Skjul plass</button>
             {item.moved && <button onClick={() => onResetPosition(item)}>Tilbakestill plass</button>}
             <button onClick={() => onPickInMap(item)}>Velg i kartet</button>
             <button className="primary" onClick={() => onCreatePoi(item)}>Lag eget punkt her</button>
           </div>
+          )}
         </>
       )}
       <p className="hint">{GUIDE_ATTRIBUTION}</p>

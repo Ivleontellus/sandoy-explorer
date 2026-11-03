@@ -16,6 +16,8 @@ interface Props {
   onToggleTheme: (id: ThemeLayerId) => void
   onSetAllThemes: (on: boolean) => void
   features: MapFeature[]
+  /** Utforsk-modus: ingen private lag å vise. */
+  showPrivate: boolean
   /** Lister vist under lagene når de er på. */
   trailList?: ReactNode
   spotList?: ReactNode
@@ -56,6 +58,8 @@ export function LayerPanel(p: Props) {
         </div>
       ))}
 
+      {p.showPrivate && (
+        <>
       <div className="section-head">
         <h3>Mine registreringer</h3>
         <span>
@@ -72,6 +76,8 @@ export function LayerPanel(p: Props) {
           <span className="count">{counts.get(l.id) ?? 0}</span>
         </label>
       ))}
+      </>
+      )}
     </div>
   )
 }

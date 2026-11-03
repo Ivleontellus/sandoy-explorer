@@ -12,12 +12,14 @@ interface Props {
   /** Objektet som redigeres tegnes av EditablePath i stedet. */
   hiddenId: string | null
   interactive: boolean
+  /** Publisert (skrivebeskyttet) innhold: kan velges, men ikke dras. */
+  readonly?: boolean
   onSelect: (id: string) => void
   /** Valgt punkt kan dras til nytt sted. */
   onMovePoi: (id: string, lonLat: Position) => void
 }
 
-export function FeatureLayers({ features, selectedId, hiddenId, interactive, onSelect, onMovePoi }: Props) {
+export function FeatureLayers({ features, selectedId, hiddenId, interactive, readonly = false, onSelect, onMovePoi }: Props) {
   // Spor først, så stier, så punkter øverst.
   const order = { track: 0, path: 1, poi: 2 }
   const sorted = [...features].sort((a, b) => order[a.properties.kind] - order[b.properties.kind])
@@ -47,11 +49,11 @@ export function FeatureLayers({ features, selectedId, hiddenId, interactive, onS
                 },
               }}
               interactive={interactive}
-              draggable={selected && interactive}
+              draggable={selected && interactive && !readonly}
             >
               <Tooltip direction="top" offset={[0, -14]}>
                 {p.name}
-                {selected ? ' – dra for å flytte' : ''}
+                {selected && !readonly ? ' – dra for å flytte' : ''}
               </Tooltip>
             </Marker>
           )
