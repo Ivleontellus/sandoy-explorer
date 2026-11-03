@@ -1,35 +1,38 @@
 import { POI_CATEGORIES } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
 import { LinkedText, WebsiteButton } from '../common/Links'
-import { GUIDE_ATTRIBUTION, GUIDE_TRAILS, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
+import { PublishedPhotos } from '../photos/PhotoGallery'
+
+const PUBLISHED_BASE = `${import.meta.env.BASE_URL}data/`
+import { GUIDE_ATTRIBUTION, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
 
 interface TrailListProps {
+  trails: GuideTrail[]
   selectedId: string | null
   onSelect: (id: string) => void
   onDrawTrail: (trail: GuideTrail) => void
 }
 
 /** Liste over kjente turruter, vist under laget i Kartlag-fanen. */
-export function TrailList({ selectedId, onSelect, onDrawTrail }: TrailListProps) {
+export function TrailList({ trails, selectedId, onSelect, onDrawTrail }: TrailListProps) {
   return (
     <div className="guide-list">
       <ul className="feature-list">
-        {GUIDE_TRAILS.map((t) => (
+        {trails.map((t) => (
           <li key={t.id}>
             <button className={t.id === selectedId ? 'active' : ''} onClick={() => onSelect(t.id)}>
               <span className="sym trail-swatch" style={{ background: t.color }} />
               <span className="name">{t.name}</span>
               <span className="muted">{t.lengthKm} km</span>
               {!t.geometry && <span className="badge utkast">ikke tegnet</span>}
-              {t.reconstructed && <span className="badge utkast" title="Rutet gjennom OSM-stinettet etter turkartet">rekonstruert</span>}
             </button>
           </li>
         ))}
       </ul>
-      {GUIDE_TRAILS.filter((t) => !t.geometry).length > 0 && (
+      {trails.filter((t) => !t.geometry).length > 0 && (
         <p className="hint">
           Stier uten linje kan du tegne inn selv:{' '}
-          {GUIDE_TRAILS.filter((t) => !t.geometry).map((t) => (
+          {trails.filter((t) => !t.geometry).map((t) => (
             <button key={t.id} className="link" onClick={() => onDrawTrail(t)}>
               tegn {t.name}
             </button>
@@ -132,10 +135,7 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
           </h3>
           <p className="muted">{item.lengthKm} km</p>
           <p className="desc">{item.description}</p>
-          <p className="muted">Via: {item.via.join(' → ')}</p>
-          {item.reconstructed && (
-            <p className="warning">Linja er rekonstruert ved å følge OpenStreetMaps veier og stier mellom stedene i turkartet. Kontroller på tur – lag gjerne ditt eget sti-utkast fra den.</p>
-          )}
+          {item.via.length > 0 && <p className="muted">Via: {item.via.join(' → ')}</p>}
           {!item.geometry && !canEdit ? (
             <p className="hint">Denne stien finnes ikke som digital linje ennå.</p>
           ) : !item.geometry ? (
@@ -145,10 +145,15 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
                 <button className="primary" onClick={() => onDrawTrail(item)}>Tegn inn {item.name}</button>
               </div>
             </>
-          ) : canEdit ? (
-            <div className="actions">
-              <button className="primary" onClick={() => onCopyTrail(item)}>Lag eget sti-utkast av linja</button>
-            </div>
+          ) : canEdit && !item.published ? (
+            <>
+              <p className="hint">Vil du rette eller fullføre ruta? Lag en egen kopi, rediger og forleng den, godkjenn og publiser – da erstatter den denne linja for alle.</p>
+              <div className="actions">
+                <button className="primary" onClick={() => onCopyTrail(item)}>Lag eget sti-utkast av linja</button>
+              </div>
+            </>
+          ) : canEdit && item.published ? (
+            <p className="hint">Publisert fra dine stier. Endre stien under Mine data og trykk «Oppdater publisert».</p>
           ) : null}
         </>
       ) : (
@@ -162,6 +167,7 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
               <LinkedText text={item.note} />
             </p>
           )}
+          {item.photos && <PublishedPhotos paths={item.photos} baseUrl={PUBLISHED_BASE} />}
           {item.website && (
             <div className="actions">
               <WebsiteButton url={item.website} />
@@ -173,8 +179,12 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
           </p>
           <PlaceConditions lat={item.position[0]} lon={item.position[1]} bestTimes={item.bestTimes} />
           {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig{canEdit ? '. Dra markøren i kartet eller trykk «Velg i kartet»' : ''}.</p>}
-          <p className="hint">Kilde: {item.source}.{canEdit ? ' Flyttinger og skjuling lagres bare på denne enheten. Har du laget et eget punkt for stedet, kan du skjule dette.' : ''}</p>
-          {canEdit && (
+          {item.published ? (
+            canEdit && <p className="hint">Publisert fra dine registreringer. Endre punktet under Mine data og trykk «Oppdater publisert».</p>
+          ) : (
+            <p className="hint">Kilde: {item.source}.{canEdit ? ' Flyttinger og skjuling lagres bare på denne enheten. Har du laget et eget punkt for stedet, kan du skjule dette.' : ''}</p>
+          )}
+          {canEdit && !item.published && (
           <div className="actions wrap">
             <button className="danger" onClick={() => onHide(item)}>Skjul plass</button>
             {item.moved && <button onClick={() => onResetPosition(item)}>Tilbakestill plass</button>}

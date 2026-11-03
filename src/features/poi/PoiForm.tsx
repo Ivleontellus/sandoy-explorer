@@ -81,6 +81,10 @@ export function PoiForm({ initial, title, onSave, onCancel, onUseMyPosition, liv
         Beskrivelse
         <textarea rows={3} value={v.description} onChange={(e) => setV({ ...v, description: e.target.value })} />
       </label>
+      <label className="field">
+        Nettside (valgfritt)
+        <input type="url" inputMode="url" placeholder="https://…" value={v.website ?? ''} onChange={(e) => setV({ ...v, website: e.target.value })} />
+      </label>
       <div className="row">
         <label className="field">
           Breddegrad

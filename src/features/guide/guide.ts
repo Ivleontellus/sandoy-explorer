@@ -27,6 +27,8 @@ export interface GuideTrail {
   geometry?: LineString
   /** Linja er rekonstruert fra OSM-stinettet, ikke offisielt oppmålt. */
   reconstructed?: boolean
+  /** Publisert fra appen (det publiserte datasettet), ikke fra kildedataene her. */
+  published?: boolean
 }
 
 export const GUIDE_TRAILS: GuideTrail[] = [
@@ -79,6 +81,10 @@ export interface GuideSpot {
   source: string
   /** Posisjonen er et gjett eller ukjent; brukeren bør flytte markøren. */
   approximate?: boolean
+  /** Bildestier relativt til public/data/ (bare publiserte plasser). */
+  photos?: string[]
+  /** Publisert fra appen; endres via egne registreringer + «Oppdater publisert». */
+  published?: boolean
 }
 
 const MORNING_EVENING: BestTimes = { daypart: ['morgen', 'kveld'], tide: [] }
@@ -269,8 +275,8 @@ export function saveHiddenSpots(ids: string[]) {
 export type ResolvedSpot = GuideSpot & { moved: boolean; hidden: boolean }
 
 /** Plasser med eventuelle lokale justeringer og skjuling lagt på. */
-export function resolveSpots(overrides: GuideOverrides, hidden: string[] = []): ResolvedSpot[] {
-  return GUIDE_SPOTS.map((s) => ({
+export function resolveSpots(overrides: GuideOverrides, hidden: string[] = [], extra: GuideSpot[] = []): ResolvedSpot[] {
+  return [...GUIDE_SPOTS, ...extra].map((s) => ({
     ...s,
     position: overrides[s.id] ?? s.position,
     moved: !!overrides[s.id],

@@ -53,7 +53,9 @@ Nye offentlige lag legges til i [src/map/publicLayers.ts](src/map/publicLayers.t
 
 Appen starter i **Utforsk** (for alle): kart, publisert innhold, kjente turruter og plasser, kulturminner, ferge og sol – ingen redigering. **Redigering** (for den som vedlikeholder kartet) slås på under ⚙ Meny → Innstillinger og gir egne registreringer, stier, GPX og eksport. Valget lagres på enheten.
 
-**Publisert innhold** er det kuraterte datasettet alle ser. Det ligger i `public/data/publisert.geojson` og oppdateres slik: Redigering → Mine data → «Delbar eksport» (med «Ta med bilder» på) → pakk ut zip-en i `public/data/` (gir `publisert.geojson` + `bilder/`) → bygg/publiser. Bare objekter merket «kan deles» blir med, aldri sårbare; appen filtrerer i tillegg bort eventuelle sårbare objekter ved lasting.
+**Publisering fra appen**: i Redigering har hvert eget punkt og hver godkjent sti knappen «Publiser for alle». Appen skriver da objektet (og bildene) inn i `public/data/publisert.geojson` / `public/data/bilder/` i GitHub-repoet via GitHub sitt Contents-API, og publiseringsjobben oppdaterer siden for alle etter 1–2 minutter. Det krever en fine-grained GitHub-nøkkel med «Contents: Read and write» på dette repoet, som administratoren selv legger inn under Meny → Publisering; den lagres bare i nettleseren på den enheten og fungerer som admin-passord. Sårbare objekter og sti-utkast kan ikke publiseres. Publiserte punkter vises under «Kjente plasser» i riktig gruppe, publiserte stier under «Kjente turruter». En sti laget med «Lag eget sti-utkast av linja» erstatter den kjente ruta når den publiseres.
+
+> Fordi appen committer til `main`, må du kjøre `git pull` før du jobber videre lokalt.
 
 ## Bilder
 

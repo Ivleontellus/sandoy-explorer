@@ -1168,3 +1168,33 @@ a.button.website {
   color: var(--green-2);
   font-weight: 600;
 }
+
+/* Publisering */
+.publish-box {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.publish-box h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+.steps {
+  padding-left: 20px;
+  margin: 6px 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.token-form {
+  display: flex;
+  gap: 8px;
+}
+.token-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}

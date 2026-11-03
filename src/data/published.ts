@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { parseGeoJsonImport } from './geojson'
 import type { MapFeature } from './model'
 
@@ -34,7 +34,7 @@ export async function fetchPublished(url = PUBLISHED_URL): Promise<{ features: M
   return { features: features.filter((f) => !f.properties.sensitive), exportedAt }
 }
 
-export function usePublished(): PublishedState {
+export function usePublished(): PublishedState & { replace: (features: MapFeature[]) => void } {
   const [state, setState] = useState<PublishedState>({ features: [], loading: true, error: null, exportedAt: null })
   useEffect(() => {
     let cancelled = false
@@ -45,5 +45,10 @@ export function usePublished(): PublishedState {
       cancelled = true
     }
   }, [])
-  return state
+  // Etter publisering fra appen: vis det nye datasettet med en gang, før nettsiden er bygd på nytt.
+  const replace = useCallback(
+    (features: MapFeature[]) => setState((s) => ({ ...s, features: features.filter((f) => !f.properties.sensitive), error: null })),
+    [],
+  )
+  return { ...state, replace }
 }

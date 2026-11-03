@@ -7,7 +7,7 @@ import { SunOverlay } from '../features/sun/SunOverlay'
 import { DrawLine, EditLine } from './DrawTools'
 import { FeatureLayers } from './FeatureLayers'
 import { GuideLayer } from '../features/guide/GuideLayer'
-import type { ResolvedSpot } from '../features/guide/guide'
+import type { GuideTrail, ResolvedSpot } from '../features/guide/guide'
 import { HeritageLayer } from '../features/heritage/HeritageLayer'
 import type { HeritageSite } from '../features/heritage/heritageApi'
 import { BuildingLayer } from '../features/buildings/BuildingLayer'
@@ -27,15 +27,12 @@ export type PublicSelection =
   | { kind: 'building'; id: string }
   | { kind: 'ferry'; stop: StopId }
   | { kind: 'guide'; id: string }
-  | { kind: 'published'; id: string }
   | null
 
 interface Props {
   basemapId: string
   activeOverlays: string[]
   features: MapFeature[]
-  /** Publisert, skrivebeskyttet innhold. */
-  publishedFeatures: MapFeature[]
   selectedId: string | null
   mode: MapMode
   editing: { id: string; initial: Position[] } | null
@@ -49,6 +46,7 @@ interface Props {
   showTrails: boolean
   showSpots: boolean
   guideSpots: ResolvedSpot[]
+  guideTrails: GuideTrail[]
   onMoveGuide: (id: string, position: [number, number]) => void
   onMovePoi: (id: string, lonLat: Position) => void
   selectedPublic: PublicSelection
@@ -101,24 +99,6 @@ export function MapView(props: Props) {
       <ScaleControl imperial={false} position="bottomleft" />
 
       <FeatureLayers
-        features={props.publishedFeatures}
-        selectedId={props.selectedPublic?.kind === 'published' ? props.selectedPublic.id : null}
-        hiddenId={null}
-        interactive={mode === 'browse'}
-        readonly
-        onSelect={(id) => props.onSelectPublic({ kind: 'published', id })}
-        onMovePoi={() => {}}
-      />
-      <FeatureLayers
-        features={props.publishedFeatures}
-        selectedId={props.selectedPublic?.kind === 'published' ? props.selectedPublic.id : null}
-        hiddenId={null}
-        interactive={mode === 'browse'}
-        readonly
-        onSelect={(id) => props.onSelectPublic({ kind: 'published', id })}
-        onMovePoi={() => {}}
-      />
-      <FeatureLayers
         features={props.features}
         selectedId={props.selectedId}
         hiddenId={editing?.id ?? null}
@@ -142,6 +122,7 @@ export function MapView(props: Props) {
       {(props.showTrails || props.showSpots) && (
         <GuideLayer
           showTrails={props.showTrails}
+          trails={props.guideTrails}
           spots={props.showSpots ? props.guideSpots.filter((s) => !s.hidden) : []}
           selectedId={props.selectedPublic?.kind === 'guide' ? props.selectedPublic.id : null}
           interactive={mode === 'browse'}

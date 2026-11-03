@@ -38,5 +38,9 @@ export function feedbackLink(): string | null {
   return url.toString()
 }
 
+/** Repoet appen publiserer til (eier/navn). Settes av byggejobben; standard er hovedrepoet. */
+export const GITHUB_REPO: string = import.meta.env.VITE_GITHUB_REPO || 'Ivleontellus/sandoy-explorer'
+export const GITHUB_BRANCH = 'main'
+
 /** Bump når velkomstteksten endres vesentlig, så testere ser den på nytt. */
 export const WELCOME_VERSION = 1

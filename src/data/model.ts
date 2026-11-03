@@ -93,6 +93,8 @@ export interface PoiProps extends BaseProps {
   kind: 'poi'
   category: PoiCategory
   bestTimes?: BestTimes
+  /** Stedets egen nettside. */
+  website?: string
 }
 
 export interface PathProps extends BaseProps {
@@ -100,6 +102,8 @@ export interface PathProps extends BaseProps {
   status: PathStatus
   /** Id til GPS-sporet stien eventuelt ble laget fra. */
   derivedFromTrack?: string
+  /** Id til en kjent turrute som denne stien erstatter når den publiseres (f.eks. «hjertestien»). */
+  replacesTrail?: string
 }
 
 export interface TrackProps extends BaseProps {

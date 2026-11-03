@@ -71,14 +71,13 @@ export const WMS_OVERLAYS: WmsOverlay[] = [
  * Selve hentingen ligger i hver features-modul; dette er bare katalogen.
  */
 export interface PublicFeatureSource {
-  id: 'publisert' | 'kulturminner' | 'bygninger' | 'ferge' | 'turruter' | 'plasser'
+  id: 'kulturminner' | 'bygninger' | 'ferge' | 'turruter' | 'plasser'
   label: string
   attribution: string
   color: string
 }
 
 export const PUBLIC_FEATURE_SOURCES: PublicFeatureSource[] = [
-  { id: 'publisert', label: 'Publisert innhold', attribution: 'Sandøy Explorer', color: '#1f4d3a' },
   { id: 'kulturminner', label: 'Kulturminner (Riksantikvaren)', attribution: 'Riksantikvaren / Kulturminnesøk', color: '#6d4c41' },
   { id: 'bygninger', label: 'Eldre bygninger (SEFRAK, Riksantikvaren)', attribution: 'Riksantikvaren, NLOD', color: '#8d6e63' },
   { id: 'ferge', label: 'Fergeleier (Hvalerferga)', attribution: 'Østfold kollektivtrafikk', color: '#0277bd' },

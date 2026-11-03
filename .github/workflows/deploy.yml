@@ -31,6 +31,8 @@ jobs:
         env:
           # Tilbakemeldingsknappen i appen åpner et nytt «issue» i dette repoet.
           VITE_FEEDBACK_URL: https://github.com/${{ github.repository }}/issues/new
+          # Publiser-knappen i appen skriver til dette repoet.
+          VITE_GITHUB_REPO: ${{ github.repository }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

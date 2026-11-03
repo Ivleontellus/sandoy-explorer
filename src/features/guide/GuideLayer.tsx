@@ -1,10 +1,11 @@
 import L from 'leaflet'
 import { Marker, Polyline, Tooltip } from 'react-leaflet'
 import { guideIcon } from '../../map/icons'
-import { GUIDE_TRAILS, type ResolvedSpot } from './guide'
+import type { GuideTrail, ResolvedSpot } from './guide'
 
 interface Props {
   showTrails: boolean
+  trails: GuideTrail[]
   spots: ResolvedSpot[]
   selectedId: string | null
   interactive: boolean
@@ -18,14 +19,14 @@ interface Props {
 const toLatLng = (p: number[]): [number, number] => [p[1], p[0]]
 
 /** Offentlige kjente turer (de som har geometri) og plasser. Valgt plass kan dras i redigeringsmodus. */
-export function GuideLayer({ showTrails, spots, selectedId, interactive, canEdit, onSelect, onMove }: Props) {
+export function GuideLayer({ showTrails, trails, spots, selectedId, interactive, canEdit, onSelect, onMove }: Props) {
   const handlers = (id: string) =>
     interactive ? { click: (e: L.LeafletMouseEvent) => (L.DomEvent.stopPropagation(e), onSelect(id)) } : {}
 
   return (
     <>
       {showTrails &&
-        GUIDE_TRAILS.filter((t) => t.geometry).map((t) => (
+        trails.filter((t) => t.geometry).map((t) => (
         <Polyline
           key={t.id}
           positions={t.geometry!.coordinates.map(toLatLng)}
@@ -44,10 +45,10 @@ export function GuideLayer({ showTrails, spots, selectedId, interactive, canEdit
             position={s.position}
             icon={guideIcon(s.type, selected, s.approximate && !s.moved)}
             interactive={interactive}
-            draggable={selected && interactive && canEdit}
+            draggable={selected && interactive && canEdit && !s.published}
             eventHandlers={{
               ...handlers(s.id),
-              ...(canEdit
+              ...(canEdit && !s.published
                 ? {
                     dragend: (e: L.DragEndEvent) => {
                       const ll = (e.target as L.Marker).getLatLng()
@@ -59,7 +60,7 @@ export function GuideLayer({ showTrails, spots, selectedId, interactive, canEdit
           >
             <Tooltip direction="top" offset={[0, -12]}>
               {s.name}
-              {selected && canEdit ? ' – dra for å flytte' : ''}
+              {selected && canEdit && !s.published ? ' – dra for å flytte' : ''}
             </Tooltip>
           </Marker>
         )

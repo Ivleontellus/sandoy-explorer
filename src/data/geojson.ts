@@ -89,7 +89,14 @@ function normalizeFeature(f: Feature): MapFeature | null {
     return {
       type: 'Feature',
       geometry: g,
-      properties: { ...base, sensitive: base.sensitive || forceSensitive, kind: 'poi', category, ...(bestTimes ? { bestTimes } : {}) },
+      properties: {
+        ...base,
+        sensitive: base.sensitive || forceSensitive,
+        kind: 'poi',
+        category,
+        ...(bestTimes ? { bestTimes } : {}),
+        ...(typeof p.website === 'string' && p.website.trim() ? { website: p.website.trim() } : {}),
+      },
     }
   }
   if ((g.type === 'LineString' || g.type === 'MultiLineString') && p.kind === 'track') {
@@ -102,7 +109,8 @@ function normalizeFeature(f: Feature): MapFeature | null {
   if (g.type === 'LineString') {
     // Bare objekter som allerede var godkjente stier i Sandøy Explorer beholder statusen.
     const status = p.kind === 'path' && p.status === 'godkjent' ? 'godkjent' : 'utkast'
-    return { type: 'Feature', geometry: g, properties: { ...base, kind: 'path', status } }
+    const replacesTrail = typeof p.replacesTrail === 'string' ? p.replacesTrail : undefined
+    return { type: 'Feature', geometry: g, properties: { ...base, kind: 'path', status, ...(replacesTrail ? { replacesTrail } : {}) } }
   }
   return null
 }

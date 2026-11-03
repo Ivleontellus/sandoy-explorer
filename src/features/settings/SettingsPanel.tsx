@@ -1,5 +1,6 @@
 import type { AppMode } from '../../data/appMode'
 import { APP_VERSION, BUILD_DATE, feedbackLink } from '../../config'
+import { TokenSettings } from '../publish/TokenSettings'
 
 interface Props {
   mode: AppMode
@@ -47,17 +48,10 @@ export function SettingsPanel({ mode, onMode, onShowWelcome, publishedCount, pub
         </button>
       </div>
 
-      <h3>Publisert innhold</h3>
-      {publishedError ? (
-        <p className="muted">Kunne ikke laste: {publishedError}</p>
-      ) : (
-        <p className="muted">
-          {publishedCount} objekter{publishedAt ? `, eksportert ${new Date(publishedAt).toLocaleDateString('nb-NO')}` : ''}.
-        </p>
-      )}
+      {mode === 'redigering' && <TokenSettings />}
       <p className="hint">
-        Publisert innhold er det alle ser. For å oppdatere det: gå til Redigering → Mine data → «Delbar eksport», og legg fila som{' '}
-        <code>public/data/publisert.geojson</code> i prosjektet. Bare objekter merket «kan deles» blir med, aldri sårbare.
+        Publisert for alle: {publishedError ? `kunne ikke laste (${publishedError})` : `${publishedCount} plasser og stier`}
+        {publishedAt ? `, sist endret ${new Date(publishedAt).toLocaleDateString('nb-NO')}` : ''}.
       </p>
     </div>
   )

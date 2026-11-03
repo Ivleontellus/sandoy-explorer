@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { LinkedText } from '../common/Links'
 import { POI_CATEGORIES, isSensitive, type MapFeature } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
@@ -17,11 +17,13 @@ interface Props {
   onPickInMap: () => void
   onCreatePathFromTrack: () => void
   onClose: () => void
+  /** Publiser-boksen (vises på punkter og stier). */
+  publish?: ReactNode
 }
 
 const KIND_LABEL = { poi: 'Interessepunkt', path: 'Sti', track: 'GPS-spor (rådata)' }
 
-export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEditGeometry, onExtend, onPickInMap, onCreatePathFromTrack, onClose }: Props) {
+export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEditGeometry, onExtend, onPickInMap, onCreatePathFromTrack, onClose, publish }: Props) {
   const p = f.properties
   const [name, setName] = useState(p.name)
   const [description, setDescription] = useState(p.description)
@@ -55,7 +57,7 @@ export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEd
           <p className="hint">Flytt punktet: dra markøren i kartet, eller trykk «Velg i kartet» og så på riktig sted.</p>
           <PlaceConditions lat={f.geometry.coordinates[1]} lon={f.geometry.coordinates[0]} bestTimes={f.properties.bestTimes} />
           <PhotoGallery featureId={p.id} canEdit />
-          <ShareInfo sensitive={sensitive} shareable={p.shareable} />
+          {publish ?? <ShareInfo sensitive={sensitive} shareable={p.shareable} />}
           <div className="actions">
             <DeleteButton label="Slett" confirming={confirmDelete} onToggle={setConfirmDelete} onConfirm={onDelete} />
             <button onClick={onPickInMap}>Velg i kartet</button>
@@ -123,6 +125,7 @@ export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEd
                   <button onClick={() => onUpdate({ status: 'utkast' })}>Sett til utkast</button>
                 )}
               </div>
+              {publish}
             </>
           )}
         </>

@@ -4,6 +4,8 @@ export interface PoiFormValues {
   category: PoiCategory
   name: string
   description: string
+  /** Stedets egen nettside (valgfritt). */
+  website?: string
   lat: number
   lon: number
   sensitive: boolean

@@ -6,7 +6,8 @@ import { baseProps, type MapFeature, type PathFeature, type PoiFeature, type Tra
 import { useFeatureStore } from './data/store'
 import { useAppMode } from './data/appMode'
 import { usePublished } from './data/published'
-import { PublishedDetails } from './features/published/PublishedDetails'
+import { PublishBox } from './features/publish/PublishBox'
+import { mergedTrails, publishedSpots } from './features/guide/fromPublished'
 import { SettingsPanel } from './features/settings/SettingsPanel'
 import { DataPanel } from './features/data/DataPanel'
 import { FeatureDetails } from './features/details/FeatureDetails'
@@ -21,7 +22,6 @@ import { useHeritage } from './features/heritage/heritageApi'
 import { BuildingDetails } from './features/buildings/BuildingDetails'
 import { useBuildings } from './features/buildings/sefrakApi'
 import {
-  GUIDE_TRAILS,
   groupOf,
   loadGroupsOff,
   loadGuideOverrides,
@@ -46,7 +46,7 @@ import './App.css'
 
 type Tab = 'lag' | 'data' | 'bat' | 'sol'
 /** Det en vanlig bruker ser ved første åpning: kuraterte plasser og turruter, ikke de tunge registerlagene. */
-const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['publisert', 'turruter', 'plasser']
+const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['turruter', 'plasser']
 
 /** Hold zoom-til-objekt fri av panelet (sidepanel på desktop, bunnark på mobil). */
 const fitPadding = (): L.FitBoundsOptions =>
@@ -107,16 +107,22 @@ export default function App() {
       map.fitBounds(ISLAND_BOUNDS, { ...padding, animate: false })
     })
   }, [map])
-  const selectedPublished = selectedPublic?.kind === 'published' ? published.features.find((f) => f.properties.id === selectedPublic.id) : undefined
   const [guideOverrides, setGuideOverrides] = useState<GuideOverrides>(loadGuideOverrides)
   const [pickingSpot, setPickingSpot] = useState<GuideSpot | null>(null)
   /** Eget punkt som skal flyttes med neste trykk i kartet. */
   const [pickingPoiId, setPickingPoiId] = useState<string | null>(null)
   const [hiddenSpots, setHiddenSpots] = useState<string[]>(loadHiddenSpots)
+  // Det publiserte datasettet vises som kjente plasser og turruter. I redigering skjules publiserte
+  // plasser som også finnes blant egne registreringer (samme id), så de ikke vises dobbelt.
+  const guideTrails = useMemo(() => mergedTrails(published.features), [published.features])
+  const extraSpots = useMemo(() => {
+    const own = new Set(canEdit ? features.map((f) => f.properties.id) : [])
+    return publishedSpots(published.features).filter((s) => !own.has(s.id))
+  }, [published.features, features, canEdit])
   // Lokale flyttinger og skjuling er redigeringsverktøy; vanlige brukere ser alltid de publiserte plasseringene.
   const guideSpots = useMemo(
-    () => (canEdit ? resolveSpots(guideOverrides, hiddenSpots) : resolveSpots({})),
-    [canEdit, guideOverrides, hiddenSpots],
+    () => (canEdit ? resolveSpots(guideOverrides, hiddenSpots, extraSpots) : resolveSpots({}, [], extraSpots)),
+    [canEdit, guideOverrides, hiddenSpots, extraSpots],
   )
   const [groupsOff, setGroupsOff] = useState<SpotGroup['id'][]>(loadGroupsOff)
   const toggleGroup = (id: SpotGroup['id']) =>
@@ -138,7 +144,7 @@ export default function App() {
   const buildings = useBuildings(sources.includes('bygninger'))
   const selectedBuilding = selectedPublic?.kind === 'building' ? buildings.buildings.find((b) => b.id === selectedPublic.id) : undefined
   const selectedGuide =
-    selectedPublic?.kind === 'guide' ? (GUIDE_TRAILS.find((t) => t.id === selectedPublic.id) ?? guideSpots.find((g) => g.id === selectedPublic.id)) : undefined
+    selectedPublic?.kind === 'guide' ? (guideTrails.find((t) => t.id === selectedPublic.id) ?? guideSpots.find((g) => g.id === selectedPublic.id)) : undefined
   const [pendingTrailName, setPendingTrailName] = useState<string | null>(null)
   /** Sti som skal forlenges med neste tegnede linje. */
   const [extending, setExtending] = useState<{ id: string; side: 'end' | 'start' } | null>(null)
@@ -198,16 +204,9 @@ export default function App() {
     } else if (sel.kind === 'building' && map) {
       const b = buildings.buildings.find((x) => x.id === sel.id)
       if (b) panToVisible(map, b.position)
-    } else if (sel.kind === 'published' && map) {
-      const f = published.features.find((x) => x.properties.id === sel.id)
-      if (f) {
-        const b = L.geoJSON(f).getBounds()
-        if (f.geometry.type === 'Point') panToVisible(map, [b.getCenter().lat, b.getCenter().lng])
-        else map.fitBounds(b, { ...fitPadding(), maxZoom: 17 })
-      }
     } else if (sel.kind === 'guide' && map) {
       const spot = guideSpots.find((g) => g.id === sel.id)
-      const trail = GUIDE_TRAILS.find((t) => t.id === sel.id)
+      const trail = guideTrails.find((t) => t.id === sel.id)
       if (spot) panToVisible(map, spot.position)
       else if (trail?.geometry) map.fitBounds(L.geoJSON(trail.geometry).getBounds(), { ...fitPadding(), maxZoom: 16 })
     }
@@ -250,6 +249,7 @@ export default function App() {
       sensitive: v.sensitive,
       shareable: v.shareable,
       bestTimes: v.bestTimes,
+      website: v.website?.trim() || undefined,
     }
     if (poiForm?.id) {
       dispatch({ type: 'update', id: poiForm.id, patch: props, geometry })
@@ -405,24 +405,6 @@ export default function App() {
         onClose={() => setShowSettings(false)}
       />
     )
-  } else if (selectedPublished) {
-    panelContent = (
-      <PublishedDetails
-        key={selectedPublished.properties.id}
-        feature={selectedPublished}
-        canEdit={canEdit}
-        onClose={() => setSelectedPublic(null)}
-        onCreatePoi={() => {
-          if (selectedPublished.geometry.type !== 'Point' || selectedPublished.properties.kind !== 'poi') return
-          const [lon, lat] = selectedPublished.geometry.coordinates
-          setSelectedPublic(null)
-          setPoiForm({
-            id: null,
-            initial: { category: selectedPublished.properties.category, name: selectedPublished.properties.name, description: '', lat, lon, sensitive: false, shareable: false, bestTimes: EMPTY_BEST_TIMES },
-          })
-        }}
-      />
-    )
   } else if (poiForm) {
     panelContent = (
       <PoiForm
@@ -455,7 +437,7 @@ export default function App() {
           const p = selected.properties
           setPoiForm({
             id: p.id,
-            initial: { category: p.category, name: p.name, description: p.description, lat, lon, sensitive: p.sensitive, shareable: p.shareable, bestTimes: p.bestTimes ?? EMPTY_BEST_TIMES },
+            initial: { category: p.category, name: p.name, description: p.description, website: p.website, lat, lon, sensitive: p.sensitive, shareable: p.shareable, bestTimes: p.bestTimes ?? EMPTY_BEST_TIMES },
           })
         }}
         onEditGeometry={() => startEditPath(selected)}
@@ -467,6 +449,14 @@ export default function App() {
         onExtend={(side) => startExtend(selected, side)}
         onCreatePathFromTrack={() => pathFromTrack(selected.properties.id)}
         onClose={() => setSelectedId(null)}
+        publish={
+          <PublishBox
+            feature={selected}
+            isPublished={published.features.some((f) => f.properties.id === selected.properties.id)}
+            onPublished={published.replace}
+            onOpenSettings={() => setShowSettings(true)}
+          />
+        }
       />
     )
   } else if (selectedSite) {
@@ -533,10 +523,12 @@ export default function App() {
             type: 'Feature',
             geometry: { type: 'LineString', coordinates: trail.geometry.coordinates.map((c) => [c[0], c[1]]) },
             properties: {
-              ...baseProps('path', `${trail.name} (min kopi)`),
+              ...baseProps('path', trail.name),
               kind: 'path',
               status: 'utkast',
-              description: 'Kopiert fra kjent tur i turkartet. Rediger og godkjenn etter kontroll på tur.',
+              description: trail.description,
+              // Når denne publiseres, erstatter den den kjente ruta for alle.
+              replacesTrail: trail.id,
             },
           }
           dispatch({ type: 'add', features: [f] })
@@ -606,7 +598,6 @@ export default function App() {
             }}
             showPrivate={canEdit}
             sourceStatus={{
-              publisert: published.loading ? 'Henter …' : published.error ? 'Feil' : String(published.features.length),
               kulturminner: heritage.loading ? 'Henter …' : heritage.error ? 'Feil: ' + heritage.error : heritage.sites.length ? String(heritage.sites.length) : undefined,
               bygninger: buildings.loading ? 'Henter …' : buildings.error ? 'Feil: ' + buildings.error : buildings.buildings.length ? String(buildings.buildings.length) : undefined,
             }}
@@ -616,7 +607,7 @@ export default function App() {
             features={features}
             trailList={
               sources.includes('turruter') ? (
-                <TrailList selectedId={selectedPublic?.kind === 'guide' ? selectedPublic.id : null} onSelect={(id) => selectPublic({ kind: 'guide', id })} onDrawTrail={canEdit ? startDrawTrail : () => setShowSettings(true)} />
+                <TrailList trails={guideTrails} selectedId={selectedPublic?.kind === 'guide' ? selectedPublic.id : null} onSelect={(id) => selectPublic({ kind: 'guide', id })} onDrawTrail={canEdit ? startDrawTrail : () => setShowSettings(true)} />
               ) : null
             }
             spotList={
@@ -681,7 +672,6 @@ export default function App() {
         basemapId={basemapId}
         activeOverlays={overlays}
         features={canEdit ? visibleFeatures : []}
-        publishedFeatures={sources.includes('publisert') ? published.features : []}
         selectedId={selectedId}
         mode={mode}
         editing={editing}
@@ -694,6 +684,7 @@ export default function App() {
         showTrails={sources.includes('turruter')}
         showSpots={sources.includes('plasser')}
         guideSpots={mapSpots}
+        guideTrails={guideTrails}
         onMoveGuide={(id, pos) => moveGuide(id, pos)}
         onMovePoi={(id, lonLat) => dispatch({ type: 'update', id, patch: {}, geometry: { type: 'Point', coordinates: lonLat } })}
         selectedPublic={selectedPublic}
