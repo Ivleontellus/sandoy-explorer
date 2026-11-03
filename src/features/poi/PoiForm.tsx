@@ -1,18 +1,7 @@
-import { useEffect, useState } from 'react'
-import { DAYPARTS, POI_CATEGORIES, TIDE_PREFS, type BestTimes, type Daypart, type PoiCategory, type TidePreference } from '../../data/model'
+import { useState } from 'react'
+import { DAYPARTS, POI_CATEGORIES, TIDE_PREFS, type Daypart, type PoiCategory, type TidePreference } from '../../data/model'
+import type { PoiFormValues } from './formValues'
 
-export interface PoiFormValues {
-  category: PoiCategory
-  name: string
-  description: string
-  lat: number
-  lon: number
-  sensitive: boolean
-  shareable: boolean
-  bestTimes: BestTimes
-}
-
-export const EMPTY_BEST_TIMES: BestTimes = { daypart: [], tide: [] }
 
 interface Props {
   initial: PoiFormValues
@@ -33,12 +22,16 @@ export function PoiForm({ initial, title, onSave, onCancel, onUseMyPosition, liv
   const [lat, setLat] = useState(initial.lat.toFixed(6))
   const [lon, setLon] = useState(initial.lon.toFixed(6))
   const liveKey = livePosition ? `${livePosition[0].toFixed(6)},${livePosition[1].toFixed(6)}` : null
-  useEffect(() => {
-    if (!liveKey) return
-    const [la, lo] = liveKey.split(',')
-    setLat(la)
-    setLon(lo)
-  }, [liveKey])
+  // Markøren ble dratt i kartet: oppdater feltene (justering under render, ikke i en effekt).
+  const [prevLiveKey, setPrevLiveKey] = useState(liveKey)
+  if (liveKey !== prevLiveKey) {
+    setPrevLiveKey(liveKey)
+    if (liveKey) {
+      const [la, lo] = liveKey.split(',')
+      setLat(la)
+      setLon(lo)
+    }
+  }
   const latN = Number(lat.replace(',', '.'))
   const lonN = Number(lon.replace(',', '.'))
   const coordsOk = Math.abs(latN) <= 90 && Math.abs(lonN) <= 180 && lat !== '' && lon !== ''

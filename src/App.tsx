@@ -1,6 +1,6 @@
 import L, { type Map as LeafletMap } from 'leaflet'
 import type { LineString, Position } from 'geojson'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { parseGpx, trackToLine } from './data/gpx'
 import { baseProps, type MapFeature, type PathFeature, type PoiFeature, type TrackFeature } from './data/model'
 import { useFeatureStore } from './data/store'
@@ -11,9 +11,11 @@ import { SettingsPanel } from './features/settings/SettingsPanel'
 import { DataPanel } from './features/data/DataPanel'
 import { FeatureDetails } from './features/details/FeatureDetails'
 import { LayerPanel } from './features/layers/LayerPanel'
-import { PoiForm, EMPTY_BEST_TIMES, type PoiFormValues } from './features/poi/PoiForm'
+import { PoiForm } from './features/poi/PoiForm'
+import { EMPTY_BEST_TIMES, type PoiFormValues } from './features/poi/formValues'
 import { removePhotosFor } from './features/photos/photoStore'
-import { FerryPanel, loadRoute, type FerryRoute } from './features/ferry/FerryPanel'
+import { FerryPanel } from './features/ferry/FerryPanel'
+import { loadRoute, type FerryRoute } from './features/ferry/route'
 import { HeritageDetails } from './features/heritage/HeritageDetails'
 import { useHeritage } from './features/heritage/heritageApi'
 import { BuildingDetails } from './features/buildings/BuildingDetails'
@@ -34,7 +36,8 @@ import { SunPanel } from './features/sun/SunPanel'
 import { finishDrawing } from './map/DrawTools'
 import { DEFAULT_VISIBILITY, themeOf, type LayerVisibility } from './map/layers'
 import { MapView, type MapMode, type PublicSelection } from './map/MapView'
-import { BASEMAPS, SANDOY_CENTER, type PublicFeatureSource } from './map/publicLayers'
+import { BASEMAPS, ISLAND_BOUNDS, SANDOY_CENTER, type PublicFeatureSource } from './map/publicLayers'
+import { WelcomeDialog, useWelcome } from './features/welcome/WelcomeDialog'
 import './App.css'
 
 type Tab = 'lag' | 'data' | 'bat' | 'sol'
@@ -83,7 +86,22 @@ export default function App() {
   const [appMode, setAppMode] = useAppMode()
   const canEdit = appMode === 'redigering'
   const [showSettings, setShowSettings] = useState(false)
+  const welcome = useWelcome()
   const published = usePublished()
+
+  // Startvisning: hele øya, tilpasset skjermen og fri av panelet.
+  const fittedRef = useRef(false)
+  useEffect(() => {
+    if (!map || fittedRef.current) return
+    fittedRef.current = true
+    // På mobil er bunnarket lukket ved start, så bare toppfelt, verktøylinje og faner skal holdes fri.
+    const padding: L.FitBoundsOptions = window.innerWidth >= 900 ? fitPadding() : { paddingTopLeft: [16, 70], paddingBottomRight: [76, 70] }
+    // Vent til layouten er ferdig, ellers måler Leaflet en for liten kartflate.
+    requestAnimationFrame(() => {
+      map.invalidateSize()
+      map.fitBounds(ISLAND_BOUNDS, { ...padding, animate: false })
+    })
+  }, [map])
   const selectedPublished = selectedPublic?.kind === 'published' ? published.features.find((f) => f.properties.id === selectedPublic.id) : undefined
   const [guideOverrides, setGuideOverrides] = useState<GuideOverrides>(loadGuideOverrides)
   const [pickingSpot, setPickingSpot] = useState<GuideSpot | null>(null)
@@ -359,6 +377,10 @@ export default function App() {
           }
           notify(m === 'redigering' ? 'Redigeringsmodus på' : 'Utforsk-modus: ingen redigering')
         }}
+        onShowWelcome={() => {
+          setShowSettings(false)
+          welcome.open()
+        }}
         publishedCount={published.features.length}
         publishedAt={published.exportedAt}
         publishedError={published.error}
@@ -624,6 +646,7 @@ export default function App() {
 
   return (
     <div className="app">
+      {welcome.visible && <WelcomeDialog onClose={welcome.close} />}
       <header className="topbar">
         <div className="brand">
           <span className="logo">⛰</span>

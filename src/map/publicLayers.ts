@@ -5,6 +5,11 @@
 
 export const SANDOY_CENTER: [number, number] = [58.9984, 11.0807] // Kartverket stedsnavn: Søndre Sandøy
 export const DEFAULT_ZOOM = 15
+/** Hele Søndre Sandøy med Herføl-sundet og Nedgården; startvisningen tilpasses skjermen. [[sør, vest], [nord, øst]] */
+export const ISLAND_BOUNDS: [[number, number], [number, number]] = [
+  [58.99, 11.055],
+  [59.026, 11.1],
+]
 
 export interface BaseMap {
   id: string

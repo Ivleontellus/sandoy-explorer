@@ -135,12 +135,11 @@ export async function compressImage(file: Blob): Promise<{ blob: Blob; width: nu
 }
 
 /** Bilder for én registrering, med objekt-URL-er som ryddes opp automatisk. */
-export function usePhotos(featureId: string | null) {
+export function usePhotos(featureId: string) {
   const [photos, setPhotos] = useState<(PhotoRecord & { url: string })[]>([])
   const [error, setError] = useState<string | null>(null)
 
   const refresh = useCallback(async () => {
-    if (!featureId) return setPhotos([])
     try {
       const rows = await listPhotos(featureId)
       setPhotos(rows.map((r) => ({ ...r, url: URL.createObjectURL(r.blob) })))

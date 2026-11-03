@@ -2,12 +2,22 @@
 <html lang="nb">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#1f4d3a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Sandøy" />
+    <meta name="description" content="Natur- og turkart over Søndre Sandøy, Hvaler: turruter, fiske- og badeplasser, kulturminner, eldre bygninger, fergetider, sol og tidevann." />
+    <meta property="og:title" content="Sandøy Explorer" />
+    <meta property="og:description" content="Natur- og turkart over Søndre Sandøy, Hvaler." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./icon-512.png" />
     <title>Sandøy Explorer</title>
   </head>
   <body>
+    <noscript>Sandøy Explorer trenger JavaScript for å vise kartet.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,4 +1,3 @@
-import JSZip from 'jszip'
 import { allPhotos, importPhoto, type PhotoRecord } from '../features/photos/photoStore'
 import { buildExport, parseGeoJsonImport, type ExportMode, type ImportResult } from './geojson'
 import type { MapFeature } from './model'
@@ -10,7 +9,11 @@ import type { MapFeature } from './model'
  *   bilder/<id>.jpg         – komprimerte bilder
  * En delbar zip kan pakkes rett ut i public/data/ (fila heter da publisert.geojson), og bildene
  * vises i publisert innhold uten videre.
+ *
+ * jszip lastes først når noen faktisk eksporterer/importerer zip, så vanlige brukere slipper å laste det ned.
  */
+
+const loadZip = async () => (await import('jszip')).default
 
 export const PHOTO_DIR = 'bilder'
 
@@ -27,6 +30,7 @@ export async function buildArchive(features: MapFeature[], mode: ExportMode): Pr
     byFeature.set(p.featureId, list)
   }
 
+  const JSZip = await loadZip()
   const zip = new JSZip()
   let photoCount = 0
   const withPhotos = data.features.map((f) => {
@@ -48,6 +52,7 @@ export async function buildArchive(features: MapFeature[], mode: ExportMode): Pr
 }
 
 export async function importArchive(file: Blob): Promise<ImportResult & { photoCount: number }> {
+  const JSZip = await loadZip()
   const zip = await JSZip.loadAsync(file)
   const geojsonEntry = Object.values(zip.files).find((e) => !e.dir && /\.(geojson|json)$/i.test(e.name))
   if (!geojsonEntry) throw new Error('Zip-fila inneholder ingen GeoJSON-fil')

@@ -13,6 +13,24 @@ npm run build      # produksjonsbygg i dist/
 
 Test GPX-import med `samples/eksempel-radiacode-spor.gpx` (syntetisk spor).
 
+## Publisering (GitHub Pages)
+
+Appen er en ren statisk side, bygd med relativ base (`base: './'`), så `dist/` kan legges hvor som helst.
+
+1. Lag et tomt repo på GitHub og push `main`.
+2. I repoet: **Settings → Pages → Source: «GitHub Actions»**.
+3. Hver push til `main` kjører [.github/workflows/deploy.yml](.github/workflows/deploy.yml): tester, bygg og publisering til `https://<bruker>.github.io/<repo>/`.
+
+Bygget setter `VITE_FEEDBACK_URL` til repoets «New issue»-side, så knappen «Gi tilbakemelding» (velkomstvinduet og Meny) åpner et ferdig utfylt issue med versjon, skjermstørrelse og nettleser. Uten variabelen skjules knappen. Testere trenger en (gratis) GitHub-konto for å skrive issues; vil du ha et skjema uten konto, sett `VITE_FEEDBACK_URL` til f.eks. et Google- eller Microsoft-skjema.
+
+## For testere
+
+- Første besøk viser et velkomstvindu med en kort bruksanvisning. Det kan åpnes igjen under Meny → «Slik bruker du kartet». Øk `WELCOME_VERSION` i [src/config.ts](src/config.ts) for å vise det på nytt etter store endringer.
+- Versjon (commit-id) og byggedato vises i Meny, og legges ved tilbakemeldinger.
+- Appen kan legges på hjemskjermen (manifest og ikoner i `public/`). Den virker ikke offline ennå.
+- Testere starter i Utforsk-modus. Redigering kan slås på i Meny, men egne registreringer lagres bare på deres egen enhet.
+- Krasjer noe, vises en feilside med «Last inn på nytt» i stedet for hvit skjerm; data på enheten røres ikke.
+
 ## Kartgrunnlag (offentlige data, ingen innlogging)
 
 | Lag | Kilde | Merknad |
