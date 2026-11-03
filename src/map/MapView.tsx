@@ -77,6 +77,8 @@ export function MapView(props: Props) {
       center={SANDOY_CENTER}
       zoom={DEFAULT_ZOOM}
       maxZoom={19}
+      // Halve zoomtrinn: hele øya får plass på smale mobiler uten å måtte zoome et helt trinn ut.
+      zoomSnap={0.5}
       renderer={renderer}
       pmIgnore={false}
       className={`map mode-${mode}`}
