@@ -1019,3 +1019,48 @@ a.button.primary {
   background: var(--danger);
   border-color: var(--danger);
 }
+
+/* SEFRAK-bygninger */
+.building-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background: #fff;
+  color: #5d4037;
+  border: 2px solid #8d6e63;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  line-height: 1;
+}
+.building-icon.old {
+  background: #8d6e63;
+  color: #fff;
+  border-color: #fff;
+  font-size: 13px;
+}
+.building-icon.removed {
+  opacity: 0.5;
+  border-style: dashed;
+}
+.building-icon.selected {
+  outline: 3px solid #ffca28;
+  transform: scale(1.2);
+}
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+.facts div {
+  display: contents;
+}
+.facts dt {
+  color: var(--muted, #666);
+}
+.facts dd {
+  margin: 0;
+}

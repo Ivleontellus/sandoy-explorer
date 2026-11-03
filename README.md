@@ -22,6 +22,7 @@ Test GPX-import med `samples/eksempel-radiacode-spor.gpx` (syntetisk spor).
 | OpenStreetMap | tile.openstreetmap.org | Kun visning, ingen konto trengs |
 | Berggrunn | NGU WMS (`BerggrunnWMS3`) | Overlegg under «Offentlige kartdata» |
 | Kulturminner | Riksantikvaren OGC API Features (`api.ra.no`) | Åpne data. Hentes for Hvaler kommune, filtreres til øya, mellomlagres 30 dager |
+| Eldre bygninger | Riksantikvaren OGC API Features, SEFRAK-registeret (`api.ra.no/KulturminnerSEFRAKbygninger`) | NLOD. Hentes med bbox for øya (ca. 340 bygninger), mellomlagres 30 dager. Koder oversettes med SOSI-spesifikasjonen «Kulturminner – SEFRAK» 20160503 i `src/features/buildings/sefrakApi.ts`. Under zoom 15 vises bare meldepliktige (før 1850) |
 | Tidevann | Kartverket «Se havnivå» (`vannstand.kartverket.no`) | Stasjon Viker. Krever kildehenvisning |
 | Fergetider | Østfold kollektivtrafikk, Hvalerferga D 801 | Lagt inn som data i `src/features/ferry/timetables.ts` |
 | Kjente turruter og kjente plasser | Turkart fra Havely Bryggerhus (Facebook 2020), stedfestet via Kartverket/OSM | `src/features/guide/guide.ts`. Bare Hovedveien har linje (fra OSM); Hjertestien og Kløverstien tegnes inn av brukeren. Plasser kan flyttes (dra eller «Velg i kartet»); flyttinger lagres lokalt som overstyringer, aldri i kildedataene |
@@ -71,6 +72,7 @@ src/
     conditions/  «beste tid» per plass og live sol/tidevann
     ferry/       rutetabeller, neste avgang og bestillingslenker
     heritage/    kulturminner fra Riksantikvaren (offentlig lag)
+    buildings/   eldre bygninger fra SEFRAK-registeret (offentlig lag)
     published/   visning av publisert innhold (skrivebeskyttet)
     photos/      bilder på registreringer (IndexedDB, komprimering, galleri)
     settings/    modusvalg og publiseringsinfo
@@ -83,6 +85,5 @@ Nye moduler (terrengskygger, turforslag, bilder, strålingsmålinger) legges til
 ## Neste steg (forslag)
 
 - Terrengskygger fra Kartverkets høydedata (DTM) i en egen modul `features/terrain`
-- SEFRAK-bygninger fra Riksantikvaren som eget lag (info om eldre bygninger)
 - Visning av strålingsmålinger fra Radiacode-spor
 - PWA/offline-støtte og pakking som app (f.eks. Capacitor)

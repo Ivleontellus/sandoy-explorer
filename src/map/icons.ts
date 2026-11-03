@@ -31,6 +31,24 @@ const heritageIcons = [false, true].map((selected) =>
 )
 export const heritageIcon = (selected: boolean) => heritageIcons[selected ? 1 : 0]
 
+const buildingCache = new Map<string, L.DivIcon>()
+/** SEFRAK-bygning: liten firkant; meldepliktige (før 1850) mørkere og større, ruiner gjennomsiktige. */
+export function buildingIcon(notifiable: boolean, removed: boolean, selected: boolean): L.DivIcon {
+  const key = `${notifiable}|${removed}|${selected}`
+  let icon = buildingCache.get(key)
+  if (!icon) {
+    const size = notifiable ? 20 : 16
+    icon = L.divIcon({
+      className: 'building-icon-wrap',
+      html: `<div class="building-icon${notifiable ? ' old' : ''}${removed ? ' removed' : ''}${selected ? ' selected' : ''}">⌂</div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+    })
+    buildingCache.set(key, icon)
+  }
+  return icon
+}
+
 const guideCache = new Map<string, L.DivIcon>()
 /** Kjente plasser fra turkartet: samme symbol som kategorien, men hul/gjennomsiktig stil for å skille fra egne punkter. */
 export function guideIcon(type: PoiCategory, selected: boolean, uncertain = false): L.DivIcon {

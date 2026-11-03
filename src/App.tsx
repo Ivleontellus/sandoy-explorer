@@ -16,6 +16,8 @@ import { removePhotosFor } from './features/photos/photoStore'
 import { FerryPanel, loadRoute, type FerryRoute } from './features/ferry/FerryPanel'
 import { HeritageDetails } from './features/heritage/HeritageDetails'
 import { useHeritage } from './features/heritage/heritageApi'
+import { BuildingDetails } from './features/buildings/BuildingDetails'
+import { useBuildings } from './features/buildings/sefrakApi'
 import {
   GUIDE_TRAILS,
   loadGuideOverrides,
@@ -97,6 +99,8 @@ export default function App() {
     })
   const heritage = useHeritage(sources.includes('kulturminner'))
   const selectedSite = selectedPublic?.kind === 'heritage' ? heritage.sites.find((s) => s.id === selectedPublic.id) : undefined
+  const buildings = useBuildings(sources.includes('bygninger'))
+  const selectedBuilding = selectedPublic?.kind === 'building' ? buildings.buildings.find((b) => b.id === selectedPublic.id) : undefined
   const selectedGuide =
     selectedPublic?.kind === 'guide' ? (GUIDE_TRAILS.find((t) => t.id === selectedPublic.id) ?? guideSpots.find((g) => g.id === selectedPublic.id)) : undefined
   const [pendingTrailName, setPendingTrailName] = useState<string | null>(null)
@@ -155,6 +159,9 @@ export default function App() {
     } else if (sel.kind === 'heritage' && map) {
       const site = heritage.sites.find((s) => s.id === sel.id)
       if (site) panToVisible(map, site.centroid)
+    } else if (sel.kind === 'building' && map) {
+      const b = buildings.buildings.find((x) => x.id === sel.id)
+      if (b) panToVisible(map, b.position)
     } else if (sel.kind === 'published' && map) {
       const f = published.features.find((x) => x.properties.id === sel.id)
       if (f) {
@@ -447,6 +454,31 @@ export default function App() {
         }}
       />
     )
+  } else if (selectedBuilding) {
+    panelContent = (
+      <BuildingDetails
+        key={selectedBuilding.id}
+        building={selectedBuilding}
+        canEdit={canEdit}
+        onClose={() => setSelectedPublic(null)}
+        onCreatePoi={() => {
+          setSelectedPublic(null)
+          setPoiForm({
+            id: null,
+            initial: {
+              category: 'historisk',
+              name: selectedBuilding.name,
+              description: '',
+              lat: selectedBuilding.position[0],
+              lon: selectedBuilding.position[1],
+              sensitive: false,
+              shareable: false,
+              bestTimes: EMPTY_BEST_TIMES,
+            },
+          })
+        }}
+      />
+    )
   } else if (selectedGuide) {
     panelContent = (
       <GuideDetails
@@ -529,13 +561,14 @@ export default function App() {
             activeSources={sources}
             onToggleSource={(id) => {
               setSources((o) => (o.includes(id) ? o.filter((x) => x !== id) : [...o, id]))
-              if (selectedPublic && ((selectedPublic.kind === 'heritage' && id === 'kulturminner') || (selectedPublic.kind === 'guide' && (id === 'turruter' || id === 'plasser'))))
+              if (selectedPublic && ((selectedPublic.kind === 'heritage' && id === 'kulturminner') || (selectedPublic.kind === 'building' && id === 'bygninger') || (selectedPublic.kind === 'guide' && (id === 'turruter' || id === 'plasser'))))
                 setSelectedPublic(null)
             }}
             showPrivate={canEdit}
             sourceStatus={{
               publisert: published.loading ? 'Henter …' : published.error ? 'Feil' : String(published.features.length),
               kulturminner: heritage.loading ? 'Henter …' : heritage.error ? 'Feil: ' + heritage.error : heritage.sites.length ? String(heritage.sites.length) : undefined,
+              bygninger: buildings.loading ? 'Henter …' : buildings.error ? 'Feil: ' + buildings.error : buildings.buildings.length ? String(buildings.buildings.length) : undefined,
             }}
             visibility={visibility}
             onToggleTheme={(id) => setVisibility((v) => ({ ...v, [id]: !v[id] }))}
@@ -612,6 +645,7 @@ export default function App() {
         sunDate={sunEnabled ? sunDate : null}
         myPosition={myPosition}
         heritageSites={sources.includes('kulturminner') ? heritage.sites : []}
+        buildings={sources.includes('bygninger') ? buildings.buildings : []}
         showFerryStops={sources.includes('ferge')}
         showTrails={sources.includes('turruter')}
         showSpots={sources.includes('plasser')}

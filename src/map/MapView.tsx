@@ -10,6 +10,8 @@ import { GuideLayer } from '../features/guide/GuideLayer'
 import type { ResolvedSpot } from '../features/guide/guide'
 import { HeritageLayer } from '../features/heritage/HeritageLayer'
 import type { HeritageSite } from '../features/heritage/heritageApi'
+import { BuildingLayer } from '../features/buildings/BuildingLayer'
+import type { SefrakBuilding } from '../features/buildings/sefrakApi'
 import { STOPS, STOP_ORDER, type StopId } from '../features/ferry/timetables'
 import { ferryIcon, meIcon } from './icons'
 import { BASEMAPS, DEFAULT_ZOOM, SANDOY_CENTER, WMS_OVERLAYS } from './publicLayers'
@@ -22,6 +24,7 @@ export type MapMode = 'browse' | 'addPoi' | 'drawPath' | 'editPath' | 'pickPlace
 /** Valgt OFFENTLIG objekt, holdt adskilt fra brukerens egne registreringer. */
 export type PublicSelection =
   | { kind: 'heritage'; id: string }
+  | { kind: 'building'; id: string }
   | { kind: 'ferry'; stop: StopId }
   | { kind: 'guide'; id: string }
   | { kind: 'published'; id: string }
@@ -39,6 +42,7 @@ interface Props {
   sunDate: Date | null
   myPosition: [number, number] | null
   heritageSites: HeritageSite[]
+  buildings: SefrakBuilding[]
   showFerryStops: boolean
   showTrails: boolean
   showSpots: boolean
@@ -124,6 +128,12 @@ export function MapView(props: Props) {
         selectedId={props.selectedPublic?.kind === 'heritage' ? props.selectedPublic.id : null}
         interactive={mode === 'browse'}
         onSelect={(id) => props.onSelectPublic({ kind: 'heritage', id })}
+      />
+      <BuildingLayer
+        buildings={props.buildings}
+        selectedId={props.selectedPublic?.kind === 'building' ? props.selectedPublic.id : null}
+        interactive={mode === 'browse'}
+        onSelect={(id) => props.onSelectPublic({ kind: 'building', id })}
       />
       {(props.showTrails || props.showSpots) && (
         <GuideLayer
