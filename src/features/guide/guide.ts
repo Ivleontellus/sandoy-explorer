@@ -112,6 +112,15 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   // Natur og utsikt
   { id: 'u-losen', name: 'Utkikkspunkt losen', type: 'utsikt', position: [58.9942, 11.0623], source: 'OpenStreetMap' },
   { id: 'n-blabaer', name: 'Blåbær', type: 'baer', position: [59.012754, 11.079454], note: 'Godt med blåbær langs stien.', source: 'Lokalkunnskap' },
+  // Publisert etter eksplisitt ønske fra den som registrerte den (mineralforekomster holdes ellers private).
+  {
+    id: 'g-kvarts',
+    name: 'Kvartsforekomst',
+    type: 'geologi',
+    position: [59.007492, 11.085162],
+    note: 'Fin hvit kvarts under mosen. Se og ta bilder, men la steinen ligge, så andre også kan oppleve den.',
+    source: 'Lokalkunnskap',
+  },
   // Kafé og gårdsutsalg
   {
     id: 's-oline',
