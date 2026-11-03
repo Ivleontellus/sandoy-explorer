@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="RadiaCode (syntetisk testfil)" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Testtur Søndre Sandøy</name>
+    <trkseg>
+      <trkpt lat="58.996800" lon="11.077500"><ele>15</ele><time>2026-08-15T10:00:00.000Z</time></trkpt>
+      <trkpt lat="58.997078" lon="11.077475"><ele>17</ele><time>2026-08-15T10:00:30.000Z</time></trkpt>
+      <trkpt lat="58.997352" lon="11.077399"><ele>18</ele><time>2026-08-15T10:01:00.000Z</time></trkpt>
+      <trkpt lat="58.997620" lon="11.077273"><ele>20</ele><time>2026-08-15T10:01:30.000Z</time></trkpt>
+      <trkpt lat="58.997879" lon="11.077100"><ele>21</ele><time>2026-08-15T10:02:00.000Z</time></trkpt>
+      <trkpt lat="58.998126" lon="11.076881"><ele>22</ele><time>2026-08-15T10:02:30.000Z</time></trkpt>
+      <trkpt lat="58.998358" lon="11.076619"><ele>23</ele><time>2026-08-15T10:03:00.000Z</time></trkpt>
+      <trkpt lat="58.998572" lon="11.076317"><ele>24</ele><time>2026-08-15T10:03:30.000Z</time></trkpt>
+      <trkpt lat="58.998766" lon="11.075980"><ele>25</ele><time>2026-08-15T10:04:00.000Z</time></trkpt>
+      <trkpt lat="58.998939" lon="11.075611"><ele>25</ele><time>2026-08-15T10:04:30.000Z</time></trkpt>
+      <trkpt lat="58.999088" lon="11.075215"><ele>25</ele><time>2026-08-15T10:05:00.000Z</time></trkpt>
+      <trkpt lat="58.999211" lon="11.074797"><ele>25</ele><time>2026-08-15T10:05:30.000Z</time></trkpt>
+      <trkpt lat="58.999308" lon="11.074363"><ele>24</ele><time>2026-08-15T10:06:00.000Z</time></trkpt>
+      <trkpt lat="58.999378" lon="11.073918"><ele>23</ele><time>2026-08-15T10:06:30.000Z</time></trkpt>
+      <trkpt lat="58.999420" lon="11.073468"><ele>22</ele><time>2026-08-15T10:07:00.000Z</time></trkpt>
+      <trkpt lat="58.999434" lon="11.073018"><ele>21</ele><time>2026-08-15T10:07:30.000Z</time></trkpt>
+      <trkpt lat="58.999420" lon="11.072574"><ele>20</ele><time>2026-08-15T10:08:00.000Z</time></trkpt>
+      <trkpt lat="58.999379" lon="11.072142"><ele>18</ele><time>2026-08-15T10:08:30.000Z</time></trkpt>
+      <trkpt lat="58.999312" lon="11.071727"><ele>16</ele><time>2026-08-15T10:09:00.000Z</time></trkpt>
+      <trkpt lat="58.999220" lon="11.071335"><ele>15</ele><time>2026-08-15T10:09:30.000Z</time></trkpt>
+      <trkpt lat="58.999104" lon="11.070970"><ele>13</ele><time>2026-08-15T10:10:00.000Z</time></trkpt>
+      <trkpt lat="58.998967" lon="11.070638"><ele>11</ele><time>2026-08-15T10:10:30.000Z</time></trkpt>
+      <trkpt lat="58.998810" lon="11.070341"><ele>10</ele><time>2026-08-15T10:11:00.000Z</time></trkpt>
+      <trkpt lat="58.998636" lon="11.070085"><ele>9</ele><time>2026-08-15T10:11:30.000Z</time></trkpt>
+      <trkpt lat="58.998447" lon="11.069873"><ele>7</ele><time>2026-08-15T10:12:00.000Z</time></trkpt>
+      <trkpt lat="58.998247" lon="11.069706"><ele>6</ele><time>2026-08-15T10:12:30.000Z</time></trkpt>
+      <trkpt lat="58.998037" lon="11.069587"><ele>6</ele><time>2026-08-15T10:13:00.000Z</time></trkpt>
+      <trkpt lat="58.997822" lon="11.069519"><ele>5</ele><time>2026-08-15T10:13:30.000Z</time></trkpt>
+      <trkpt lat="58.997605" lon="11.069501"><ele>5</ele><time>2026-08-15T10:14:00.000Z</time></trkpt>
+      <trkpt lat="58.997387" lon="11.069533"><ele>5</ele><time>2026-08-15T10:14:30.000Z</time></trkpt>
+      <trkpt lat="58.997174" lon="11.069616"><ele>5</ele><time>2026-08-15T10:15:00.000Z</time></trkpt>
+      <trkpt lat="58.996966" lon="11.069749"><ele>6</ele><time>2026-08-15T10:15:30.000Z</time></trkpt>
+      <trkpt lat="58.996769" lon="11.069929"><ele>7</ele><time>2026-08-15T10:16:00.000Z</time></trkpt>
+      <trkpt lat="58.996584" lon="11.070154"><ele>8</ele><time>2026-08-15T10:16:30.000Z</time></trkpt>
+      <trkpt lat="58.996415" lon="11.070422"><ele>9</ele><time>2026-08-15T10:17:00.000Z</time></trkpt>
+      <trkpt lat="58.996263" lon="11.070729"><ele>11</ele><time>2026-08-15T10:17:30.000Z</time></trkpt>
+      <trkpt lat="58.996132" lon="11.071071"><ele>12</ele><time>2026-08-15T10:18:00.000Z</time></trkpt>
+      <trkpt lat="58.996023" lon="11.071444"><ele>14</ele><time>2026-08-15T10:18:30.000Z</time></trkpt>
+      <trkpt lat="58.995937" lon="11.071844"><ele>16</ele><time>2026-08-15T10:19:00.000Z</time></trkpt>
+      <trkpt lat="58.995878" lon="11.072264"><ele>17</ele><time>2026-08-15T10:19:30.000Z</time></trkpt>
+    </trkseg>
+  </trk>
+</gpx>
