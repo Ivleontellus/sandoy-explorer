@@ -61,7 +61,7 @@ export const GUIDE_TRAILS: GuideTrail[] = [
   },
 ]
 
-export type GuideSpotType = 'fiske' | 'bade' | 'utsikt' | 'brygge' | 'servering' | 'historisk'
+export type GuideSpotType = 'fiske' | 'bade' | 'utsikt' | 'brygge' | 'servering' | 'historisk' | 'kunst'
 
 export interface GuideSpot {
   id: string
@@ -119,9 +119,17 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     name: 'Løkkeberg skole (gamle skolen)',
     type: 'historisk',
     position: [59.0133, 11.0745],
-    note: 'Den gamle skolen på Søndre Sandøy, i Stuevikveien rett før Åsheim. Bygd i teglstein i en tradisjon som er typisk for skolebygg og forsamlingslokaler fra siste del av 1800-tallet og begynnelsen av 1900-tallet, på samme måte som skolene på Nordre Sandøy, Asmaløy og Spjærøy (Dypedal, 1893). I dag bolig for fastboende. Ikke registrert i SEFRAK. Plassering omtrentlig – flytt markøren om den ligger feil.',
-    source: 'Lokalhistorie',
+    note: 'Den gamle skolen på Søndre Sandøy, Stuevikveien 29, rett før Åsheim. Bygd i teglstein i en tradisjon som er typisk for skolebygg og forsamlingslokaler fra siste del av 1800-tallet og begynnelsen av 1900-tallet, på samme måte som skolene på Nordre Sandøy, Asmaløy og Spjærøy (Dypedal, 1893). I dag bolig for fastboende og base for kunstnerne bak «Den gamle skolen» og Mikrogalleri Nor. Ikke registrert i SEFRAK. Plassering omtrentlig – flytt markøren om den ligger feil.',
+    source: 'Lokalhistorie · dengamleskolen.com',
     approximate: true,
+  },
+  {
+    id: 'k-mikrogalleri-nor',
+    name: 'Mikrogalleri Nor',
+    type: 'kunst',
+    position: [59.0133, 11.075],
+    note: 'Kunstnerdrevet mikrogalleri ved Den gamle skolen – «der små ting får en størrelse». Gulvflate 150 × 60 cm, to etasjer og fire rom, synlig fra veien på vei til badestranda. Ved siden av henger «Månedens bilde», nytt bilde hver måned hele året. Drives av Vilde Rudjord, Magne Rudjord og Inger-Marie D. Thorkildsen. Posisjon oppgitt på nettsiden (59° 0,798′ N, 11° 4,499′ Ø).',
+    source: 'dengamleskolen.com',
   },
   {
     id: 'h-nordre-sandoy-skole',

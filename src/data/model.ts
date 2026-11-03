@@ -20,6 +20,7 @@ export type PoiCategory =
   | 'brygge'
   | 'servering'
   | 'bod'
+  | 'kunst'
   | 'annet'
 
 export const POI_CATEGORIES: Record<PoiCategory, { label: string; color: string; symbol: string; defaultSensitive?: boolean }> = {
@@ -37,6 +38,7 @@ export const POI_CATEGORIES: Record<PoiCategory, { label: string; color: string;
   brygge: { label: 'Brygger og ankerplasser', color: '#37474f', symbol: '⚓' },
   servering: { label: 'Kafé, gårdsutsalg og butikker', color: '#ad1457', symbol: '☕' },
   bod: { label: 'Utsalgsboder', color: '#ef6c00', symbol: '🧺' },
+  kunst: { label: 'Kunst og gallerier', color: '#8e24aa', symbol: '🎨' },
   annet: { label: 'Annet', color: '#2e7d32', symbol: '★' },
 }
 
