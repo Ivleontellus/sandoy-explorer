@@ -114,7 +114,13 @@ export default function App() {
   const [hiddenSpots, setHiddenSpots] = useState<string[]>(loadHiddenSpots)
   // Det publiserte datasettet vises som kjente plasser og turruter. I redigering skjules publiserte
   // plasser som også finnes blant egne registreringer (samme id), så de ikke vises dobbelt.
-  const guideTrails = useMemo(() => mergedTrails(published.features), [published.features])
+  // I redigering skjules en kjent rute når du har en egen kopi av den, så du alltid treffer din egen linje.
+  const guideTrails = useMemo(() => {
+    const all = mergedTrails(published.features)
+    if (!canEdit) return all
+    const copied = new Set(features.flatMap((f) => (f.properties.kind === 'path' && f.properties.replacesTrail ? [f.properties.replacesTrail] : [])))
+    return all.filter((t) => !copied.has(t.id))
+  }, [published.features, features, canEdit])
   const extraSpots = useMemo(() => {
     const own = new Set(canEdit ? features.map((f) => f.properties.id) : [])
     return publishedSpots(published.features).filter((s) => !own.has(s.id))
@@ -647,7 +653,7 @@ export default function App() {
     browse: '',
     addPoi: 'Trykk i kartet der punktet skal ligge',
     drawPath: extending ? 'Forlenger sti' : pendingTrailName ? `Tegner ${pendingTrailName}` : 'Tegner sti',
-    editPath: 'Redigerer sti',
+    editPath: 'Dra et punkt for å flytte det · trykk på et punkt for å slette det · dra i et lite midtpunkt for å legge til',
     pickPlace: pickingSpot
       ? `Trykk i kartet der ${pickingSpot.name} skal ligge`
       : pickingPoiId

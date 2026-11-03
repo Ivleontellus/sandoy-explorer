@@ -69,7 +69,8 @@ export function EditLine({
       start.current.map((p) => [p[1], p[0]] as [number, number]),
       { pmIgnore: false, color: '#c62828', weight: 6 },
     ).addTo(map)
-    layer.pm.enable({ allowSelfIntersection: true, removeLayerBelowMinVertexCount: false })
+    // Trykk på et punkt sletter det (høyreklikk finnes ikke på mobil); dra flytter; midtmarkørene legger til.
+    layer.pm.enable({ allowSelfIntersection: true, removeLayerBelowMinVertexCount: false, removeVertexOn: 'click' })
     const handler = () => cb.current(toPositions(layer.getLatLngs() as L.LatLng[]))
     layer.on('pm:edit', handler)
     return () => {

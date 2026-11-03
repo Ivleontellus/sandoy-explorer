@@ -45,12 +45,11 @@ export const GUIDE_TRAILS: GuideTrail[] = [
     id: 'hjertestien',
     name: 'Hjertestien',
     color: '#b71c1c',
-    lengthKm: 5,
+    lengthKm: 4,
     description:
-      'Tursti i variert terreng der du passerer en av øyas flotte strender. Linja er rekonstruert via Langåsveien, Gjøkvika, Fiskekroken og Stuevika; turkartets sløyfe ut til Reiertangen og Storhavna finnes ikke som sti i OpenStreetMap og mangler.',
-    via: ['Veveriet', 'Langåsveien', 'Gjøkvika', '(Reiertangen, Storhavna)', 'Stenbruddet', 'Fiskekroken', 'Stuevika'],
+      'Rundtur i variert terreng: nordover Langåsveien, østover mot Buvika, rundt østsiden ned til badeplassen i Gjøkvika og tilbake gjennom skogen. Ca. 4 km langs stiene (turkartet oppgir 5 km).',
+    via: ['Veveriet', 'Langåsveien', 'Buvikveien', 'Gjøkvika', 'Veveriet'],
     geometry: hjertestien as LineString,
-    reconstructed: true,
   },
   {
     id: 'kloverstien',
