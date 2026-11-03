@@ -146,6 +146,15 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   { id: 'bod-fluge', name: 'Flugeboden', type: 'bod', position: [59.014024, 11.071091], note: 'Grønnsaker fra Svanekilen gård. Selvbetjent, i sommerhalvåret.', source: 'Lokalkunnskap' },
   { id: 'bod-sando', name: 'Sandø boden', type: 'bod', position: [59.005976, 11.072325], note: 'Tekstiler og keramikk. Selvbetjent.', source: 'Lokalkunnskap' },
   { id: 'bod-kvale', name: 'Kvale boden', type: 'bod', position: [59.014832, 11.068728], note: 'Honning og grønnsaker. Selvbetjent.', source: 'Lokalkunnskap' },
+  // Praktisk info
+  {
+    id: 'p-oppslagstavle',
+    name: 'Oppslagstavle',
+    type: 'annet',
+    position: [59.015017, 11.067704],
+    note: 'Oppslagstavle med lokal info. Utsalgssted for Søndre Tidende.',
+    source: 'Lokalkunnskap',
+  },
   // Kultur og historie
   {
     id: 'h-lokkeberg-skole',
@@ -177,7 +186,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
 
 /** Grupper for kjente plasser, så vanlige brukere kan slå av og på det de er ute etter. */
 export interface SpotGroup {
-  id: 'fiske' | 'bade' | 'mat' | 'kultur' | 'natur'
+  id: 'fiske' | 'bade' | 'mat' | 'kultur' | 'natur' | 'praktisk'
   label: string
   symbol: string
   types: PoiCategory[]
@@ -188,11 +197,12 @@ export const SPOT_GROUPS: SpotGroup[] = [
   { id: 'bade', label: 'Bading og båt', symbol: '≈', types: ['bade', 'brygge'] },
   { id: 'mat', label: 'Kafé og gårdsutsalg', symbol: '☕', types: ['servering', 'bod'] },
   { id: 'kultur', label: 'Kultur og historie', symbol: '⚑', types: ['historisk', 'kunst'] },
-  { id: 'natur', label: 'Natur og utsikt', symbol: '◉', types: ['utsikt', 'baer', 'sopp', 'planter', 'dyr', 'geologi', 'annet'] },
+  { id: 'natur', label: 'Natur og utsikt', symbol: '◉', types: ['utsikt', 'baer', 'sopp', 'planter', 'dyr', 'geologi'] },
+  { id: 'praktisk', label: 'Praktisk info', symbol: 'ℹ', types: ['annet'] },
 ]
 
 export function groupOf(type: PoiCategory): SpotGroup['id'] {
-  return SPOT_GROUPS.find((g) => g.types.includes(type))?.id ?? 'natur'
+  return SPOT_GROUPS.find((g) => g.types.includes(type))?.id ?? 'praktisk'
 }
 
 const GROUPS_KEY = 'sandoy-explorer:guide-groups-off:v1'

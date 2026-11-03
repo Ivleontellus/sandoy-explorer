@@ -133,7 +133,13 @@ export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEd
 
 function ShareInfo({ sensitive, shareable }: { sensitive: boolean; shareable: boolean }) {
   if (sensitive) return <p className="hint">🔒 Sårbar – holdes privat og tas aldri med i delbar eksport.</p>
-  return <p className="hint">{shareable ? 'Merket som delbar.' : 'Privat (ikke merket som delbar).'}</p>
+  return (
+    <p className="hint">
+      {shareable
+        ? 'Merket som delbar, men fortsatt bare synlig for deg på denne enheten. Andre ser den først når den er publisert: Mine data → «Delbar eksport», og send fila til den som vedlikeholder appen.'
+        : 'Privat: bare synlig for deg på denne enheten, i redigeringsmodus.'}
+    </p>
+  )
 }
 
 function DeleteButton({ label, confirming, onToggle, onConfirm }: { label: string; confirming: boolean; onToggle: (v: boolean) => void; onConfirm: () => void }) {
