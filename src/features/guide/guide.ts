@@ -61,7 +61,7 @@ export const GUIDE_TRAILS: GuideTrail[] = [
   },
 ]
 
-export type GuideSpotType = 'fiske' | 'bade' | 'utsikt' | 'brygge' | 'servering'
+export type GuideSpotType = 'fiske' | 'bade' | 'utsikt' | 'brygge' | 'servering' | 'historisk'
 
 export interface GuideSpot {
   id: string
@@ -113,6 +113,23 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     note: 'Ny vingård på øya. Plassering ikke verifisert – flytt markøren til riktig sted.',
     source: 'Lokalkunnskap',
     approximate: true,
+  },
+  {
+    id: 'h-lokkeberg-skole',
+    name: 'Løkkeberg skole (gamle skolen)',
+    type: 'historisk',
+    position: [59.0133, 11.0745],
+    note: 'Den gamle skolen på Søndre Sandøy, i Stuevikveien rett før Åsheim. Bygd i teglstein i en tradisjon som er typisk for skolebygg og forsamlingslokaler fra siste del av 1800-tallet og begynnelsen av 1900-tallet, på samme måte som skolene på Nordre Sandøy, Asmaløy og Spjærøy (Dypedal, 1893). I dag bolig for fastboende. Ikke registrert i SEFRAK. Plassering omtrentlig – flytt markøren om den ligger feil.',
+    source: 'Lokalhistorie',
+    approximate: true,
+  },
+  {
+    id: 'h-nordre-sandoy-skole',
+    name: 'Nordre Sandøy skole',
+    type: 'historisk',
+    position: [59.03503, 11.09656],
+    note: 'Gammel skole i teglstein fra samme tradisjon som Løkkeberg skole. I dag fritidsbolig. Posisjon fra SEFRAK-registeret («Skole, Nordre Sandø»).',
+    source: 'Lokalhistorie · Riksantikvaren (SEFRAK)',
   },
 ]
 
