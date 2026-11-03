@@ -1157,3 +1157,14 @@ a.button.primary {
 .spot-group .feature-list {
   margin: 0 0 6px 26px;
 }
+
+/* Nettsted-knapp på plasser */
+a.button.website {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.desc a {
+  color: var(--green-2);
+  font-weight: 600;
+}

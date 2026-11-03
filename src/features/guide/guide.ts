@@ -72,6 +72,8 @@ export interface GuideSpot {
   /** [lat, lon] */
   position: [number, number]
   note?: string
+  /** Stedets egen nettside, vist som en tydelig knapp. */
+  website?: string
   /** Når plassen er på sitt beste; gir live sol/tidevann i detaljvisningen. */
   bestTimes?: BestTimes
   source: string
@@ -127,8 +129,9 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     name: 'Café Oline',
     type: 'servering',
     position: [59.014952, 11.066966],
-    note: 'Familiedrevet kafé og pub ved det gamle landhandleriet, i samme bygning siden 1906. Kiosk med is og bakst. Åpent i skoleferier og utvalgte helger – se cafeoline.no.',
+    note: 'Familiedrevet kafé og pub ved det gamle landhandleriet, i samme bygning siden 1906. Kiosk med is og bakst. Åpent i skoleferier og utvalgte helger.',
     bestTimes: { daypart: ['dag', 'kveld'], tide: [] },
+    website: 'https://cafeoline.no/',
     source: 'Lokalkunnskap · cafeoline.no',
   },
   {
@@ -136,7 +139,8 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     name: 'Ytre Hvaler Vingård',
     type: 'servering',
     position: [59.01141, 11.07309],
-    note: 'Vingård som lager vin og andre lokale, bærekraftige drikkevarer. Se ytre.vin.',
+    note: 'Vingård som lager vin og andre lokale, bærekraftige drikkevarer.',
+    website: 'https://www.ytre.vin/',
     source: 'Lokalkunnskap · ytre.vin',
   },
   { id: 'bod-fluge', name: 'Flugeboden', type: 'bod', position: [59.014024, 11.071091], note: 'Grønnsaker fra Svanekilen gård. Selvbetjent, i sommerhalvåret.', source: 'Lokalkunnskap' },
@@ -149,6 +153,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     type: 'historisk',
     position: [59.013298, 11.074699],
     note: 'Den gamle skolen på Søndre Sandøy, Stuevikveien 29, rett før Åsheim. Bygd i teglstein i en tradisjon som er typisk for skolebygg og forsamlingslokaler fra siste del av 1800-tallet og begynnelsen av 1900-tallet, på samme måte som skolene på Nordre Sandøy, Asmaløy og Spjærøy (Dypedal, 1893). I dag bolig for fastboende og base for kunstnerne bak «Den gamle skolen» og Mikrogalleri Nor. Ikke registrert i SEFRAK.',
+    website: 'https://www.dengamleskolen.com/',
     source: 'Lokalhistorie · dengamleskolen.com',
   },
   {
@@ -157,6 +162,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     type: 'kunst',
     position: [59.0133, 11.075],
     note: 'Kunstnerdrevet mikrogalleri ved Den gamle skolen – «der små ting får en størrelse». Gulvflate 150 × 60 cm, to etasjer og fire rom, synlig fra veien på vei til badestranda. Ved siden av henger «Månedens bilde», nytt bilde hver måned hele året. Drives av Vilde Rudjord, Magne Rudjord og Inger-Marie D. Thorkildsen.',
+    website: 'https://www.dengamleskolen.com/mikrogallerinor',
     source: 'dengamleskolen.com',
   },
   {

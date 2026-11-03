@@ -8,6 +8,8 @@ interface Props {
   spots: ResolvedSpot[]
   selectedId: string | null
   interactive: boolean
+  /** Bare i redigeringsmodus kan plasser dras. */
+  canEdit: boolean
   onSelect: (id: string) => void
   /** Kalles når brukeren drar den valgte markøren til et nytt sted. */
   onMove: (id: string, position: [number, number]) => void
@@ -15,8 +17,8 @@ interface Props {
 
 const toLatLng = (p: number[]): [number, number] => [p[1], p[0]]
 
-/** Offentlige kjente turer (de som har geometri) og plasser fra turkartet. Valgt plass kan dras. */
-export function GuideLayer({ showTrails, spots, selectedId, interactive, onSelect, onMove }: Props) {
+/** Offentlige kjente turer (de som har geometri) og plasser. Valgt plass kan dras i redigeringsmodus. */
+export function GuideLayer({ showTrails, spots, selectedId, interactive, canEdit, onSelect, onMove }: Props) {
   const handlers = (id: string) =>
     interactive ? { click: (e: L.LeafletMouseEvent) => (L.DomEvent.stopPropagation(e), onSelect(id)) } : {}
 
@@ -42,18 +44,22 @@ export function GuideLayer({ showTrails, spots, selectedId, interactive, onSelec
             position={s.position}
             icon={guideIcon(s.type, selected, s.approximate && !s.moved)}
             interactive={interactive}
-            draggable={selected && interactive}
+            draggable={selected && interactive && canEdit}
             eventHandlers={{
               ...handlers(s.id),
-              dragend: (e) => {
-                const ll = (e.target as L.Marker).getLatLng()
-                onMove(s.id, [Number(ll.lat.toFixed(6)), Number(ll.lng.toFixed(6))])
-              },
+              ...(canEdit
+                ? {
+                    dragend: (e: L.DragEndEvent) => {
+                      const ll = (e.target as L.Marker).getLatLng()
+                      onMove(s.id, [Number(ll.lat.toFixed(6)), Number(ll.lng.toFixed(6))])
+                    },
+                  }
+                : {}),
             }}
           >
             <Tooltip direction="top" offset={[0, -12]}>
               {s.name}
-              {selected ? ' – dra for å flytte' : ''}
+              {selected && canEdit ? ' – dra for å flytte' : ''}
             </Tooltip>
           </Marker>
         )

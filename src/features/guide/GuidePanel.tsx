@@ -1,5 +1,6 @@
 import { POI_CATEGORIES } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
+import { LinkedText, WebsiteButton } from '../common/Links'
 import { GUIDE_ATTRIBUTION, GUIDE_TRAILS, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
 
 interface TrailListProps {
@@ -73,6 +74,7 @@ export function SpotList({ spots, selectedId, groupsOff, onToggleGroup, onSelect
                     <button className={s.id === selectedId ? 'active' : ''} onClick={() => onSelect(s.id)}>
                       <span className="sym">{POI_CATEGORIES[s.type].symbol}</span>
                       <span className="name">{s.name}</span>
+                      {s.website && <span title="Har egen nettside">🌐</span>}
                       {s.approximate && !s.moved && <span className="badge utkast" title="Omtrentlig plassering">?</span>}
                     </button>
                   </li>
@@ -155,10 +157,19 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
             {POI_CATEGORIES[item.type].symbol} {item.name}
           </h3>
           <p className="muted">{POI_CATEGORIES[item.type].label}</p>
-          {item.note && <p className="desc">{item.note}</p>}
+          {item.note && (
+            <p className="desc">
+              <LinkedText text={item.note} />
+            </p>
+          )}
+          {item.website && (
+            <div className="actions">
+              <WebsiteButton url={item.website} />
+            </div>
+          )}
           <p className="coords">
             {item.position[0].toFixed(5)}, {item.position[1].toFixed(5)}
-            {item.moved && <span className="muted"> · flyttet av deg</span>}
+            {item.moved && canEdit && <span className="muted"> · flyttet av deg</span>}
           </p>
           <PlaceConditions lat={item.position[0]} lon={item.position[1]} bestTimes={item.bestTimes} />
           {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig{canEdit ? '. Dra markøren i kartet eller trykk «Velg i kartet»' : ''}.</p>}

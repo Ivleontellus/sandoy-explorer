@@ -42,6 +42,8 @@ interface Props {
   sunDate: Date | null
   myPosition: [number, number] | null
   heritageSites: HeritageSite[]
+  /** Redigeringsmodus: offentlige plasser kan flyttes. */
+  canEdit: boolean
   buildings: SefrakBuilding[]
   showFerryStops: boolean
   showTrails: boolean
@@ -143,6 +145,7 @@ export function MapView(props: Props) {
           spots={props.showSpots ? props.guideSpots.filter((s) => !s.hidden) : []}
           selectedId={props.selectedPublic?.kind === 'guide' ? props.selectedPublic.id : null}
           interactive={mode === 'browse'}
+          canEdit={props.canEdit}
           onSelect={(id) => props.onSelectPublic({ kind: 'guide', id })}
           onMove={props.onMoveGuide}
         />

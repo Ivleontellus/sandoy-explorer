@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { LinkedText } from '../common/Links'
 import { POI_CATEGORIES, isSensitive, type MapFeature } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
 import { PhotoGallery } from '../photos/PhotoGallery'
@@ -43,7 +44,11 @@ export function FeatureDetails({ feature: f, onUpdate, onDelete, onEditPoi, onEd
             {POI_CATEGORIES[f.properties.category].symbol} {p.name} {sensitive && '🔒'}
           </h3>
           <p className="muted">{POI_CATEGORIES[f.properties.category].label}</p>
-          {p.description && <p className="desc">{p.description}</p>}
+          {p.description && (
+            <p className="desc">
+              <LinkedText text={p.description} />
+            </p>
+          )}
           <p className="coords">
             {f.geometry.coordinates[1].toFixed(6)}, {f.geometry.coordinates[0].toFixed(6)}
           </p>

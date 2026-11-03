@@ -1,4 +1,5 @@
 import { POI_CATEGORIES, type MapFeature } from '../../data/model'
+import { LinkedText } from '../common/Links'
 import { PlaceConditions } from '../conditions/PlaceConditions'
 import { lineLengthMeters } from '../details/geo'
 import { PublishedPhotos } from '../photos/PhotoGallery'
@@ -30,7 +31,11 @@ export function PublishedDetails({ feature: f, canEdit, onCreatePoi, onClose }: 
       </h3>
       {f.properties.kind === 'poi' && <p className="muted">{POI_CATEGORIES[f.properties.category].label}</p>}
       {length !== null && <p className="muted">Lengde: {(length / 1000).toFixed(2)} km</p>}
-      {p.description && <p className="desc">{p.description}</p>}
+      {p.description && (
+        <p className="desc">
+          <LinkedText text={p.description} />
+        </p>
+      )}
       {isPoi && f.properties.kind === 'poi' && f.geometry.type === 'Point' && (
         <>
           <p className="coords">

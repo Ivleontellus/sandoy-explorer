@@ -113,7 +113,11 @@ export default function App() {
   /** Eget punkt som skal flyttes med neste trykk i kartet. */
   const [pickingPoiId, setPickingPoiId] = useState<string | null>(null)
   const [hiddenSpots, setHiddenSpots] = useState<string[]>(loadHiddenSpots)
-  const guideSpots = useMemo(() => resolveSpots(guideOverrides, hiddenSpots), [guideOverrides, hiddenSpots])
+  // Lokale flyttinger og skjuling er redigeringsverktøy; vanlige brukere ser alltid de publiserte plasseringene.
+  const guideSpots = useMemo(
+    () => (canEdit ? resolveSpots(guideOverrides, hiddenSpots) : resolveSpots({})),
+    [canEdit, guideOverrides, hiddenSpots],
+  )
   const [groupsOff, setGroupsOff] = useState<SpotGroup['id'][]>(loadGroupsOff)
   const toggleGroup = (id: SpotGroup['id']) =>
     setGroupsOff((g) => {
@@ -683,6 +687,7 @@ export default function App() {
         editing={editing}
         sunDate={sunEnabled ? sunDate : null}
         myPosition={myPosition}
+        canEdit={canEdit}
         heritageSites={sources.includes('kulturminner') ? heritage.sites : []}
         buildings={sources.includes('bygninger') ? buildings.buildings : []}
         showFerryStops={sources.includes('ferge')}
