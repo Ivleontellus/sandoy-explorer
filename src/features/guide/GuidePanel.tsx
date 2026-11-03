@@ -1,5 +1,6 @@
 import { POI_CATEGORIES } from '../../data/model'
-import { GUIDE_ATTRIBUTION, GUIDE_TRAILS, GUIDE_UNPLACED, type GuideSpot, type GuideTrail, type ResolvedSpot } from './guide'
+import { PlaceConditions } from '../conditions/PlaceConditions'
+import { GUIDE_ATTRIBUTION, GUIDE_TRAILS, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
 
 interface TrailListProps {
   selectedId: string | null
@@ -42,27 +43,45 @@ export function TrailList({ selectedId, onSelect, onDrawTrail }: TrailListProps)
 interface SpotListProps {
   spots: ResolvedSpot[]
   selectedId: string | null
+  groupsOff: SpotGroup['id'][]
+  onToggleGroup: (id: SpotGroup['id']) => void
   onSelect: (id: string) => void
   onUnhide: (id: string) => void
 }
 
-/** Liste over kjente plasser, vist under laget i Kartlag-fanen. Skjulte vises nederst og kan hentes fram. */
-export function SpotList({ spots, selectedId, onSelect, onUnhide }: SpotListProps) {
+/** Kjente plasser gruppert (fiske, bading, kafé …), hver gruppe kan slås av og på. Skjulte vises nederst. */
+export function SpotList({ spots, selectedId, groupsOff, onToggleGroup, onSelect, onUnhide }: SpotListProps) {
   const hidden = spots.filter((s) => s.hidden)
   return (
     <div className="guide-list">
-      <ul className="feature-list">
-        {spots.filter((s) => !s.hidden).map((s) => (
-          <li key={s.id}>
-            <button className={s.id === selectedId ? 'active' : ''} onClick={() => onSelect(s.id)}>
-              <span className="sym">{POI_CATEGORIES[s.type].symbol}</span>
-              <span className="name">{s.name}</span>
-              <span className="muted">{POI_CATEGORIES[s.type].label}</span>
-              {s.approximate && !s.moved && <span className="badge utkast" title="Omtrentlig plassering – flytt markøren">?</span>}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {SPOT_GROUPS.map((g) => {
+        const items = spots.filter((s) => !s.hidden && groupOf(s.type) === g.id)
+        if (!items.length) return null
+        const on = !groupsOff.includes(g.id)
+        return (
+          <div key={g.id} className="spot-group">
+            <label className="toggle sub">
+              <input type="checkbox" checked={on} onChange={() => onToggleGroup(g.id)} />
+              <span className="sym">{g.symbol}</span>
+              {g.label}
+              <span className="count">{items.length}</span>
+            </label>
+            {on && (
+              <ul className="feature-list">
+                {items.map((s) => (
+                  <li key={s.id}>
+                    <button className={s.id === selectedId ? 'active' : ''} onClick={() => onSelect(s.id)}>
+                      <span className="sym">{POI_CATEGORIES[s.type].symbol}</span>
+                      <span className="name">{s.name}</span>
+                      {s.approximate && !s.moved && <span className="badge utkast" title="Omtrentlig plassering">?</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )
+      })}
       {hidden.length > 0 && (
         <p className="hint">
           Skjult:{' '}
@@ -141,6 +160,7 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
             {item.position[0].toFixed(5)}, {item.position[1].toFixed(5)}
             {item.moved && <span className="muted"> · flyttet av deg</span>}
           </p>
+          <PlaceConditions lat={item.position[0]} lon={item.position[1]} bestTimes={item.bestTimes} />
           {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig{canEdit ? '. Dra markøren i kartet eller trykk «Velg i kartet»' : ''}.</p>}
           <p className="hint">Kilde: {item.source}.{canEdit ? ' Flyttinger og skjuling lagres bare på denne enheten. Har du laget et eget punkt for stedet, kan du skjule dette.' : ''}</p>
           {canEdit && (

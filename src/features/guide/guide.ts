@@ -1,4 +1,5 @@
 import type { LineString } from 'geojson'
+import type { BestTimes, PoiCategory } from '../../data/model'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -61,74 +62,92 @@ export const GUIDE_TRAILS: GuideTrail[] = [
   },
 ]
 
-export type GuideSpotType = 'fiske' | 'bade' | 'utsikt' | 'brygge' | 'servering' | 'historisk' | 'kunst'
+/** Kjente plasser bruker de samme kategoriene som egne punkter. */
+export type GuideSpotType = PoiCategory
 
 export interface GuideSpot {
   id: string
   name: string
   type: GuideSpotType
-  /** [lat, lon]. Stedfestet via navn, så plasseringen er omtrentlig. */
+  /** [lat, lon] */
   position: [number, number]
   note?: string
+  /** Når plassen er på sitt beste; gir live sol/tidevann i detaljvisningen. */
+  bestTimes?: BestTimes
   source: string
   /** Posisjonen er et gjett eller ukjent; brukeren bør flytte markøren. */
   approximate?: boolean
 }
 
+const MORNING_EVENING: BestTimes = { daypart: ['morgen', 'kveld'], tide: [] }
+const ALL_DAY: BestTimes = { daypart: ['morgen', 'dag', 'kveld'], tide: [] }
+
+/**
+ * Plasseringene er kontrollert og justert lokalt (november 2026), med utgangspunkt i turkartet
+ * og navneregistrene. Ikke justert ennå: Salta, Gjøkvika, Reiertangen, Stuevika badeplass,
+ * Utkikkspunkt losen og Nordre Sandøy skole.
+ */
 export const GUIDE_SPOTS: GuideSpot[] = [
-  { id: 'f-lervika', name: 'Lervika', type: 'fiske', position: [59.02032, 11.07236], source: 'Turkart · Kartverket' },
-  { id: 'f-krossholmen', name: 'Krossholmen', type: 'fiske', position: [59.01548, 11.05943], source: 'Turkart · Kartverket' },
+  // Fiske
+  { id: 'f-lervika', name: 'Lervika', type: 'fiske', position: [59.020268, 11.073162], bestTimes: MORNING_EVENING, source: 'Turkart · lokalkunnskap' },
+  { id: 'f-krossholmen', name: 'Krossholmen', type: 'fiske', position: [59.014256, 11.058061], bestTimes: ALL_DAY, source: 'Turkart · lokalkunnskap' },
   { id: 'f-salta', name: 'Salta', type: 'fiske', position: [59.01369, 11.06278], source: 'Turkart · Kartverket' },
-  { id: 'f-sauholmen', name: 'Sauholmen', type: 'fiske', position: [59.00931, 11.06138], source: 'Turkart · Kartverket' },
-  { id: 'f-fiskekroken', name: 'Fiskekroken', type: 'fiske', position: [59.01195, 11.08806], source: 'Turkart · Kartverket' },
+  { id: 'f-sauholmen', name: 'Sauholmen', type: 'fiske', position: [59.009677, 11.057771], bestTimes: MORNING_EVENING, source: 'Turkart · lokalkunnskap' },
+  { id: 'f-fiskekroken', name: 'Fiskekroken', type: 'fiske', position: [59.011588, 11.08807], bestTimes: ALL_DAY, source: 'Turkart · lokalkunnskap' },
   { id: 'f-gjokvika', name: 'Gjøkvika', type: 'fiske', position: [59.0174, 11.1054], source: 'Turkart · OpenStreetMap' },
   { id: 'f-reiertangen', name: 'Reiertangen', type: 'fiske', position: [59.01672, 11.10976], source: 'Turkart · Kartverket' },
-  { id: 'f-storhavna', name: 'Storhavna', type: 'fiske', position: [59.02046, 11.1114], source: 'Turkart · Kartverket' },
-  { id: 'f-buvika', name: 'Buvika', type: 'fiske', position: [59.024, 11.1007], source: 'Turkart · OpenStreetMap' },
+  { id: 'f-storhavna', name: 'Storhavna', type: 'fiske', position: [59.021155, 11.112252], bestTimes: ALL_DAY, source: 'Turkart · lokalkunnskap' },
+  { id: 'f-buvika', name: 'Buvika', type: 'fiske', position: [59.022969, 11.091889], bestTimes: MORNING_EVENING, source: 'Turkart · lokalkunnskap' },
+  // Bading og båt
   { id: 'b-stuevika', name: 'Stuevika', type: 'bade', position: [59.0084, 11.0833], note: 'Bade- og teltplass med sandstrand.', source: 'Turkart · OpenStreetMap' },
-  { id: 'u-losen', name: 'Utkikkspunkt losen', type: 'utsikt', position: [58.9942, 11.0623], source: 'OpenStreetMap' },
   {
     id: 'br-stuevika',
     name: 'Stuevika brygge',
     type: 'brygge',
-    position: [59.009, 11.084],
+    position: [59.009042, 11.085935],
     note: 'Av- og påstigningsbrygge som hører til Stuevika teltplass.',
+    bestTimes: { daypart: [], tide: ['hoyvann', 'lavvann'] },
     source: 'Lokalkunnskap',
-    approximate: true,
   },
+  // Natur og utsikt
+  { id: 'u-losen', name: 'Utkikkspunkt losen', type: 'utsikt', position: [58.9942, 11.0623], source: 'OpenStreetMap' },
+  { id: 'n-blabaer', name: 'Blåbær', type: 'baer', position: [59.012754, 11.079454], note: 'Godt med blåbær langs stien.', source: 'Lokalkunnskap' },
+  // Kafé og gårdsutsalg
   {
     id: 's-oline',
     name: 'Café Oline',
     type: 'servering',
-    position: [59.0161, 11.0691],
-    note: 'Familiedrevet kafé og pub ved Grendehuset, i samme bygning siden 1906. Kiosk med is og bakst. Åpent i skoleferier og utvalgte helger – se cafeoline.no.',
-    source: 'Turkart · lokalhistoriewiki.no',
-    approximate: true,
+    position: [59.014952, 11.066966],
+    note: 'Familiedrevet kafé og pub ved det gamle landhandleriet, i samme bygning siden 1906. Kiosk med is og bakst. Åpent i skoleferier og utvalgte helger – se cafeoline.no.',
+    bestTimes: { daypart: ['dag', 'kveld'], tide: [] },
+    source: 'Lokalkunnskap · cafeoline.no',
   },
   {
     id: 's-vingard',
     name: 'Ytre Hvaler Vingård',
     type: 'servering',
-    position: [59.012, 11.078],
-    note: 'Ny vingård på øya. Plassering ikke verifisert – flytt markøren til riktig sted.',
-    source: 'Lokalkunnskap',
-    approximate: true,
+    position: [59.01141, 11.07309],
+    note: 'Vingård som lager vin og andre lokale, bærekraftige drikkevarer. Se ytre.vin.',
+    source: 'Lokalkunnskap · ytre.vin',
   },
+  { id: 'bod-fluge', name: 'Flugeboden', type: 'bod', position: [59.014024, 11.071091], note: 'Grønnsaker fra Svanekilen gård. Selvbetjent, i sommerhalvåret.', source: 'Lokalkunnskap' },
+  { id: 'bod-sando', name: 'Sandø boden', type: 'bod', position: [59.005976, 11.072325], note: 'Tekstiler og keramikk. Selvbetjent.', source: 'Lokalkunnskap' },
+  { id: 'bod-kvale', name: 'Kvale boden', type: 'bod', position: [59.014832, 11.068728], note: 'Honning og grønnsaker. Selvbetjent.', source: 'Lokalkunnskap' },
+  // Kultur og historie
   {
     id: 'h-lokkeberg-skole',
     name: 'Løkkeberg skole (gamle skolen)',
     type: 'historisk',
-    position: [59.0133, 11.0745],
-    note: 'Den gamle skolen på Søndre Sandøy, Stuevikveien 29, rett før Åsheim. Bygd i teglstein i en tradisjon som er typisk for skolebygg og forsamlingslokaler fra siste del av 1800-tallet og begynnelsen av 1900-tallet, på samme måte som skolene på Nordre Sandøy, Asmaløy og Spjærøy (Dypedal, 1893). I dag bolig for fastboende og base for kunstnerne bak «Den gamle skolen» og Mikrogalleri Nor. Ikke registrert i SEFRAK. Plassering omtrentlig – flytt markøren om den ligger feil.',
+    position: [59.013298, 11.074699],
+    note: 'Den gamle skolen på Søndre Sandøy, Stuevikveien 29, rett før Åsheim. Bygd i teglstein i en tradisjon som er typisk for skolebygg og forsamlingslokaler fra siste del av 1800-tallet og begynnelsen av 1900-tallet, på samme måte som skolene på Nordre Sandøy, Asmaløy og Spjærøy (Dypedal, 1893). I dag bolig for fastboende og base for kunstnerne bak «Den gamle skolen» og Mikrogalleri Nor. Ikke registrert i SEFRAK.',
     source: 'Lokalhistorie · dengamleskolen.com',
-    approximate: true,
   },
   {
     id: 'k-mikrogalleri-nor',
     name: 'Mikrogalleri Nor',
     type: 'kunst',
     position: [59.0133, 11.075],
-    note: 'Kunstnerdrevet mikrogalleri ved Den gamle skolen – «der små ting får en størrelse». Gulvflate 150 × 60 cm, to etasjer og fire rom, synlig fra veien på vei til badestranda. Ved siden av henger «Månedens bilde», nytt bilde hver måned hele året. Drives av Vilde Rudjord, Magne Rudjord og Inger-Marie D. Thorkildsen. Posisjon oppgitt på nettsiden (59° 0,798′ N, 11° 4,499′ Ø).',
+    note: 'Kunstnerdrevet mikrogalleri ved Den gamle skolen – «der små ting får en størrelse». Gulvflate 150 × 60 cm, to etasjer og fire rom, synlig fra veien på vei til badestranda. Ved siden av henger «Månedens bilde», nytt bilde hver måned hele året. Drives av Vilde Rudjord, Magne Rudjord og Inger-Marie D. Thorkildsen.',
     source: 'dengamleskolen.com',
   },
   {
@@ -140,6 +159,46 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Lokalhistorie · Riksantikvaren (SEFRAK)',
   },
 ]
+
+/** Grupper for kjente plasser, så vanlige brukere kan slå av og på det de er ute etter. */
+export interface SpotGroup {
+  id: 'fiske' | 'bade' | 'mat' | 'kultur' | 'natur'
+  label: string
+  symbol: string
+  types: PoiCategory[]
+}
+
+export const SPOT_GROUPS: SpotGroup[] = [
+  { id: 'fiske', label: 'Fiske', symbol: '🐟', types: ['fiske'] },
+  { id: 'bade', label: 'Bading og båt', symbol: '≈', types: ['bade', 'brygge'] },
+  { id: 'mat', label: 'Kafé og gårdsutsalg', symbol: '☕', types: ['servering', 'bod'] },
+  { id: 'kultur', label: 'Kultur og historie', symbol: '⚑', types: ['historisk', 'kunst'] },
+  { id: 'natur', label: 'Natur og utsikt', symbol: '◉', types: ['utsikt', 'baer', 'sopp', 'planter', 'dyr', 'geologi', 'annet'] },
+]
+
+export function groupOf(type: PoiCategory): SpotGroup['id'] {
+  return SPOT_GROUPS.find((g) => g.types.includes(type))?.id ?? 'natur'
+}
+
+const GROUPS_KEY = 'sandoy-explorer:guide-groups-off:v1'
+
+/** Grupper brukeren har slått av (bekvemmelighet per enhet). */
+export function loadGroupsOff(): SpotGroup['id'][] {
+  try {
+    const raw = JSON.parse(localStorage.getItem(GROUPS_KEY) ?? '[]')
+    return Array.isArray(raw) ? raw.filter((x) => SPOT_GROUPS.some((g) => g.id === x)) : []
+  } catch {
+    return []
+  }
+}
+
+export function saveGroupsOff(ids: SpotGroup['id'][]) {
+  try {
+    localStorage.setItem(GROUPS_KEY, JSON.stringify(ids))
+  } catch {
+    /* lagring kan være blokkert */
+  }
+}
 
 const OVERRIDE_KEY = 'sandoy-explorer:guide-positions:v1'
 export type GuideOverrides = Record<string, [number, number]>

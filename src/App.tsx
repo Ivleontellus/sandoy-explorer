@@ -22,14 +22,18 @@ import { BuildingDetails } from './features/buildings/BuildingDetails'
 import { useBuildings } from './features/buildings/sefrakApi'
 import {
   GUIDE_TRAILS,
+  groupOf,
+  loadGroupsOff,
   loadGuideOverrides,
   loadHiddenSpots,
   resolveSpots,
+  saveGroupsOff,
   saveGuideOverrides,
   saveHiddenSpots,
   type GuideOverrides,
   type GuideSpot,
   type GuideTrail,
+  type SpotGroup,
 } from './features/guide/guide'
 import { GuideDetails, SpotList, TrailList } from './features/guide/GuidePanel'
 import { SunPanel } from './features/sun/SunPanel'
@@ -41,7 +45,8 @@ import { WelcomeDialog, useWelcome } from './features/welcome/WelcomeDialog'
 import './App.css'
 
 type Tab = 'lag' | 'data' | 'bat' | 'sol'
-const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['publisert']
+/** Det en vanlig bruker ser ved første åpning: kuraterte plasser og turruter, ikke de tunge registerlagene. */
+const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['publisert', 'turruter', 'plasser']
 
 /** Hold zoom-til-objekt fri av panelet (sidepanel på desktop, bunnark på mobil). */
 const fitPadding = (): L.FitBoundsOptions =>
@@ -109,6 +114,15 @@ export default function App() {
   const [pickingPoiId, setPickingPoiId] = useState<string | null>(null)
   const [hiddenSpots, setHiddenSpots] = useState<string[]>(loadHiddenSpots)
   const guideSpots = useMemo(() => resolveSpots(guideOverrides, hiddenSpots), [guideOverrides, hiddenSpots])
+  const [groupsOff, setGroupsOff] = useState<SpotGroup['id'][]>(loadGroupsOff)
+  const toggleGroup = (id: SpotGroup['id']) =>
+    setGroupsOff((g) => {
+      const next = g.includes(id) ? g.filter((x) => x !== id) : [...g, id]
+      saveGroupsOff(next)
+      return next
+    })
+  /** Plassene som vises i kartet: uten skjulte og uten grupper som er slått av. */
+  const mapSpots = useMemo(() => guideSpots.filter((s) => !groupsOff.includes(groupOf(s.type))), [guideSpots, groupsOff])
   const setSpotHidden = (id: string, hidden: boolean) =>
     setHiddenSpots((h) => {
       const next = hidden ? [...new Set([...h, id])] : h.filter((x) => x !== id)
@@ -605,6 +619,8 @@ export default function App() {
               sources.includes('plasser') ? (
                 <SpotList
                   spots={guideSpots}
+                  groupsOff={groupsOff}
+                  onToggleGroup={toggleGroup}
                   selectedId={selectedPublic?.kind === 'guide' ? selectedPublic.id : null}
                   onSelect={(id) => selectPublic({ kind: 'guide', id })}
                   onUnhide={(id) => setSpotHidden(id, false)}
@@ -672,7 +688,7 @@ export default function App() {
         showFerryStops={sources.includes('ferge')}
         showTrails={sources.includes('turruter')}
         showSpots={sources.includes('plasser')}
-        guideSpots={guideSpots}
+        guideSpots={mapSpots}
         onMoveGuide={(id, pos) => moveGuide(id, pos)}
         onMovePoi={(id, lonLat) => dispatch({ type: 'update', id, patch: {}, geometry: { type: 'Point', coordinates: lonLat } })}
         selectedPublic={selectedPublic}

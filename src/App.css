@@ -1141,3 +1141,19 @@ a.button.primary {
   border-radius: 8px;
   font-size: 13px;
 }
+
+/* Grupper under kjente plasser */
+.spot-group + .spot-group {
+  margin-top: 4px;
+}
+.toggle.sub {
+  font-weight: 600;
+  padding-left: 4px;
+}
+.toggle.sub .sym {
+  width: 18px;
+  text-align: center;
+}
+.spot-group .feature-list {
+  margin: 0 0 6px 26px;
+}
