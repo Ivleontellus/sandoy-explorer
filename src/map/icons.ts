@@ -56,11 +56,14 @@ export function guideIcon(type: PoiCategory, selected: boolean, uncertain = fals
   let icon = guideCache.get(key)
   if (!icon) {
     const c = POI_CATEGORIES[type]
+    // Historier er små merker på husene, så de ikke tar over kartet.
+    const small = type === 'historie'
+    const size = small ? 22 : 28
     icon = L.divIcon({
       className: 'guide-icon-wrap',
-      html: `<div class="guide-icon${selected ? ' selected' : ''}${uncertain ? ' uncertain' : ''}" style="--c:${c.color}"><span>${c.symbol}</span>${uncertain ? '<i class="q">?</i>' : ''}</div>`,
-      iconSize: [28, 28],
-      iconAnchor: [14, 14],
+      html: `<div class="guide-icon${small ? ' small' : ''}${selected ? ' selected' : ''}${uncertain ? ' uncertain' : ''}" style="--c:${c.color}"><span>${c.symbol}</span>${uncertain ? '<i class="q">?</i>' : ''}</div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
     })
     guideCache.set(key, icon)
   }

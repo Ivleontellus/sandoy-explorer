@@ -871,6 +871,12 @@ a.button.primary {
   place-items: center;
   font-size: 14px;
 }
+.guide-icon.small {
+  width: 22px;
+  height: 22px;
+  border-width: 2px;
+  font-size: 11px;
+}
 .guide-icon.selected {
   outline: 3px solid #ffca28;
   transform: scale(1.15);
@@ -1196,6 +1202,16 @@ a.button.website {
   border-color: var(--green);
   color: #fff;
 }
+.story-sources {
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+.story-sources li {
+  padding: 6px 0;
+}
+.story-sources a,
 .desc a {
   color: var(--green-2);
   font-weight: 600;

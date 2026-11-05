@@ -9,6 +9,7 @@ import type { Feature, FeatureCollection, LineString, MultiLineString, Point } f
 
 export type PoiCategory =
   | 'geologi'
+  | 'historie'
   | 'baer'
   | 'sopp'
   | 'planter'
@@ -32,6 +33,7 @@ export const POI_CATEGORIES: Record<PoiCategory, { label: string; color: string;
   planter: { label: 'Planter og trær', color: '#558b2f', symbol: '❦' },
   dyr: { label: 'Dyr og insekter', color: '#795548', symbol: '🐾' },
   historisk: { label: 'Historiske steder', color: '#455a64', symbol: '⚑' },
+  historie: { label: 'Historier', color: '#5d4037', symbol: '📖' },
   fiske: { label: 'Fiskeplasser', color: '#1565c0', symbol: '🐟' },
   bade: { label: 'Badeplasser', color: '#00897b', symbol: '≈' },
   utsikt: { label: 'Utsiktspunkter', color: '#6a3fb5', symbol: '◉' },

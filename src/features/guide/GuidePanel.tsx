@@ -125,7 +125,7 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
   return (
     <div className="panel-section">
       <div className="details-head">
-        <span className="kind">{isTrail ? 'Kjent turrute' : 'Kjent plass'}</span>
+        <span className="kind">{isTrail ? 'Kjent turrute' : item.type === 'historie' ? 'Historie' : 'Kjent plass'}</span>
         <button className="icon" onClick={onClose} aria-label="Lukk">✕</button>
       </div>
       {isTrail ? (
@@ -177,8 +177,17 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
             {item.position[0].toFixed(5)}, {item.position[1].toFixed(5)}
             {item.moved && canEdit && <span className="muted"> · flyttet av deg</span>}
           </p>
-          <PlaceConditions lat={item.position[0]} lon={item.position[1]} bestTimes={item.bestTimes} />
+          {item.type !== 'historie' && <PlaceConditions lat={item.position[0]} lon={item.position[1]} bestTimes={item.bestTimes} />}
           {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig{canEdit ? '. Dra markøren i kartet eller trykk «Velg i kartet»' : ''}.</p>}
+          {item.sources && (
+            <ul className="story-sources">
+              {item.sources.map((s) => (
+                <li key={s.url}>
+                  <a href={s.url} target="_blank" rel="noreferrer">{s.label} ↗</a>
+                </li>
+              ))}
+            </ul>
+          )}
           {item.published ? (
             canEdit && <p className="hint">Publisert fra dine registreringer. Endre punktet under Mine data og trykk «Oppdater publisert».</p>
           ) : (

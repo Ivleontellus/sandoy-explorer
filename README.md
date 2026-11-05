@@ -45,6 +45,8 @@ Bygget setter `VITE_FEEDBACK_URL` til repoets «New issue»-side, så knappen «
 | Fergetider | Østfold kollektivtrafikk, Hvalerferga D 801 | Lagt inn som data i `src/features/ferry/timetables.ts` |
 | Kjente turruter og kjente plasser | Turkart fra Havely Bryggerhus (Facebook 2020), stedfestet via Kartverket/OSM | `src/features/guide/guide.ts`. Bare Hovedveien har linje (fra OSM); Hjertestien og Kløverstien tegnes inn av brukeren. Plasser kan flyttes (dra eller «Velg i kartet»); flyttinger lagres lokalt som overstyringer, aldri i kildedataene |
 
+**Historier** (kategori `historie`) er små merker på hus og steder, i `GUIDE_SPOTS` med egne `sources`. Tekstene skrives med egne ord, og ikke klipp inn bøker, avisartikler eller bilder uten tillatelse. Nye historier kan også lages i appen: nytt punkt i kategorien «Historier», og «Publiser for alle».
+
 Nye offentlige lag legges til i [src/map/publicLayers.ts](src/map/publicLayers.ts).
 
 > Før appen publiseres for mange brukere: OSM sine fliser har en bruksregel som ikke tillater tung bruk i apper. Kartverket er derfor standard.
