@@ -139,29 +139,60 @@
   box-shadow: 0 -6px 24px rgba(15, 35, 25, 0.2);
   display: flex;
   flex-direction: column;
-  transform: translateY(calc(100% - 64px));
+  /* Lukket ark viser bare toppen, over hjemlinja på telefoner uten hjemknapp. */
+  transform: translateY(calc(100% - 60px - env(safe-area-inset-bottom)));
   transition: transform 0.25s ease;
 }
 .panel.open {
   transform: translateY(0);
 }
-.panel-handle {
-  border: none;
-  background: none;
-  padding: 10px 0 4px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
+.panel.dragging {
+  transition: none;
 }
-.panel-handle span {
-  width: 44px;
+/* Hele toppen er ett trykkefelt, og touch-action lar fingeren dra arket i stedet for siden. */
+.panel-handle {
+  flex-shrink: 0;
+  height: 60px;
+  width: 100%;
+  padding: 8px 16px 6px;
+  border: none;
+  border-radius: 18px 18px 0 0;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.panel-grip {
+  width: 48px;
   height: 5px;
   border-radius: 3px;
-  background: var(--border);
+  background: #aab5ae;
+}
+.panel-handle-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+}
+.panel-handle-action {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 700;
 }
 .panel-body {
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0 16px calc(16px + env(safe-area-inset-bottom));
 }
 
@@ -823,6 +854,7 @@ a.button.primary {
   .tabs button {
     font-size: 13px;
     padding: 8px 2px;
+    min-height: 44px;
   }
 }
 

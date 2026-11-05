@@ -7,6 +7,7 @@ import { useFeatureStore } from './data/store'
 import { useAppMode } from './data/appMode'
 import { usePublished } from './data/published'
 import { PublishBox } from './features/publish/PublishBox'
+import { PanelHandle } from './features/common/PanelHandle'
 import { mergedTrails, publishedSpots } from './features/guide/fromPublished'
 import { SettingsPanel } from './features/settings/SettingsPanel'
 import { DataPanel } from './features/data/DataPanel'
@@ -698,7 +699,10 @@ export default function App() {
         onReady={setMap}
         onSelect={(id) => {
           select(id)
-          if (!id) setSelectedPublic(null)
+          if (id) return
+          setSelectedPublic(null)
+          // Trykk i kartet lukker bunnarket, men et skjema under arbeid blir stående åpent.
+          if (!poiForm) setPanelOpen(false)
         }}
         onMapClick={(lat, lon) => {
           if (mode === 'pickPlace') {
@@ -793,9 +797,7 @@ export default function App() {
       )}
 
       <aside className={`panel ${panelOpen ? 'open' : ''}`}>
-        <button className="panel-handle" onClick={() => setPanelOpen((o) => !o)} aria-label={panelOpen ? 'Skjul panel' : 'Vis panel'}>
-          <span />
-        </button>
+        <PanelHandle open={panelOpen} onChange={setPanelOpen} />
         <div className="panel-body">{panelContent}</div>
       </aside>
 
