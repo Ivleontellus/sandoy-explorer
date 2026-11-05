@@ -580,7 +580,7 @@ export default function App() {
             [
               ['lag', 'Kartlag'],
               ['data', 'Mine data'],
-              ['bat', 'Båt'],
+              ['bat', 'Ferge'],
               ['sol', 'Sol'],
             ] as const
           )

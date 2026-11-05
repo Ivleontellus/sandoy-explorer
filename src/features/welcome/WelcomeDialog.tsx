@@ -44,7 +44,7 @@ export function WelcomeDialog({ onClose }: { onClose: () => void }) {
             <strong>Kartlag</strong>: slå på kulturminner, eldre bygninger, berggrunn og fergeleier.
           </li>
           <li>
-            <strong>Båt</strong>: neste avganger med Hvalerferga, og hvilke turer som må bestilles.
+            <strong>Ferge</strong>: neste avganger med Hvalerferga, og hvilke turer som må bestilles.
           </li>
           <li>
             <strong>Sol</strong>: hvor sola står, og tidevann fra Viker.
