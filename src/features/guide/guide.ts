@@ -223,6 +223,15 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Riksantikvaren (Kulturminnesøk)',
     sources: [{ label: 'Kulturminnesøk: Sølyst (Ankervillaen)', url: 'https://kulturminnesok.no/ra/lokalitet/325041' }],
   },
+  {
+    id: 'h-torine',
+    name: 'Ferga Torine',
+    type: 'historie',
+    position: [59.0168, 11.0639],
+    note: 'Hvalerferga MS Torine, som legger til her, er oppkalt etter Nilsine «Torine» Madsen. Hun var forskolelærer og ble i 1913 den første kvinnen i Hvaler herredsstyre, valgt inn for Venstre. Ved det valget kom bare to kvinner inn på fast plass i et herredsstyre i Smaalenenes Amt, i Rygge og på Hvaler.',
+    source: 'Dagsavisen 2023 · Hvaler kulturvernforening',
+    sources: [{ label: 'Dagsavisen: Ferga får navn etter kvinnelig pioner', url: 'https://www.dagsavisen.no/nyheter/den-nye-hvalerferga-far-navn-etter-kvinnelig-pioner/5439689' }],
+  },
   // Kafé og gårdsutsalg
   {
     id: 's-oline',
