@@ -135,8 +135,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 'h-rodsbrygga',
     name: 'Rødsbrygga: prinsen som kom i land',
     type: 'historie',
-    position: [59.0037, 11.068],
-    approximate: true,
+    position: [59.00523, 11.06849],
     note: 'Morgenen 21. mai 1813 gikk den danske arveprinsen Christian Frederik i land på Rødsbrygga. Det var hans første skritt på norsk jord. Han kom som ny stattholder, og reiste forkledd som matros for ikke å bli oppdaget av engelskmennene.\n\nÅret etter ble han valgt til Norges konge på Eidsvoll, men han måtte gi fra seg kronen samme høst.',
     source: 'Østfoldmuseene / Kystmuseet Hvaler',
     sources: [
@@ -205,8 +204,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 'h-grotvika',
     name: 'Steinen til Oslo rådhus',
     type: 'historie',
-    position: [59.01389, 11.10072],
-    approximate: true,
+    position: [59.014121, 11.100655],
     note: 'I Grøtvika ligger et nedlagt steinbrudd. Gneisen til fasaden på Oslo rådhus ble tatt ut her. Grå gneis kløyver ikke jevnt slik granitt gjør, så det kostet mye arbeid å få ut pene emner.',
     source: 'Visit Fredrikstad & Hvaler · Fredriksstad Blad 1974',
     sources: [
