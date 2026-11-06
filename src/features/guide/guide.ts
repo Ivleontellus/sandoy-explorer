@@ -230,6 +230,15 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Dagsavisen 2023 · Hvaler kulturvernforening',
     sources: [{ label: 'Dagsavisen: Ferga får navn etter kvinnelig pioner', url: 'https://www.dagsavisen.no/nyheter/den-nye-hvalerferga-far-navn-etter-kvinnelig-pioner/5439689' }],
   },
+  {
+    id: 'h-torbal',
+    name: 'Torine fra Torbal',
+    type: 'historie',
+    position: [59.02281, 11.09987],
+    note: 'Fra Torbal kom Torine Pettersen. Hun giftet seg med Haldor Pettersen og flyttet ut til Tisler, den ytterste øya i Hvaler som har vært bebodd. Der ute var han tredje generasjon, og hjemmet deres het Enga.\n\nDe to ble kjent som fargerike og solide slitere, med et par kuer, sauer og fiske som levebrød. Tisler-folket var ofte blant de første som kom forliste til hjelp.\n\nDa Haldor var død, flyttet Torine inn til Skjærhalden, der hun levde resten av livet. Hun må ikke forveksles med fergen Torine, som har navnet etter Nilsine «Torine» Madsen.',
+    source: 'Aslak Jensen, Fredriksstad Blad 1984 · Kartverket',
+    sources: [{ label: 'Aslak Jensen: Møte med Tisler, Fredriksstad Blad 28. juli 1984, s. 9', url: 'https://www.nb.no/items/ee117a6031c12f0b6bcaa58f2adf8145' }],
+  },
   // Kafé og gårdsutsalg
   {
     id: 's-oline',
