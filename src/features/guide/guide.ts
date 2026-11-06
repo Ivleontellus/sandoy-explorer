@@ -249,6 +249,18 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Halden Arbeiderblad 1969',
     sources: [{ label: 'Sommer-aristokratiske Gravningsund blir folketomt til vinteren, Halden Arbeiderblad 16. august 1969, s. 6', url: 'https://www.nb.no/items/ea26daf0072f8fabc3c5d98cf42778e3' }],
   },
+  {
+    id: 'h-vinbergsnegl',
+    name: 'De «franske» sneglene',
+    type: 'historie',
+    position: [59.015963, 11.068798],
+    note: 'De store sneglene med brunt hus som du kan møte på øya, er vinbergsnegl, den samme arten som ofte blir til franske escargots. Den er Norges største landsnegl med hus.\n\nArten ble trolig innført til Norge i middelalderen, fordi snegl regnet som fastemat i kirken. På Hvaler er den satt ut noen steder, og på Søndre Sandøy er den registrert flere steder, blant annet her ved Nedgården.\n\nPå øya fortelles det at sneglene rømte fra en som avlet dem her. Hvem det var og når, har vi ikke funnet ut. Vet du mer, si gjerne fra.',
+    source: 'Østfolds naturarv · GBIF · lokalkunnskap',
+    sources: [
+      { label: 'Østfolds naturarv, s. 232', url: 'https://www.nb.no/items/449d07d90a1239d4880f52b0cfbd42ef' },
+      { label: 'GBIF: Helix pomatia', url: 'https://www.gbif.org/species/search?q=Helix%20pomatia' },
+    ],
+  },
   // Kafé og gårdsutsalg
   {
     id: 's-oline',
