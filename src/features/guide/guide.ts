@@ -239,6 +239,16 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Aslak Jensen, Fredriksstad Blad 1984 · Kartverket',
     sources: [{ label: 'Aslak Jensen: Møte med Tisler, Fredriksstad Blad 28. juli 1984, s. 9', url: 'https://www.nb.no/items/ee117a6031c12f0b6bcaa58f2adf8145' }],
   },
+  {
+    id: 'h-cubaflagget',
+    name: 'Cuba-flagget i Gravningsund',
+    type: 'historie',
+    position: [59.02466, 11.09657],
+    approximate: true,
+    note: 'Sommeren 1969 vaiet Cubas revolusjonsflagg over en av holmene i Gravningsund. Ifølge Halden Arbeiderblad gikk det rykter om at eieren av holmen hadde søkt Cubas ambassade om lov til å bruke flagget, og fått ja.\n\nAvisen spøkte med at det kanskje skjedde mens Finn Gustavsen ferievikarierte som ambassadør, og slo fast at Castro hadde okkupert en holme i det aristokratiske Gravningsund.\n\nAvisen sier ikke hvilken holme det var, så merket står bare omtrent. Vet du hvilken, si gjerne fra.',
+    source: 'Halden Arbeiderblad 1969',
+    sources: [{ label: 'Sommer-aristokratiske Gravningsund blir folketomt til vinteren, Halden Arbeiderblad 16. august 1969, s. 6', url: 'https://www.nb.no/items/ea26daf0072f8fabc3c5d98cf42778e3' }],
+  },
   // Kafé og gårdsutsalg
   {
     id: 's-oline',
