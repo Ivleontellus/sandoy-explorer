@@ -118,6 +118,26 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     bestTimes: { daypart: [], tide: ['hoyvann', 'lavvann'] },
     source: 'Lokalkunnskap',
   },
+  // Overnatting og camping
+  {
+    id: 'o-stuevika',
+    name: 'Stuevika teltplass',
+    type: 'overnatting',
+    position: [59.00849, 11.08255],
+    note: 'Familievennlig teltplass ved sandstranda i Stuevika, ca. 20 minutter å gå fra fergekaia på Nedgården. Enkel standard, med toalett og vann. All camping må bestilles på forhånd.',
+    website: 'https://onlinebooking.camp/stuevikateltplass',
+    source: 'Visit Fredrikstad & Hvaler · OpenStreetMap',
+  },
+  {
+    id: 'o-havely',
+    name: 'Havely Bryggerhus',
+    type: 'overnatting',
+    position: [59.0155, 11.0742],
+    approximate: true,
+    note: 'Bryggerhus til leie på Nedgården, 60 m² med 6 senger. Leies ut privat.',
+    website: 'https://www.finn.no/reise/feriehus-hytteutleie/ad.html?finnkode=171963101',
+    source: 'FINN · Google Maps',
+  },
   // Natur og utsikt
   { id: 'u-losen', name: 'Utkikkspunkt losen', type: 'utsikt', position: [58.9942, 11.0623], source: 'OpenStreetMap' },
   { id: 'n-blabaer', name: 'Blåbær', type: 'baer', position: [59.012754, 11.079454], note: 'Godt med blåbær langs stien.', source: 'Lokalkunnskap' },
@@ -131,6 +151,16 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Lokalkunnskap',
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
+  {
+    id: 'h-adolfsen',
+    name: 'Adolfsen Båtbyggeri',
+    type: 'historie',
+    position: [59.016595, 11.064445],
+    note: 'I 1937 startet brødrene Harry og Gunnar Adolfsen båtbyggeri på Søndre Sandøy. De bygde båter i tradisjonell krysser-stil, og noen av dem kan du fortsatt se på fjorden.\n\nHarrys sønn Tore tok over i 1973, og sommeren 1978 ble den siste båten bygd helt og fullt her. Siden 2017 har Tore drevet videre sammen med sønnen Martin.\n\nBedriften holder til på samme sted som i 1937, men slippen er byttet ut med truck. I dag er det bryggeplass til 40 båter og vinteropplag for 130. Det meste av arbeidet er på plastbåter, men trebåtene er fortsatt en spesialitet.',
+    website: 'https://adolfsenbat.no/',
+    source: 'Adolfsen Båtbyggeri',
+    sources: [{ label: 'Adolfsen Båtbyggeri: Historie', url: 'https://adolfsenbat.no/historie/' }],
+  },
   {
     id: 'h-rodsbrygga',
     name: 'Rødsbrygga: prinsen som kom i land',
@@ -324,7 +354,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
 
 /** Grupper for kjente plasser, så vanlige brukere kan slå av og på det de er ute etter. */
 export interface SpotGroup {
-  id: 'fiske' | 'bade' | 'mat' | 'historie' | 'kultur' | 'natur' | 'praktisk'
+  id: 'fiske' | 'bade' | 'overnatting' | 'mat' | 'historie' | 'kultur' | 'natur' | 'praktisk'
   label: string
   symbol: string
   types: PoiCategory[]
@@ -333,6 +363,7 @@ export interface SpotGroup {
 export const SPOT_GROUPS: SpotGroup[] = [
   { id: 'fiske', label: 'Fiske', symbol: '🐟', types: ['fiske'] },
   { id: 'bade', label: 'Bading og båt', symbol: '≈', types: ['bade', 'brygge'] },
+  { id: 'overnatting', label: 'Overnatting og camping', symbol: '⛺', types: ['overnatting'] },
   { id: 'mat', label: 'Kafé og gårdsutsalg', symbol: '☕', types: ['servering', 'bod'] },
   { id: 'historie', label: 'Historier', symbol: '📖', types: ['historie'] },
   { id: 'kultur', label: 'Kultur og historie', symbol: '⚑', types: ['historisk', 'kunst'] },
