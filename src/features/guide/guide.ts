@@ -96,17 +96,15 @@ const ALL_DAY: BestTimes = { daypart: ['morgen', 'dag', 'kveld'], tide: [] }
 
 /**
  * Plasseringene er kontrollert og justert lokalt (november 2026), med utgangspunkt i turkartet
- * og navneregistrene. Ikke justert ennå: Salta, Gjøkvika, Reiertangen, Stuevika badeplass,
+ * og navneregistrene. Ikke justert ennå: Reiertangen, Stuevika badeplass,
  * Utkikkspunkt losen og Nordre Sandøy skole.
  */
 export const GUIDE_SPOTS: GuideSpot[] = [
   // Fiske
   { id: 'f-lervika', name: 'Lervika', type: 'fiske', position: [59.020268, 11.073162], bestTimes: MORNING_EVENING, source: 'Turkart · lokalkunnskap' },
   { id: 'f-krossholmen', name: 'Krossholmen', type: 'fiske', position: [59.014256, 11.058061], bestTimes: ALL_DAY, source: 'Turkart · lokalkunnskap' },
-  { id: 'f-salta', name: 'Salta', type: 'fiske', position: [59.01369, 11.06278], source: 'Turkart · Kartverket' },
   { id: 'f-sauholmen', name: 'Sauholmen', type: 'fiske', position: [59.009677, 11.057771], bestTimes: MORNING_EVENING, source: 'Turkart · lokalkunnskap' },
   { id: 'f-fiskekroken', name: 'Fiskekroken', type: 'fiske', position: [59.011588, 11.08807], bestTimes: ALL_DAY, source: 'Turkart · lokalkunnskap' },
-  { id: 'f-gjokvika', name: 'Gjøkvika', type: 'fiske', position: [59.0174, 11.1054], source: 'Turkart · OpenStreetMap' },
   { id: 'f-reiertangen', name: 'Reiertangen', type: 'fiske', position: [59.01672, 11.10976], source: 'Turkart · Kartverket' },
   { id: 'f-storhavna', name: 'Storhavna', type: 'fiske', position: [59.021155, 11.112252], bestTimes: ALL_DAY, source: 'Turkart · lokalkunnskap' },
   { id: 'f-buvika', name: 'Buvika', type: 'fiske', position: [59.022969, 11.091889], bestTimes: MORNING_EVENING, source: 'Turkart · lokalkunnskap' },
