@@ -292,8 +292,8 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 'h-vinbergsnegl',
     name: 'De «franske» sneglene',
     type: 'historie',
-    position: [59.015963, 11.068798],
-    note: 'De store sneglene med brunt hus som du kan møte på øya, er vinbergsnegl, den samme arten som ofte blir til franske escargots. Den er Norges største landsnegl med hus.\n\nPå Hvaler er den satt ut noen steder, og på Søndre Sandøy er den registrert flere steder, blant annet her ved Nedgården.\n\nPå øya fortelles det at sneglene rømte fra en som avlet dem her. Hvem det var og når, har vi ikke funnet ut. Vet du mer, si gjerne fra.\n\nTil Norge kom arten trolig allerede i middelalderen, men sneglene her har nok en mye yngre historie.',
+    position: [59.009876, 11.084991],
+    note: 'De store sneglene med brunt hus som du kan møte på øya, er vinbergsnegl, den samme arten som ofte blir til franske escargots. Den er Norges største landsnegl med hus.\n\nPå Hvaler er den satt ut noen steder, og på Søndre Sandøy er den registrert flere steder, blant annet her ved Stuevika.\n\nPå øya fortelles det at sneglene rømte fra en som avlet dem her. Hvem det var og når, har vi ikke funnet ut. Vet du mer, si gjerne fra.\n\nTil Norge kom arten trolig allerede i middelalderen, men sneglene her har nok en mye yngre historie.',
     source: 'Østfolds naturarv · GBIF · lokalkunnskap',
     sources: [
       { label: 'Østfolds naturarv, s. 232', url: 'https://www.nb.no/items/449d07d90a1239d4880f52b0cfbd42ef' },
