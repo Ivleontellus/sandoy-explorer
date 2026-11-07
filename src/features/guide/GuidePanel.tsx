@@ -2,6 +2,7 @@ import { POI_CATEGORIES } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
 import { LinkedText, WebsiteButton } from '../common/Links'
 import { PublishedPhotos } from '../photos/PhotoGallery'
+import { SpeciesCard } from '../nature/NaturePanel'
 
 const PUBLISHED_BASE = `${import.meta.env.BASE_URL}data/`
 import { GUIDE_ATTRIBUTION, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
@@ -168,6 +169,17 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
             </p>
           )}
           {item.photos && <PublishedPhotos paths={item.photos} baseUrl={PUBLISHED_BASE} />}
+          {item.plants && (
+            <>
+              <h3>Sjeldne planter her</h3>
+              <div className="species-list">
+                {item.plants.map((p) => (
+                  <SpeciesCard key={p.id} species={p} />
+                ))}
+              </div>
+              <p className="hint">Bildene viser artene, men er tatt andre steder. Plantene er små og står i et sårbart område, så gå varsomt.</p>
+            </>
+          )}
           {item.website && (
             <div className="actions">
               <WebsiteButton url={item.website} />

@@ -21,17 +21,143 @@ export interface Species {
   id: string
   name: string
   latinName: string
-  group: 'Sommerfugl' | 'Snegl'
-  /** Når arten er registrert på øya. */
+  group: 'Sommerfugl' | 'Snegl' | 'Plante'
+  /** Når arten er registrert på øya, eller når planten er lettest å se. */
   season: string
   /** Hvor på øya den er funnet flest ganger. */
   places: string
   note: string
+  /** Status i Norsk rødliste 2021, bare for rødlistede arter. */
+  redList?: string
   photo: SpeciesPhoto
 }
 
 const CC_BY = 'https://creativecommons.org/licenses/by/4.0/deed.no'
 const CC_BY_NC = 'https://creativecommons.org/licenses/by-nc/4.0/deed.no'
+
+/**
+ * Plantene Fylkesmannen selv omtaler fra Sandøysalta (2011). De vises bare samlet på reservatet,
+ * aldri med punkt. Bildene er fra andre steder, så de peker ikke ut voksestedene i reservatet.
+ * «Når» er oppsummert fra funn i GBIF rundt Hvaler; rødlistestatus er Norsk rødliste 2021.
+ */
+export const SANDOYSALTA_PLANTS: Species[] = [
+  {
+    id: 'tusengylden',
+    name: 'Tusengylden',
+    latinName: 'Centaurium littorale',
+    group: 'Plante',
+    season: 'Juli–september',
+    places: 'Sandøysalta',
+    note: 'En vakker liten plante med rosa stjerneblomster, typisk for strandenger.',
+    redList: 'Nær truet',
+    photo: {
+      file: 'tusengylden.jpg',
+      photographer: 'Kristine Kvellestad',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/5233752409',
+    },
+  },
+  {
+    id: 'dverggylden',
+    name: 'Dverggylden',
+    latinName: 'Centaurium pulchellum',
+    group: 'Plante',
+    season: 'Juli–august',
+    places: 'Sandøysalta',
+    note: 'Den enda mindre slektningen til tusengylden. Du må nesten ned på kne for å se den.',
+    photo: {
+      file: 'dverggylden.jpg',
+      photographer: 'Theodor Korsgaard',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/5287679638',
+    },
+  },
+  {
+    id: 'jordbaerklover',
+    name: 'Jordbærkløver',
+    latinName: 'Trifolium fragiferum',
+    group: 'Plante',
+    season: 'Juli–august',
+    places: 'Sandøysalta',
+    note: 'Navnet kommer av at blomsten minner om et jordbær.',
+    redList: 'Sårbar',
+    photo: {
+      file: 'jordbaerklover.jpg',
+      photographer: 'Else Ruud-Jørgensen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/6434921327',
+    },
+  },
+  {
+    id: 'strandrodtopp',
+    name: 'Strandrødtopp',
+    latinName: 'Odontites litoralis',
+    group: 'Plante',
+    season: 'Juli–august',
+    places: 'Sandøysalta',
+    note: 'Rødlig strandplante med små blomster langs stilken.',
+    photo: {
+      file: 'strandrodtopp.jpg',
+      photographer: 'Jan Sørensen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/2528941167',
+    },
+  },
+  {
+    id: 'ormetunge',
+    name: 'Ormetunge',
+    latinName: 'Ophioglossum vulgatum',
+    group: 'Plante',
+    season: 'Mai–august',
+    places: 'Sandøysalta',
+    note: 'En liten og uvanlig bregne med ett blad og en sporebærende «tunge».',
+    redList: 'Nær truet',
+    photo: {
+      file: 'ormetunge.jpg',
+      photographer: 'Jon Bekken',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4989441157',
+    },
+  },
+  {
+    id: 'marinokkel',
+    name: 'Marinøkkel',
+    latinName: 'Botrychium lunaria',
+    group: 'Plante',
+    season: 'Mai–juni',
+    places: 'Sandøysalta',
+    note: 'En annen liten bregne, med vifteformede småblader. Den er lett å overse.',
+    photo: {
+      file: 'marinokkel.jpg',
+      photographer: 'Ole Bjørn Braathen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/6356572468',
+    },
+  },
+  {
+    id: 'bittergronn',
+    name: 'Bittergrønn',
+    latinName: 'Chimaphila umbellata',
+    group: 'Plante',
+    season: 'Juli–august',
+    places: 'Tørrere mark i Sandøysalta',
+    note: 'En fredet plante med blanke, tagget blader. Den er grønn hele året.',
+    redList: 'Sterkt truet',
+    photo: {
+      file: 'bittergronn.jpg',
+      photographer: 'Else Ruud-Jørgensen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/6405707427',
+    },
+  },
+]
 
 export const SPECIES: Species[] = [
   {

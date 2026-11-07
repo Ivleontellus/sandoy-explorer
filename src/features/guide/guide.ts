@@ -1,5 +1,6 @@
 import type { LineString } from 'geojson'
 import type { BestTimes, PoiCategory } from '../../data/model'
+import { SANDOYSALTA_PLANTS, type Species } from '../nature/species'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -82,6 +83,8 @@ export interface GuideSpot {
   sources?: { label: string; url: string }[]
   /** Posisjonen er et gjett eller ukjent; brukeren bør flytte markøren. */
   approximate?: boolean
+  /** Planter som vises med bilde på plassen, uten egne punkter. */
+  plants?: Species[]
   /** Bildestier relativt til public/data/ (bare publiserte plasser). */
   photos?: string[]
   /** Publisert fra appen; endres via egne registreringer + «Oppdater publisert». */
@@ -154,9 +157,11 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     name: 'Sandøysalta naturreservat',
     type: 'planter',
     position: [59.0127, 11.0641],
-    note: 'Sandøysalta er et lite naturreservat på eidet mellom Søndre Sandøy og Sauholmen, vernet i 2010. Strandenga er den største på Sandøyene og blant de største på Hvaler, med variert vegetasjon og flere sjeldne arter.\n\nHer gjelder egne regler. Planter og sopp skal stå, og dyrelivet skal ikke forstyrres. Bål er forbudt, og du kan bare sykle på stier og traktorveier som finnes fra før. Gå varsomt, så strandenga tåler besøket.',
-    source: 'Verneforskriften · Verneplan for Østfoldkysten',
+    note: 'For noen hundre år siden måtte man vasse eller ro over til Sauholmen. Landhevingen løftet så Salta opp av sjøen, og øyboerne tok den i bruk som beite. Beitingen ga et helt spesielt planteliv, med mange arter som er uvanlige i dag.\n\nStrandenger som denne var vanlige før, men mange er borte på grunn av utbygging, oppdyrking og gjengroing. Salta er en av de største på Hvaler og regnes som nasjonalt verneverdig. Reservatet er på 98 dekar og ble vernet i 2010.\n\nI løvskogen på østsiden er fuglelivet rikt i hekketiden, og også nattergalen er hørt her.\n\nAlle plantene er fredet, så se, men ikke plukk. Bål er forbudt, og sykler skal holde seg på stier og traktorvei.',
+    plants: SANDOYSALTA_PLANTS,
+    source: 'Fylkesmannen i Østfold 2011 · verneforskriften',
     sources: [
+      { label: 'Informasjonsark fra Fylkesmannen i Østfold', url: 'https://felles.naturbase.no/api/dokument/hent/10152.PDF' },
       { label: 'Verneforskriften på Lovdata', url: 'https://lovdata.no/forskrift/2010-04-16-547' },
       { label: 'Faktaark i Naturbase', url: 'https://faktaark.naturbase.no/?id=VV00002955' },
     ],
