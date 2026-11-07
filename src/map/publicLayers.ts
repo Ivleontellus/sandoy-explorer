@@ -43,29 +43,6 @@ export const BASEMAPS: BaseMap[] = [
   },
 ]
 
-export interface WmsOverlay {
-  id: string
-  label: string
-  /** Hvilket tema-lag overlegget hører til i lagpanelet. */
-  theme: 'geologi'
-  url: string
-  layers: string
-  attribution: string
-  opacity: number
-}
-
-export const WMS_OVERLAYS: WmsOverlay[] = [
-  {
-    id: 'ngu-berggrunn',
-    label: 'Berggrunn (NGU)',
-    theme: 'geologi',
-    url: 'https://geo.ngu.no/mapserver/BerggrunnWMS3',
-    layers: 'Berggrunn_nasjonal_hovedbergarter',
-    attribution: '&copy; <a href="https://www.ngu.no/">NGU</a>',
-    opacity: 0.55,
-  },
-]
-
 /**
  * Offentlige objektkilder (hentes som data, ikke fliser). Vises som egne lag i panelet.
  * Selve hentingen ligger i hver features-modul; dette er bare katalogen.

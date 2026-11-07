@@ -38,7 +38,6 @@ Bygget setter `VITE_FEEDBACK_URL` til repoets «New issue»-side, så knappen «
 | Topografisk (standard) | Kartverket `cache.kartverket.no` | Åpen WMTS, CC BY 4.0 |
 | Gråtone | Kartverket | Åpen WMTS |
 | OpenStreetMap | tile.openstreetmap.org | Kun visning, ingen konto trengs |
-| Berggrunn | NGU WMS (`BerggrunnWMS3`) | Overlegg under «Offentlige kartdata» |
 | Kulturminner | Riksantikvaren OGC API Features (`api.ra.no`) | Åpne data. Hentes for Hvaler kommune, filtreres til øya, mellomlagres 30 dager |
 | Eldre bygninger | Riksantikvaren OGC API Features, SEFRAK-registeret (`api.ra.no/KulturminnerSEFRAKbygninger`) | NLOD. Hentes med bbox for øya (ca. 340 bygninger), mellomlagres 30 dager. Koder oversettes med SOSI-spesifikasjonen «Kulturminner – SEFRAK» 20160503 i `src/features/buildings/sefrakApi.ts`. Under zoom 15 vises bare meldepliktige (før 1850) |
 | Tidevann | Kartverket «Se havnivå» (`vannstand.kartverket.no`) | Stasjon Viker. Krever kildehenvisning |

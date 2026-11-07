@@ -59,6 +59,17 @@ export function NaturePanel({ onShowSpot }: { onShowSpot: (id: string) => void }
         </li>
       </ul>
 
+      <h3>Berggrunnen</h3>
+      <p className="desc">
+        Søndre Sandøy skiller seg ut. Mens Kirkøy, Nordre Sandøy og mye av resten av Hvaler består av granitt, er Søndre Sandøy, som Herføl, bygd av glimmergneis. Gneisen er rundt 1,5–1,7
+        milliarder år gammel, langt eldre enn granitten, som er rundt 900–1000 millioner år.
+      </p>
+      <ul className="story-sources">
+        <li>
+          <a href="https://geo.ngu.no/kart/berggrunn_mobil/" target="_blank" rel="noreferrer">Berggrunnskart fra NGU ↗</a>
+        </li>
+      </ul>
+
       <h3>Dette kan du se på øya</h3>
       <div className="species-list">
         {SPECIES.map((s) => (

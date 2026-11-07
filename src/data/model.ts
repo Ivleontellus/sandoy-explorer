@@ -3,7 +3,7 @@ import type { Feature, FeatureCollection, LineString, MultiLineString, Point } f
 /**
  * Datamodell for PRIVATE registreringer. Alt her lagres lokalt i nettleseren
  * og forlater aldri enheten med mindre brukeren eksplisitt eksporterer det.
- * Offentlige kartdata (bakgrunnskart, NGU-geologi osv.) ligger i src/map/publicLayers.ts
+ * Offentlige kartdata (bakgrunnskart, kulturminner osv.) ligger i src/map/publicLayers.ts
  * og blandes aldri inn i denne modellen.
  */
 

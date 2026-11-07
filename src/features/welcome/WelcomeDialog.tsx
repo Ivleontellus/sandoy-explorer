@@ -41,7 +41,7 @@ export function WelcomeDialog({ onClose }: { onClose: () => void }) {
             <strong>Trykk på symbolene</strong> i kartet for turruter, fiske- og badeplasser, kafeer og kulturminner.
           </li>
           <li>
-            <strong>Kartlag</strong>: slå på kulturminner, eldre bygninger, berggrunn og fergeleier.
+            <strong>Kartlag</strong>: slå på kulturminner, eldre bygninger og fergeleier.
           </li>
           <li>
             <strong>Ferge</strong>: neste avganger med Hvalerferga, og hvilke turer som må bestilles.

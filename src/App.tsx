@@ -71,7 +71,6 @@ export default function App() {
   const { features, dispatch, byId } = useFeatureStore()
   const [map, setMap] = useState<LeafletMap | null>(null)
   const [basemapId, setBasemapId] = useState(BASEMAPS[0].id)
-  const [overlays, setOverlays] = useState<string[]>([])
   const [sources, setSources] = useState<PublicFeatureSource['id'][]>(DEFAULT_SOURCES)
   const [selectedPublic, setSelectedPublic] = useState<PublicSelection>(null)
   const [ferryRoute, setFerryRoute] = useState<FerryRoute>(loadRoute)
@@ -597,8 +596,6 @@ export default function App() {
           <LayerPanel
             basemapId={basemapId}
             onBasemap={setBasemapId}
-            activeOverlays={overlays}
-            onToggleOverlay={(id) => setOverlays((o) => (o.includes(id) ? o.filter((x) => x !== id) : [...o, id]))}
             activeSources={sources}
             onToggleSource={(id) => {
               setSources((o) => (o.includes(id) ? o.filter((x) => x !== id) : [...o, id]))
@@ -680,7 +677,6 @@ export default function App() {
 
       <MapView
         basemapId={basemapId}
-        activeOverlays={overlays}
         features={canEdit ? visibleFeatures : []}
         selectedId={selectedId}
         mode={mode}

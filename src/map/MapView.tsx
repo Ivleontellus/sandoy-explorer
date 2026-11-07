@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css'
 import L, { type Map as LeafletMap } from 'leaflet'
 import type { Position } from 'geojson'
-import { MapContainer, Marker, ScaleControl, TileLayer, Tooltip, WMSTileLayer, useMapEvents } from 'react-leaflet'
+import { MapContainer, Marker, ScaleControl, TileLayer, Tooltip, useMapEvents } from 'react-leaflet'
 import type { MapFeature } from '../data/model'
 import { SunOverlay } from '../features/sun/SunOverlay'
 import { DrawLine, EditLine } from './DrawTools'
@@ -14,7 +14,7 @@ import { BuildingLayer } from '../features/buildings/BuildingLayer'
 import type { SefrakBuilding } from '../features/buildings/sefrakApi'
 import { STOPS, STOP_ORDER, type StopId } from '../features/ferry/timetables'
 import { ferryIcon, meIcon } from './icons'
-import { BASEMAPS, DEFAULT_ZOOM, SANDOY_CENTER, WMS_OVERLAYS } from './publicLayers'
+import { BASEMAPS, DEFAULT_ZOOM, SANDOY_CENTER } from './publicLayers'
 
 // Canvas med klikktoleranse gjør tynne linjer lette å treffe med fingeren.
 const renderer = L.canvas({ tolerance: 10 })
@@ -31,7 +31,6 @@ export type PublicSelection =
 
 interface Props {
   basemapId: string
-  activeOverlays: string[]
   features: MapFeature[]
   selectedId: string | null
   mode: MapMode
@@ -87,15 +86,6 @@ export function MapView(props: Props) {
       }}
     >
       <TileLayer key={basemap.id} url={basemap.url} attribution={basemap.attribution} maxZoom={19} maxNativeZoom={basemap.maxZoom} />
-      {WMS_OVERLAYS.filter((o) => props.activeOverlays.includes(o.id)).map((o) => (
-        <WMSTileLayer
-          key={o.id}
-          url={o.url}
-          params={{ layers: o.layers, format: 'image/png', transparent: true }}
-          opacity={o.opacity}
-          attribution={o.attribution}
-        />
-      ))}
       <ScaleControl imperial={false} position="bottomleft" />
 
       <FeatureLayers
