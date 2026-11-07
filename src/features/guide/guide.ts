@@ -191,6 +191,16 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
   {
+    id: 'h-gartnerens-dagbok',
+    name: 'Gartnerens dagbok fra 1938',
+    type: 'historie',
+    position: [59.01413, 11.07284],
+    approximate: true,
+    note: 'Våren 1938 begynte gartner Dagfinn Andresen på Løkkeberg å skrive dagbok. Arbeidet i drivbenkene startet 27. mars, og 8. april prikket han ut 1400 tomatplanter og 850 sommerkålplanter.\n\nVåren ble en prøvelse. Langfredag var himmelen sommerblå, og dagen etter lå snøen på bakken. Så kom tørken. Gartneren vannet med bøtter og kanner og skrev at de snart var «på van(n)viddets rand». Kråkene trakk opp sukkerertene, og kråkejakten ga ikke en eneste fjær. Den 11. mai kom nattefrosten, og den 23. ble kuene sluppet i skauen, der det var lite å gnage på.\n\nLørdagene dro han til torvet i Halden med purre, nellik, stemorsblomster og forglemmegei. Første torvdag ga rundt 60 kroner. Da 1. mai kom, så han seg om etter demonstrasjonstog, men hvem skulle vel demonstrere på Søndre Sandøy? Og storoksen Ferdinant satte seg fast mellom stallen og fjøset, men kom seg etter hvert.\n\nDen 1. juni kom regnet endelig. Den 18. juni bestemte Dagfinn seg for å bade, men det ble med en tå i vannet. Ved sankthans var det 12 grader, og de første badegjestene dukket opp i badedrakt.',
+    source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Kartverket',
+    sources: [{ label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' }],
+  },
+  {
     id: 'h-kuene-1898',
     name: 'Kuene til Severin',
     type: 'historie',
