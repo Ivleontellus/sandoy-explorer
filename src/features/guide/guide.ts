@@ -144,10 +144,9 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 'o-sjohus-nedgarden',
     name: 'Sjøhus på Nedgården',
     type: 'overnatting',
-    position: [59.0167, 11.0636],
-    approximate: true,
+    position: [59.016803, 11.064981],
     note: 'Sjøhus til leie på stranda ved fergeleiet, med stue og kjøkken, to soverom, hems, bad og veranda med grill.',
-    source: 'Visit Fredrikstad & Hvaler',
+    source: 'Visit Fredrikstad & Hvaler · lokalkunnskap',
     sources: [{ label: 'Visit Fredrikstad & Hvaler', url: 'https://wordpress.visitfredrikstadhvaler.com/en/kategori/seahouse-en/' }],
   },
   // Natur og utsikt
