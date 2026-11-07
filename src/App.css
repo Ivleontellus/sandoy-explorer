@@ -858,6 +858,75 @@ a.button.primary {
   }
 }
 
+/* ---------- Natur og arter ---------- */
+.nature-place {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  min-height: 44px;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.nature-place-name {
+  font-weight: 600;
+}
+.species-list {
+  display: grid;
+  gap: 12px;
+}
+.species-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.species-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+.species-body {
+  padding: 10px 12px 12px;
+}
+.species-body h4 {
+  margin: 0;
+  font-size: 15px;
+}
+.species-body p {
+  margin: 6px 0;
+}
+.species-body .species-latin {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+}
+.species-body dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 10px;
+  margin: 8px 0;
+}
+.species-body dt {
+  color: var(--muted);
+}
+.species-body dd {
+  margin: 0;
+}
+.species-body .species-credit {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
 /* ---------- Turkart (kjente turer og plasser) ---------- */
 .guide-icon {
   width: 28px;

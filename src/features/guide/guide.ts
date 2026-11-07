@@ -149,6 +149,18 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   // Natur og utsikt
   { id: 'u-losen', name: 'Utkikkspunkt losen', type: 'utsikt', position: [58.9942, 11.0623], source: 'OpenStreetMap' },
+  {
+    id: 'n-sandoysalta',
+    name: 'Sandøysalta naturreservat',
+    type: 'planter',
+    position: [59.0127, 11.0641],
+    note: 'Sandøysalta er et lite naturreservat på eidet mellom Søndre Sandøy og Sauholmen, vernet i 2010. Strandenga er den største på Sandøyene og blant de største på Hvaler, med variert vegetasjon og flere sjeldne arter.\n\nHer gjelder egne regler. Planter og sopp skal stå, og dyrelivet skal ikke forstyrres. Bål er forbudt, og du kan bare sykle på stier og traktorveier som finnes fra før. Gå varsomt, så strandenga tåler besøket.',
+    source: 'Verneforskriften · Verneplan for Østfoldkysten',
+    sources: [
+      { label: 'Verneforskriften på Lovdata', url: 'https://lovdata.no/forskrift/2010-04-16-547' },
+      { label: 'Faktaark i Naturbase', url: 'https://faktaark.naturbase.no/?id=VV00002955' },
+    ],
+  },
   { id: 'n-blabaer', name: 'Blåbær', type: 'baer', position: [59.012754, 11.079454], note: 'Godt med blåbær langs stien.', source: 'Lokalkunnskap' },
   // Publisert etter eksplisitt ønske fra den som registrerte den (mineralforekomster holdes ellers private).
   {

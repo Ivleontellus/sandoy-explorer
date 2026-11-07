@@ -37,6 +37,7 @@ import {
   type SpotGroup,
 } from './features/guide/guide'
 import { GuideDetails, SpotList, TrailList } from './features/guide/GuidePanel'
+import { NaturePanel } from './features/nature/NaturePanel'
 import { SunPanel } from './features/sun/SunPanel'
 import { finishDrawing } from './map/DrawTools'
 import { DEFAULT_VISIBILITY, themeOf, type LayerVisibility } from './map/layers'
@@ -45,7 +46,7 @@ import { BASEMAPS, ISLAND_BOUNDS, SANDOY_CENTER, type PublicFeatureSource } from
 import { WelcomeDialog, useWelcome } from './features/welcome/WelcomeDialog'
 import './App.css'
 
-type Tab = 'lag' | 'data' | 'bat' | 'sol'
+type Tab = 'lag' | 'data' | 'bat' | 'natur' | 'sol'
 /** Det en vanlig bruker ser ved første åpning: kuraterte plasser og turruter, ikke de tunge registerlagene. */
 const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['turruter', 'plasser']
 
@@ -581,6 +582,7 @@ export default function App() {
               ['lag', 'Kartlag'],
               ['data', 'Mine data'],
               ['bat', 'Ferge'],
+              ['natur', 'Natur'],
               ['sol', 'Sol'],
             ] as const
           )
@@ -632,6 +634,7 @@ export default function App() {
           />
         )}
         {tab === 'bat' && <FerryPanel route={ferryRoute} onRoute={setFerryRoute} />}
+        {tab === 'natur' && <NaturePanel onShowSpot={(id) => selectPublic({ kind: 'guide', id })} />}
         {tab === 'data' && <DataPanel onSelect={select} onImportGpx={() => gpxRef.current?.click()} />}
         {tab === 'sol' && (
           <SunPanel
