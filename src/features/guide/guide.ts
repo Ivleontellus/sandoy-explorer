@@ -138,6 +138,16 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     website: 'https://www.finn.no/reise/feriehus-hytteutleie/ad.html?finnkode=171963101',
     source: 'FINN · Google Maps',
   },
+  {
+    id: 'o-sjohus-nedgarden',
+    name: 'Sjøhus på Nedgården',
+    type: 'overnatting',
+    position: [59.0167, 11.0636],
+    approximate: true,
+    note: 'Sjøhus til leie på stranda ved fergeleiet, med stue og kjøkken, to soverom, hems, bad og veranda med grill.',
+    source: 'Visit Fredrikstad & Hvaler',
+    sources: [{ label: 'Visit Fredrikstad & Hvaler', url: 'https://wordpress.visitfredrikstadhvaler.com/en/kategori/seahouse-en/' }],
+  },
   // Natur og utsikt
   { id: 'u-losen', name: 'Utkikkspunkt losen', type: 'utsikt', position: [58.9942, 11.0623], source: 'OpenStreetMap' },
   { id: 'n-blabaer', name: 'Blåbær', type: 'baer', position: [59.012754, 11.079454], note: 'Godt med blåbær langs stien.', source: 'Lokalkunnskap' },
