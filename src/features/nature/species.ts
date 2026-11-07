@@ -11,7 +11,7 @@ export interface SpeciesPhoto {
   /** Filnavn i public/arter/. */
   file: string
   photographer: string
-  license: 'CC BY 4.0' | 'CC BY-NC 4.0' | 'CC BY-SA 3.0'
+  license: 'CC BY 4.0' | 'CC BY-NC 4.0' | 'CC BY-SA 3.0' | 'Fri bruk med navn'
   licenseUrl: string
   /** Funnet bildet hører til. */
   sourceUrl: string
@@ -43,6 +43,15 @@ export const GJOLERTANGEN_PHOTO: SpeciesPhoto = {
   license: 'CC BY-SA 3.0',
   licenseUrl: CC_BY_SA_3,
   sourceUrl: 'https://commons.wikimedia.org/wiki/File:Gj%C3%B8lertangen.jpg',
+}
+
+/** Fotografen oppgir at bildene kan brukes fritt med referanse til ham. */
+export const PENSJONATET_PHOTO: SpeciesPhoto = {
+  file: 'pensjonatet-buvika.jpg',
+  photographer: 'Stig Ulfsby',
+  license: 'Fri bruk med navn',
+  licenseUrl: 'https://stig.ulfsby.no/2011/04/bilder-sondre-sandoy-hvaler/',
+  sourceUrl: 'https://stig.ulfsby.no/2011/04/bilder-sondre-sandoy-hvaler/',
 }
 
 export const SALTERIET_PHOTO: SpeciesPhoto = {

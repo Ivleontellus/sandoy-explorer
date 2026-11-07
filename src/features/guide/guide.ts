@@ -1,6 +1,6 @@
 import type { LineString } from 'geojson'
 import type { BestTimes, PoiCategory } from '../../data/model'
-import { GJOLERTANGEN_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
+import { GJOLERTANGEN_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -190,6 +190,35 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Lokalkunnskap',
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
+  {
+    id: 'h-pensjonat-gravningsund',
+    name: 'Gravningsund Sommerpensjonat',
+    type: 'historie',
+    position: [59.024, 11.0985],
+    approximate: true,
+    image: PENSJONATET_PHOTO,
+    note: 'Sina Eilertsen åpnet sommerpensjonatet sitt i 1936, lengst øst i sundet, i et hus fra 1912. Her var 12 soverom, to stuer og en stor spisesal, og plass til rundt 25 gjester. Verandaen ble bygd på i 1938–39.\n\nRegnskapet for 1940 viser et overskudd på rundt 1500 kroner, og gjestene la igjen 5165 kroner. Det meste pensjonatet trengte, kom fra øya. Sina hadde ku, kvige, kalv, 12 høner og 19 mål dyrket jord.\n\nDriften stoppet en periode under krigen i 1941, men gikk så videre til 1949. Etterpå kunne man i noen år leie seg inn og stelle seg selv.',
+    source: 'Lokalhistorisk bok om Hvaler · Østfold fylkes billedarkiv',
+    sources: [{ label: 'Flyfoto fra 1964 i DigitaltMuseum', url: 'https://digitaltmuseum.no/011015144456/gravningsund' }],
+  },
+  {
+    id: 'h-pensjonat-bakkevik',
+    name: 'Bakkevik Pensjonat',
+    type: 'historie',
+    position: [59.02079, 11.07841],
+    approximate: true,
+    note: 'Bakkevik Pensjonat åpnet i 1936 og holdt det gående i rundt seks år, til krigen gjorde det vanskelig å skaffe mat. Det var fullt hus hver sommer. Først var det 15 gjester, de siste tre årene 18, og da ble det også leid rom i nabohusene. Pensjonatet hadde sin egen lille badestrand, som ble flittig brukt.',
+    source: 'Lokalhistorisk bok om Hvaler · Kartverket',
+  },
+  {
+    id: 'h-pensjonat-bjornvall',
+    name: 'Bjørnvalls pensjonat',
+    type: 'historie',
+    position: [59.00258, 11.06926],
+    approximate: true,
+    note: 'Bjørnvalls pensjonat i Herfølrenna startet i 1929. Marianne Bjørnvall drev det til hun døde i 1938, og så overtok datteren Karoline. Først var det plass til 10–15 gjester. Flere rom ble innredet i forretningen til faren Thor, og på det meste kunne 30–35 gjester nyte sommeren på Vennern. Driften gikk for fullt til 1939.',
+    source: 'Lokalhistorisk bok om Hvaler · Kartverket',
+  },
   {
     id: 'h-oldtidshuset',
     name: 'Oldtidshuset på Skjelleren',
