@@ -12,7 +12,7 @@ const API = 'https://api.ra.no/LokaliteterEnkeltminnerOgSikringssoner/collection
 const HVALER_KOMMUNE = '3110'
 /** Tjenesten ignorerer bbox-parameteren, så vi henter hele kommunen og filtrerer selv. [vest, sør, øst, nord] */
 const ISLAND_BBOX = [11.04, 58.975, 11.14, 59.03] as const
-const CACHE_KEY = 'sandoy-explorer:heritage:v2'
+const CACHE_KEY = 'sandoy-explorer:heritage:v3'
 const CACHE_TTL_MS = 30 * 24 * 3600_000
 
 export interface HeritageSite {
@@ -84,16 +84,23 @@ function inBbox([lat, lon]: [number, number]): boolean {
   return lon >= ISLAND_BBOX[0] && lon <= ISLAND_BBOX[2] && lat >= ISLAND_BBOX[1] && lat <= ISLAND_BBOX[3]
 }
 
+/** Navn på lokaliteter som står uten navn i registeret. */
+const NAME_OVERRIDES: Record<string, string> = {
+  '32658': 'Hvalertufter ved Salta (Hjalmar Johnsens tuft)',
+  '80415': 'Gravfelt med to gravrøyser',
+}
+
 /** Eksportert for tester. */
 export function toSite(f: Feature): HeritageSite | null {
   const g = f.geometry
   if (!g || (g.type !== 'Polygon' && g.type !== 'MultiPolygon')) return null
   const p = (f.properties ?? {}) as Record<string, unknown>
   const centroid = centroidOf(g)
+  // Samme kulturminneId kan ha flere geometrier (flere features), så feature-id-en er den unike.
+  const id = String(f.id ?? p.kulturminneId ?? '')
   return {
-    // Samme kulturminneId kan ha flere geometrier (flere features), så feature-id-en er den unike.
-    id: String(f.id ?? p.kulturminneId ?? ''),
-    name: typeof p.navn === 'string' && p.navn.trim() ? p.navn.trim() : 'Uten navn',
+    id,
+    name: typeof p.navn === 'string' && p.navn.trim() ? p.navn.trim() : (NAME_OVERRIDES[id] ?? 'Uten navn'),
     info: typeof p.informasjon === 'string' ? p.informasjon.trim() : '',
     category: String(p.lokalitetskategori ?? ''),
     art: String(p.lokalitetsart ?? ''),
