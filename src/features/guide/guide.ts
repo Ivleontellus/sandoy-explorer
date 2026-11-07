@@ -165,6 +165,19 @@ export const GUIDE_SPOTS: GuideSpot[] = [
       { label: 'Faktaark i Naturbase', url: 'https://faktaark.naturbase.no/?id=VV00002955' },
     ],
   },
+  {
+    id: 'n-gjolertangen',
+    name: 'Gjølertangen naturreservat',
+    type: 'planter',
+    position: [58.9981, 11.0811],
+    note: 'Gjølertangen er sørspissen av Søndre Sandøy. Her har vind og bølger fritt spillerom. Fjellet vaskes rent, og busker og trær må huke seg ned for å overleve.\n\nFurua dominerer, og i den lunere nordre delen står trær som er hele 70 cm tykke. Skogen har også en av fylkets største forekomster av barlind, et tre som kan bli over 2000 år gammelt. Barlinden er giftig for dyr og mennesker, men rådyret tåler den og spiser gjerne det grønne baret om vinteren.\n\nBlant de uvanlige plantene er strandmalurt, kommuneblomsten til Hvaler. Reservatet er på 215 dekar og ble vernet i 2010.\n\nAlle plantene og trærne er fredet, så se, men ikke plukk. Bål er forbudt, og sykler skal holde seg på stier og traktorvei.',
+    source: 'Fylkesmannen i Østfold 2011 · verneforskriften',
+    sources: [
+      { label: 'Informasjonsark fra Fylkesmannen i Østfold', url: 'https://felles.naturbase.no/api/dokument/hent/10152.PDF' },
+      { label: 'Verneforskriften på Lovdata', url: 'https://lovdata.no/forskrift/2010-04-16-552' },
+      { label: 'Faktaark i Naturbase', url: 'https://faktaark.naturbase.no/?id=VV00002960' },
+    ],
+  },
   { id: 'n-blabaer', name: 'Blåbær', type: 'baer', position: [59.012754, 11.079454], note: 'Godt med blåbær langs stien.', source: 'Lokalkunnskap' },
   // Publisert etter eksplisitt ønske fra den som registrerte den (mineralforekomster holdes ellers private).
   {
