@@ -69,4 +69,13 @@ describe('Kulturminner', () => {
     expect(s?.name).toBe('Salta')
     expect(s?.link).toContain('kulturminnesok')
   })
+
+  it('retter øynavnet fra registeret', () => {
+    const s = toSite({
+      type: 'Feature',
+      geometry: { type: 'MultiPolygon', coordinates: [[[[11.0, 59.0], [11.2, 59.0], [11.2, 59.2], [11.0, 59.2]]]] },
+      properties: { navn: 'Batteritangen Søre Sandøy', kulturminneId: '1-2' },
+    })
+    expect(s?.name).toBe('Batteritangen Søndre Sandøy')
+  })
 })

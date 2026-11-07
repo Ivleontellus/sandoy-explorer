@@ -12,7 +12,7 @@ const API = 'https://api.ra.no/LokaliteterEnkeltminnerOgSikringssoner/collection
 const HVALER_KOMMUNE = '3110'
 /** Tjenesten ignorerer bbox-parameteren, så vi henter hele kommunen og filtrerer selv. [vest, sør, øst, nord] */
 const ISLAND_BBOX = [11.04, 58.975, 11.14, 59.03] as const
-const CACHE_KEY = 'sandoy-explorer:heritage:v3'
+const CACHE_KEY = 'sandoy-explorer:heritage:v4'
 const CACHE_TTL_MS = 30 * 24 * 3600_000
 
 export interface HeritageSite {
@@ -90,6 +90,11 @@ const NAME_OVERRIDES: Record<string, string> = {
   '80415': 'Gravfelt med to gravrøyser',
 }
 
+/** Registeret skriver «Søre Sandøy»; øya heter Søndre Sandøy. */
+function cleanName(name: string): string {
+  return name.trim().replace(/Søre Sandøy/g, 'Søndre Sandøy')
+}
+
 /** Eksportert for tester. */
 export function toSite(f: Feature): HeritageSite | null {
   const g = f.geometry
@@ -100,7 +105,7 @@ export function toSite(f: Feature): HeritageSite | null {
   const id = String(f.id ?? p.kulturminneId ?? '')
   return {
     id,
-    name: typeof p.navn === 'string' && p.navn.trim() ? p.navn.trim() : (NAME_OVERRIDES[id] ?? 'Uten navn'),
+    name: typeof p.navn === 'string' && p.navn.trim() ? cleanName(p.navn) : (NAME_OVERRIDES[id] ?? 'Uten navn'),
     info: typeof p.informasjon === 'string' ? p.informasjon.trim() : '',
     category: String(p.lokalitetskategori ?? ''),
     art: String(p.lokalitetsart ?? ''),
