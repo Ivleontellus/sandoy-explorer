@@ -41,7 +41,7 @@ export function WelcomeDialog({ onClose }: { onClose: () => void }) {
             <strong>Trykk på symbolene</strong> i kartet for turruter, fiske- og badeplasser, kafeer og kulturminner.
           </li>
           <li>
-            <strong>Kartlag</strong>: det meste er slått på. Skru av det du ikke trenger, eller slå på kulturminner og eldre bygninger.
+            <strong>Kartlag</strong>: det meste er slått på. Skru av det du ikke trenger. Kulturminnene kommer frem når du zoomer inn, og eldre bygninger kan slås på.
           </li>
           <li>
             <strong>Natur</strong>: naturreservater, skogen, berggrunnen og arter du kan møte, med bilder.

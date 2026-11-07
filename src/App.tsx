@@ -48,7 +48,7 @@ import './App.css'
 
 type Tab = 'lag' | 'data' | 'bat' | 'natur' | 'sol'
 /** Det en vanlig bruker ser ved første åpning: kuraterte plasser og turruter, ikke de tunge registerlagene. */
-const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['ferge', 'turruter', 'plasser']
+const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['kulturminner', 'ferge', 'turruter', 'plasser']
 
 /** Hold zoom-til-objekt fri av panelet (sidepanel på desktop, bunnark på mobil). */
 const fitPadding = (): L.FitBoundsOptions =>
@@ -604,7 +604,7 @@ export default function App() {
             }}
             showPrivate={canEdit}
             sourceStatus={{
-              kulturminner: heritage.loading ? 'Henter …' : heritage.error ? 'Feil: ' + heritage.error : heritage.sites.length ? String(heritage.sites.length) : undefined,
+              kulturminner: heritage.loading ? 'Henter …' : heritage.error ? 'Feil: ' + heritage.error : heritage.sites.length ? `${heritage.sites.length} · vises når du zoomer inn` : undefined,
               bygninger: buildings.loading ? 'Henter …' : buildings.error ? 'Feil: ' + buildings.error : buildings.buildings.length ? String(buildings.buildings.length) : undefined,
             }}
             visibility={visibility}

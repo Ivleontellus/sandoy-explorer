@@ -48,7 +48,7 @@ export function NaturePanel({ onShowSpot }: { onShowSpot: (id: string) => void }
       <h3>Skogen på øya</h3>
       <p className="desc">
         Søndre Sandøy er den mest skogkledte av øyene på Hvaler. Noe av furuskogen er rundt 100 år gammel, og trærne har blitt svært store. Flere steder er den kartlagt som gammel furuskog med gamle trær, blant annet ved Svarteberget, Utsikten,
-        Grøtvika og Gravningsund. Ellers kan du møte eik, lind, ask, alm og hassel.
+        Grøtvika og Gravningsund. Ellers kan du møte barlind, eik, lind, ask, alm og hassel.
       </p>
       <ul className="story-sources">
         <li>

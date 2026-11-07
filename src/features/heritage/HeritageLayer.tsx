@@ -11,6 +11,8 @@ interface Props {
   onSelect: (id: string) => void
 }
 
+/** Kulturminnene er mange, så markørene kommer først når man zoomer inn. Valgt kulturminne vises alltid. */
+export const HERITAGE_MIN_ZOOM = 15.5
 const OUTLINE_MIN_ZOOM = 16
 
 /** Offentlige kulturminner: markør i sentroiden, og omriss av lokaliteten når man er zoomet inn. */
@@ -21,7 +23,7 @@ export function HeritageLayer({ sites, selectedId, interactive, onSelect }: Prop
 
   return (
     <>
-      {sites.map((s) => {
+      {sites.filter((s) => zoom >= HERITAGE_MIN_ZOOM || s.id === selectedId).map((s) => {
         const selected = s.id === selectedId
         return (
           <Marker
