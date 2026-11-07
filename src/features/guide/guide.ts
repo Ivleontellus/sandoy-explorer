@@ -191,6 +191,26 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
   {
+    id: 'h-oldtidshuset',
+    name: 'Oldtidshuset på Skjelleren',
+    type: 'historie',
+    position: [59.00999, 11.06716],
+    approximate: true,
+    note: 'Sommeren 1941 ble en gammel hustuft på gården Skjelleren bygd opp igjen. Trelastagent og amatørarkeolog Hjalmar Johnsen ledet arbeidet, og en gruppe studenter gjorde jobben gratis på to uker. Fredrikstad og Omegns Historielag tok initiativet, mens De No Fa og Lilleborg Fabrikker betalte det meste av utgiftene.
+
+Huset ble kalt Oldtidshuset og hadde to rom. Det største var omtrent 4,5 x 4,5 meter, med åre og røykåpning, og det minste ble tolket som en kubås. Under arbeidet fant de flintavfall, en knokkel som trolig var fra ku, og en stridsøks av jern av vikingtidstype.
+
+Samme sommer la de også en stor bronsealderrøys på Rød tilbake i sin opprinnelige form.
+
+Vi vet ikke helt sikkert hvilken tuft som ble bygd opp igjen, så merket er omtrentlig. Vet du mer, si gjerne fra. Tuftene er fredet, og ingen stein må flyttes.',
+    source: 'Den Nye Tid 1942 · Fredriksstad Blad 1974 · Fredriksstad Blad 1977',
+    sources: [
+      { label: 'Den Nye Tid, 6. mai 1942, s. 2', url: 'https://www.nb.no/items/ba0f9aac7d9e0f36620458a355214e96' },
+      { label: 'Fredriksstad Blad, 6. juli 1974, s. 11', url: 'https://www.nb.no/items/971c3d8b6a2152481647bc9e25e5dba7' },
+      { label: 'Fredriksstad Blad, 27. august 1977, s. 7', url: 'https://www.nb.no/items/2146140b7089bb917a05ac5c2a6f695f' },
+    ],
+  },
+  {
     id: 'h-adolfsen',
     name: 'Adolfsen Båtbyggeri',
     type: 'historie',
