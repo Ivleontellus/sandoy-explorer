@@ -196,12 +196,13 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     type: 'historie',
     position: [59.00999, 11.06716],
     approximate: true,
-    note: 'Sommeren 1941 ble en gammel hustuft på gården Skjelleren bygd opp igjen. Trelastagent og amatørarkeolog Hjalmar Johnsen ledet arbeidet, og en gruppe studenter gjorde jobben gratis på to uker. Fredrikstad og Omegns Historielag tok initiativet, mens De No Fa og Lilleborg Fabrikker betalte det meste av utgiftene.\n\nHuset ble kalt Oldtidshuset og hadde to rom. Det største var omtrent 4,5 x 4,5 meter, med åre og røykåpning, og det minste ble tolket som en kubås. Under arbeidet fant de flintavfall, en knokkel som trolig var fra ku, og en stridsøks av jern av vikingtidstype.\n\nSamme sommer la de også en stor bronsealderrøys på Rød tilbake i sin opprinnelige form.\n\nVi vet ikke helt sikkert hvilken tuft som ble bygd opp igjen, så merket er omtrentlig. Vet du mer, si gjerne fra. Tuftene er fredet, og ingen stein må flyttes.',
-    source: 'Den Nye Tid 1942 · Fredriksstad Blad 1974 · Fredriksstad Blad 1977',
+    note: 'Sommeren 1941 ble en gammel hustuft på gården Skjelleren bygd opp igjen. Trelastagent og amatørarkeolog Hjalmar Johnsen ledet arbeidet, og en gruppe studenter gjorde jobben gratis på to uker. Fredrikstad og Omegns Historielag tok initiativet, mens De No Fa og Lilleborg Fabrikker betalte det meste av utgiftene.\n\nHuset ble kalt Oldtidshuset og hadde to rom. Det største var omtrent 4,5 x 4,5 meter, med åre og røykåpning, og det minste ble tolket som en kubås. Under arbeidet fant de flintavfall, en knokkel som trolig var fra ku, og en stridsøks av jern av vikingtidstype.\n\nSamme sommer la de også en stor bronsealderrøys på Rød tilbake i sin opprinnelige form.\n\nDet er avdekket rundt 300 hustufter på Hvaler, særlig på Kirkøy og Søndre Sandøy. Dette er den eneste som ble fullstendig restaurert. Tuftene er kulturminner, så la steinene ligge.\n\nVi vet ikke helt sikkert hvilken tuft som ble bygd opp igjen, så merket er omtrentlig. Vet du mer, si gjerne fra.',
+    source: 'Den Nye Tid 1942 · Fredriksstad Blad 1974 og 1977 · Riksantikvaren · Hvaler kulturvernforening',
     sources: [
       { label: 'Den Nye Tid, 6. mai 1942, s. 2', url: 'https://www.nb.no/items/ba0f9aac7d9e0f36620458a355214e96' },
       { label: 'Fredriksstad Blad, 6. juli 1974, s. 11', url: 'https://www.nb.no/items/971c3d8b6a2152481647bc9e25e5dba7' },
       { label: 'Fredriksstad Blad, 27. august 1977, s. 7', url: 'https://www.nb.no/items/2146140b7089bb917a05ac5c2a6f695f' },
+      { label: 'Hvaler kulturvernforening: Hvalers historie', url: 'http://www.hvalerkulturvernforening.no/6758-2/' },
     ],
   },
   {
@@ -233,18 +234,6 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     position: [59.00472, 11.07646],
     note: 'Her bodde Klara Andersen, kjent som «Klara Havna» og «Tante Klara». Hun ble født på plassen 20. januar 1892, og bodde her i over 99 år.\n\nHun vokste opp med foreldrene og lillesøsteren. Faren døde i 1910 og søsteren året etter. Klara bodde med moren til hun døde i 1943, og siden alene med kattene sine.\n\nDa strømmen kom til øya i 1950, skal naboene ha samlet inn penger, så også Klara fikk kokestrøm og et lampepunkt. Hun huskes som glad i besøk, med god hukommelse for navn og datoer. Huset var lite, men i mange år hadde hun likevel plass til en familie som sommergjester.\n\nVåren 1991 flyttet hun til aldershjemmet, og hun døde året etter, drøyt 100 år gammel. Til 100-årsdagen fortalte hun Fredriksstad Blad at hun hadde vært i Halden, på tur til Strømstad og bodd et halvt år i Fredrikstad. Resten av livet hadde hun her.\n\nHuset står i SEFRAK-registeret som «Bolighus, Kasa (Klara-huset)», med byggetid på 1700-tallet. Det er privat eiendom, så se det gjerne fra veien.',
     source: 'Lokalhistorisk tekst om Klara · Riksantikvaren (SEFRAK 0111-0102-085)',
-  },
-  {
-    id: 'h-oldtidshuset',
-    name: 'Oldtidshuset på Skjelleren',
-    type: 'historie',
-    position: [59.00999, 11.06716],
-    note: 'I 1948 restaurerte amatørarkeologen Hjalmar Johnsen en gammel hustuft her, med hjelp fra studenter. Hovedrommet målte omtrent 4,5 ganger 4,5 meter, med ildsted og røykåpning, og rett innenfor inngangen var det en kubås. Det ble også funnet en vikingøks.\n\nDet er avdekket rundt 300 hustufter på Hvaler, særlig på Kirkøy og Søndre Sandøy. Dette er den eneste som ble fullstendig restaurert. Tuftene er kulturminner, så la steinene ligge.',
-    source: 'Fredriksstad Blad 1974 · Riksantikvaren · Hvaler kulturvernforening',
-    sources: [
-      { label: 'Arthur Holter, Fredrikstad Blad 1974', url: 'https://stig.ulfsby.no/2017/05/sondre-sandoy-en-naturperle/' },
-      { label: 'Hvaler kulturvernforening: Hvalers historie', url: 'http://www.hvalerkulturvernforening.no/6758-2/' },
-    ],
   },
   {
     id: 'h-batteritangen',
