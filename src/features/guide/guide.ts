@@ -191,6 +191,16 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
   {
+    id: 'h-kuene-1898',
+    name: 'Kuene til Severin',
+    type: 'historie',
+    position: [59.00218, 11.07807],
+    approximate: true,
+    note: 'Nabokrangel er ikke noe nytt på øya. Skipsfører Ole Peter Eriksen bygde hus i Stuevika i 1875, og rundt 1896 begynte kuene til Severin Olsen på Ødegården å ta seg inn på jordet hans.\n\nEriksen satte opp nytt gjerde. Han hugde staur i skogen og rodde dem hjem, og sammen med kona hentet han 100 staur til. Han betalte også for 10 dagsverk, til 30–35 kroner. Likevel kom kuene og brøt seg gjennom. Havren, vikkeren, potetene, rugen og kløveren sto i fare.\n\nDen 25. juni 1898 hadde han fått nok og skrev til lensmannen. Han ba om at Olsen skulle få beskjed om å passe på dyrene sine, ellers ville loven gjelde. For, som han skrev: «1 Dag kan hele Sæden og Avlingen være forødet».\n\nVi vet ikke om kuene noen gang holdt seg på sin side av gjerdet.',
+    source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Kartverket',
+    sources: [{ label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' }],
+  },
+  {
     id: 'h-pensjonat-gravningsund',
     name: 'Gravningsund Sommerpensjonat',
     type: 'historie',
@@ -198,8 +208,11 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     approximate: true,
     image: PENSJONATET_PHOTO,
     note: 'Sina Eilertsen åpnet sommerpensjonatet sitt i 1936, lengst øst i sundet, i et hus fra 1912. Her var 12 soverom, to stuer og en stor spisesal, og plass til rundt 25 gjester. Verandaen ble bygd på i 1938–39.\n\nRegnskapet for 1940 viser et overskudd på rundt 1500 kroner, og gjestene la igjen 5165 kroner. Det meste pensjonatet trengte, kom fra øya. Sina hadde ku, kvige, kalv, 12 høner og 19 mål dyrket jord.\n\nDriften stoppet en periode under krigen i 1941, men gikk så videre til 1949. Etterpå kunne man i noen år leie seg inn og stelle seg selv.',
-    source: 'Lokalhistorisk bok om Hvaler · Østfold fylkes billedarkiv',
-    sources: [{ label: 'Flyfoto fra 1964 i DigitaltMuseum', url: 'https://digitaltmuseum.no/011015144456/gravningsund' }],
+    source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Østfold fylkes billedarkiv',
+    sources: [
+      { label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' },
+      { label: 'Flyfoto fra 1964 i DigitaltMuseum', url: 'https://digitaltmuseum.no/011015144456/gravningsund' },
+    ],
   },
   {
     id: 'h-pensjonat-bakkevik',
@@ -208,7 +221,8 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     position: [59.02079, 11.07841],
     approximate: true,
     note: 'Bakkevik Pensjonat åpnet i 1936 og holdt det gående i rundt seks år, til krigen gjorde det vanskelig å skaffe mat. Det var fullt hus hver sommer. Først var det 15 gjester, de siste tre årene 18, og da ble det også leid rom i nabohusene. Pensjonatet hadde sin egen lille badestrand, som ble flittig brukt.',
-    source: 'Lokalhistorisk bok om Hvaler · Kartverket',
+    source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Kartverket',
+    sources: [{ label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' }],
   },
   {
     id: 'h-pensjonat-bjornvall',
@@ -217,7 +231,8 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     position: [59.00258, 11.06926],
     approximate: true,
     note: 'Bjørnvalls pensjonat i Herfølrenna startet i 1929. Marianne Bjørnvall drev det til hun døde i 1938, og så overtok datteren Karoline. Først var det plass til 10–15 gjester. Flere rom ble innredet i forretningen til faren Thor, og på det meste kunne 30–35 gjester nyte sommeren på Vennern. Driften gikk for fullt til 1939.',
-    source: 'Lokalhistorisk bok om Hvaler · Kartverket',
+    source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Kartverket',
+    sources: [{ label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' }],
   },
   {
     id: 'h-oldtidshuset',
