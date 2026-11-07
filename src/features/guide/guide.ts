@@ -1,6 +1,6 @@
 import type { LineString } from 'geojson'
 import type { BestTimes, PoiCategory } from '../../data/model'
-import { SANDOYSALTA_PLANTS, type Species } from '../nature/species'
+import { GJOLERTANGEN_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -83,6 +83,8 @@ export interface GuideSpot {
   sources?: { label: string; url: string }[]
   /** Posisjonen er et gjett eller ukjent; brukeren bør flytte markøren. */
   approximate?: boolean
+  /** Bilde av stedet, med fotograf og lisens. */
+  image?: SpeciesPhoto
   /** Planter som vises med bilde på plassen, uten egne punkter. */
   plants?: Species[]
   /** Bildestier relativt til public/data/ (bare publiserte plasser). */
@@ -167,6 +169,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 'n-gjolertangen',
     name: 'Gjølertangen naturreservat',
     type: 'planter',
+    image: GJOLERTANGEN_PHOTO,
     position: [58.9981, 11.0811],
     note: 'Gjølertangen er sørspissen av Søndre Sandøy. Her har vind og bølger fritt spillerom. Fjellet vaskes rent, og busker og trær må huke seg ned for å overleve.\n\nFurua dominerer, og i den lunere nordre delen står trær som er hele 70 cm tykke. Skogen har også en av fylkets største forekomster av barlind, et tre som kan bli over 2000 år gammelt. Barlinden er giftig for dyr og mennesker, men rådyret tåler den og spiser gjerne det grønne baret om vinteren.\n\nBlant de uvanlige plantene er strandmalurt, kommuneblomsten til Hvaler. Reservatet er på 215 dekar og ble vernet i 2010.\n\nAlle plantene og trærne er fredet, så se, men ikke plukk. Bål er forbudt, og sykler skal holde seg på stier og traktorvei.',
     source: 'Fylkesmannen i Østfold 2011 · verneforskriften',
@@ -250,6 +253,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   {
     id: 'h-salteriet',
+    image: SALTERIET_PHOTO,
     name: 'Sildesalteriet i Gravningsund',
     type: 'historie',
     position: [59.02329, 11.09375],

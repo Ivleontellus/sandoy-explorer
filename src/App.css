@@ -881,6 +881,24 @@ a.button.primary {
   display: grid;
   gap: 12px;
 }
+.species-group {
+  margin: 14px 0 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.place-photo {
+  margin: 10px 0;
+}
+.place-photo img {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+}
+.place-photo .species-credit {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
 .species-card {
   overflow: hidden;
   border: 1px solid var(--border);

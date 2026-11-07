@@ -2,7 +2,7 @@ import { POI_CATEGORIES } from '../../data/model'
 import { PlaceConditions } from '../conditions/PlaceConditions'
 import { LinkedText, WebsiteButton } from '../common/Links'
 import { PublishedPhotos } from '../photos/PhotoGallery'
-import { SpeciesCard } from '../nature/NaturePanel'
+import { PlacePhoto, SpeciesCard } from '../nature/NaturePanel'
 
 const PUBLISHED_BASE = `${import.meta.env.BASE_URL}data/`
 import { GUIDE_ATTRIBUTION, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
@@ -163,6 +163,7 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
             {POI_CATEGORIES[item.type].symbol} {item.name}
           </h3>
           <p className="muted">{POI_CATEGORIES[item.type].label}</p>
+          {item.image && <PlacePhoto photo={item.image} alt={item.name} />}
           {item.note && (
             <p className="desc">
               <LinkedText text={item.note} />

@@ -11,7 +11,7 @@ export interface SpeciesPhoto {
   /** Filnavn i public/arter/. */
   file: string
   photographer: string
-  license: 'CC BY 4.0' | 'CC BY-NC 4.0'
+  license: 'CC BY 4.0' | 'CC BY-NC 4.0' | 'CC BY-SA 3.0'
   licenseUrl: string
   /** Funnet bildet hører til. */
   sourceUrl: string
@@ -21,7 +21,7 @@ export interface Species {
   id: string
   name: string
   latinName: string
-  group: 'Sommerfugl' | 'Snegl' | 'Plante'
+  group: 'Sommerfugl' | 'Småkryp' | 'Snegl' | 'Krypdyr' | 'Fugl' | 'I sjøen' | 'Plante'
   /** Når arten er registrert på øya, eller når planten er lettest å se. */
   season: string
   /** Hvor på øya den er funnet flest ganger. */
@@ -34,6 +34,24 @@ export interface Species {
 
 const CC_BY = 'https://creativecommons.org/licenses/by/4.0/deed.no'
 const CC_BY_NC = 'https://creativecommons.org/licenses/by-nc/4.0/deed.no'
+const CC_BY_SA_3 = 'https://creativecommons.org/licenses/by-sa/3.0/deed.no'
+
+/** Bilder av steder fra Wikimedia Commons. Husk navn og lisens ved visning. */
+export const GJOLERTANGEN_PHOTO: SpeciesPhoto = {
+  file: 'gjolertangen.jpg',
+  photographer: 'Stig Ulfsby',
+  license: 'CC BY-SA 3.0',
+  licenseUrl: CC_BY_SA_3,
+  sourceUrl: 'https://commons.wikimedia.org/wiki/File:Gj%C3%B8lertangen.jpg',
+}
+
+export const SALTERIET_PHOTO: SpeciesPhoto = {
+  file: 'salteriet.jpg',
+  photographer: 'Stig Ulfsby',
+  license: 'CC BY-SA 3.0',
+  licenseUrl: CC_BY_SA_3,
+  sourceUrl: 'https://commons.wikimedia.org/wiki/File:Sildesalteri_Gravningsund.jpg',
+}
 
 /**
  * Plantene Fylkesmannen selv omtaler fra Sandøysalta (2011). De vises bare samlet på reservatet,
@@ -225,6 +243,38 @@ export const SPECIES: Species[] = [
     },
   },
   {
+    id: 'kystringvinge',
+    name: 'Kystringvinge',
+    latinName: 'Hipparchia semele',
+    group: 'Sommerfugl',
+    season: 'Juli–august',
+    places: 'Stuevika og Rød',
+    note: 'Sitter gjerne på berg og stein med sammenslåtte vinger, og forsvinner nesten mot underlaget.',
+    photo: {
+      file: 'kystringvinge.jpg',
+      photographer: 'Peik Weidemann Wieland',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4517876512',
+    },
+  },
+  {
+    id: 'humlesvermer',
+    name: 'Bredkantet humlesvermer',
+    latinName: 'Hemaris fuciformis',
+    group: 'Sommerfugl',
+    season: 'Juni–juli',
+    places: 'Stuevika og Nedgården',
+    note: 'Flyr om dagen og står stille i lufta foran blomstene, nesten som en liten kolibri.',
+    photo: {
+      file: 'humlesvermer.jpg',
+      photographer: 'Peik Weidemann Wieland',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4517904503',
+    },
+  },
+  {
     id: 'vinbergsnegl',
     name: 'Vinbergsnegl',
     latinName: 'Helix pomatia',
@@ -238,6 +288,118 @@ export const SPECIES: Species[] = [
       license: 'CC BY-NC 4.0',
       licenseUrl: CC_BY_NC,
       sourceUrl: 'https://www.gbif.org/occurrence/4153888470',
+    },
+  },
+  {
+    id: 'harbasse',
+    name: 'Hårgullbasse',
+    latinName: 'Cetonia aurata',
+    group: 'Småkryp',
+    season: 'Mai–juli',
+    places: 'Stuevika og Gjølertangen',
+    note: 'En metallgrønn bille som ofte sitter på blomster.',
+    photo: {
+      file: 'hargullbasse.jpg',
+      photographer: 'Peik Weidemann Wieland',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4517854702',
+    },
+  },
+  {
+    id: 'sankthansorm',
+    name: 'Sankthansorm',
+    latinName: 'Lampyris noctiluca',
+    group: 'Småkryp',
+    season: 'Juli',
+    places: 'Stuevika, Salta og Gjøkvika',
+    note: 'En bille som lyser. Se etter små grønne lys i graskanten på lune sommerkvelder.',
+    photo: {
+      file: 'sankthansorm.jpg',
+      photographer: 'Peik Weidemann Wieland',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4906542866',
+    },
+  },
+  {
+    id: 'vepseedderkopp',
+    name: 'Vepseedderkopp',
+    latinName: 'Argiope bruennichi',
+    group: 'Småkryp',
+    season: 'August',
+    places: 'Rød og Gravningsund',
+    note: 'En stor edderkopp med gule og svarte striper. Den er ufarlig.',
+    photo: {
+      file: 'vepseedderkopp.jpg',
+      photographer: 'Peik Weidemann Wieland',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/5287634720',
+    },
+  },
+  {
+    id: 'stalorm',
+    name: 'Stålorm',
+    latinName: 'Anguis fragilis',
+    group: 'Krypdyr',
+    season: 'Mai–august',
+    places: 'Gravningsund og Stuevika',
+    note: 'Ser ut som en liten slange, men er en øgle uten bein. Den er helt ufarlig.',
+    photo: {
+      file: 'stalorm.jpg',
+      photographer: 'Marte Jørgensen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/3866466455',
+    },
+  },
+  {
+    id: 'stillits',
+    name: 'Stillits',
+    latinName: 'Carduelis carduelis',
+    group: 'Fugl',
+    season: 'Mai–september',
+    places: 'Veveriet og Nedgården',
+    note: 'En fargerik liten fink med rødt ansikt og gule vingebånd.',
+    photo: {
+      file: 'stillits.jpg',
+      photographer: 'Peik Weidemann Wieland',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4517890302',
+    },
+  },
+  {
+    id: 'kompassmanet',
+    name: 'Kompassmanet',
+    latinName: 'Chrysaora hysoscella',
+    group: 'I sjøen',
+    season: 'Juli',
+    places: 'Stuevika',
+    note: 'Har brune striper som minner om en kompassrose. Ikke rør den, for den kan brenne.',
+    photo: {
+      file: 'kompassmanet.jpg',
+      photographer: 'May-helen Karlsen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/5233735438',
+    },
+  },
+  {
+    id: 'nakensnegl',
+    name: 'Nakensnegl',
+    latinName: 'Facelina bostoniensis',
+    group: 'I sjøen',
+    season: 'Januar–april',
+    places: 'Under vann sørøst for øya',
+    note: 'Fargerike sjøsnegler uten hus. Dykkere har fotografert mange arter rundt øya.',
+    photo: {
+      file: 'nakensnegl.jpg',
+      photographer: 'Heine Jensen',
+      license: 'CC BY 4.0',
+      licenseUrl: CC_BY,
+      sourceUrl: 'https://www.gbif.org/occurrence/4039166617',
     },
   },
 ]

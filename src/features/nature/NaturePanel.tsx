@@ -1,6 +1,32 @@
-import { SPECIES, type Species } from './species'
+import { SPECIES, type Species, type SpeciesPhoto } from './species'
 
 const PHOTO_BASE = `${import.meta.env.BASE_URL}arter/`
+
+const SPECIES_GROUPS: { label: string; groups: Species['group'][] }[] = [
+  { label: 'Sommerfugler', groups: ['Sommerfugl'] },
+  { label: 'Småkryp og snegler', groups: ['Småkryp', 'Snegl'] },
+  { label: 'Krypdyr og fugler', groups: ['Krypdyr', 'Fugl'] },
+  { label: 'I sjøen', groups: ['I sjøen'] },
+]
+
+function PhotoCredit({ photo }: { photo: SpeciesPhoto }) {
+  return (
+    <p className="species-credit">
+      Foto: <a href={photo.sourceUrl} target="_blank" rel="noreferrer">{photo.photographer}</a>,{' '}
+      <a href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.license}</a>, nedskalert
+    </p>
+  )
+}
+
+/** Bilde av et sted, øverst i detaljvisningen. */
+export function PlacePhoto({ photo, alt }: { photo: SpeciesPhoto; alt: string }) {
+  return (
+    <figure className="place-photo">
+      <img src={PHOTO_BASE + photo.file} alt={alt} loading="lazy" />
+      <PhotoCredit photo={photo} />
+    </figure>
+  )
+}
 
 export function SpeciesCard({ species: s }: { species: Species }) {
   return (
@@ -22,10 +48,7 @@ export function SpeciesCard({ species: s }: { species: Species }) {
             </>
           )}
         </dl>
-        <p className="species-credit">
-          Foto: <a href={s.photo.sourceUrl} target="_blank" rel="noreferrer">{s.photo.photographer}</a>,{' '}
-          <a href={s.photo.licenseUrl} target="_blank" rel="noreferrer">{s.photo.license}</a>, nedskalert
-        </p>
+        <PhotoCredit photo={s.photo} />
       </div>
     </article>
   )
@@ -71,11 +94,16 @@ export function NaturePanel({ onShowSpot }: { onShowSpot: (id: string) => void }
       </ul>
 
       <h3>Dette kan du se på øya</h3>
-      <div className="species-list">
-        {SPECIES.map((s) => (
-          <SpeciesCard key={s.id} species={s} />
-        ))}
-      </div>
+      {SPECIES_GROUPS.map((g) => (
+        <section key={g.label}>
+          <h4 className="species-group">{g.label}</h4>
+          <div className="species-list">
+            {SPECIES.filter((s) => g.groups.includes(s.group)).map((s) => (
+              <SpeciesCard key={s.id} species={s} />
+            ))}
+          </div>
+        </section>
+      ))}
       <p className="hint">Når og hvor bygger på registrerte funn i GBIF, så artene kan også dukke opp andre steder. Se gjerne, men la dyr og planter være i fred.</p>
     </div>
   )
