@@ -48,7 +48,7 @@ import './App.css'
 
 type Tab = 'lag' | 'data' | 'bat' | 'natur' | 'sol'
 /** Det en vanlig bruker ser ved første åpning: kuraterte plasser og turruter, ikke de tunge registerlagene. */
-const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['turruter', 'plasser']
+const DEFAULT_SOURCES: PublicFeatureSource['id'][] = ['ferge', 'turruter', 'plasser']
 
 /** Hold zoom-til-objekt fri av panelet (sidepanel på desktop, bunnark på mobil). */
 const fitPadding = (): L.FitBoundsOptions =>
