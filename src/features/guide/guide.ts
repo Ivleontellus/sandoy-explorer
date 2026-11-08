@@ -191,6 +191,16 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
   {
+    id: 'h-elida',
+    name: 'Båtbyggeren og jakta Elida',
+    type: 'historie',
+    position: [59.0233, 11.0932],
+    approximate: true,
+    note: 'Lenge før Adolfsen var det Reinert Olsen som bygde båter på Torbal. På 1890-tallet hadde han seks–sju svenske arbeidere i sving, og de bygde særlig eker, små seilfartøy for fiske og frakt.\n\nPå Buvikstranda, også kalt Handelsviken, bygde han en jakt på hele 60 tonn. Den fikk navnet Elida. Kildene er uenige om året: både 1848 og 1876 er nevnt, men 1876 virker mest sannsynlig. Elida var en god seiler og fraktet trelast til Danmark.\n\nMerket er omtrentlig. Vet du hvor båtbyggeriet lå, si gjerne fra.',
+    source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Kartverket',
+    sources: [{ label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' }],
+  },
+  {
     id: 'h-gartnerens-dagbok',
     name: 'Gartnerens dagbok fra 1938',
     type: 'historie',
