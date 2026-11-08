@@ -342,9 +342,10 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     name: 'Steinen til Oslo rådhus',
     type: 'historie',
     position: [59.014121, 11.100655],
-    note: 'I Grøtvika ligger et nedlagt steinbrudd. Gneisen til fasaden på Oslo rådhus ble tatt ut her. Grå gneis kløyver ikke jevnt slik granitt gjør, så det kostet mye arbeid å få ut pene emner.',
-    source: 'Visit Fredrikstad & Hvaler · Fredriksstad Blad 1974',
+    note: 'I Grøtvika ligger et nedlagt steinbrudd. Gneisen til fasaden på Oslo rådhus ble tatt ut her. Grå gneis kløyver ikke jevnt slik granitt gjør, så det kostet mye arbeid å få ut pene emner.\n\nBruddet ved Sekken ble drevet av Norsk Labrador & Granitindustri fra 1930-tallet. Steinen ble kalt «Sandøgraniten», selv om den egentlig er gneis. Slipt og polert ble den svært dekorativ, og den ble brukt både i Oslo rådhus og i tinghuset i Trondheim. Ludvik Børresen, som jobbet ti år i bruddet, var med til Trondheim i 1940 for å arbeide på tinghuset. Solbenker og plater fra bruddet solgte godt, men driften ble aldri lønnsom.\n\nLikevel fortsatte arbeidet gjennom krigen, helt til 1944, og noen år etter. I 1941 var det rundt 15 mann i arbeid, de fleste fra Hvaler og tre fra Idd. En kort tid rundt 1940 leide også Den Ankerske Marmorforretning fjell av kommunen like ved, for 150 kroner året, men ingen vet sikkert om de fikk produsert noe. I 1949 ble kompressoren hentet, og bruddet ble stille.\n\nI juni 1950 gikk to nysgjerrige fjortenårige fettere på oppdagelsesferd i det nedlagte bruddet. De fant knallperler som var blitt liggende igjen, og eksplosjonen kostet den ene tre fingre. Bedriften måtte betale erstatning fordi sprengstoffet ikke var låst forsvarlig inne.\n\nBruddet er et kulturminne, men pass på bratte kanter.',
+    source: 'Visit Fredrikstad & Hvaler · Fredriksstad Blad 1974 · Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler',
     sources: [
+      { label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' },
       { label: 'Visit Fredrikstad & Hvaler: Søndre Sandøy', url: 'https://www.visitfredrikstadhvaler.com/no/skjargardsriket-hvaler/hvaler---oy-for-oy/Sondre-Sandoy' },
       { label: 'Arthur Holter, Fredrikstad Blad 1974', url: 'https://stig.ulfsby.no/2017/05/sondre-sandoy-en-naturperle/' },
     ],
