@@ -20,15 +20,15 @@ export interface Stop {
   quayId: string
 }
 
-// Posisjoner: Nedgården, Herføl, Gravningsund og Sanne fra OpenStreetMap (ferjekai). Skjærhalden, Lauer og Makø er omtrentlige.
+// Posisjoner: Nedgården, Herføl, Gravningsund og Sanne fra OpenStreetMap (ferjekai). Skjærhalden, Lauer og Makø fra Enturs stoppestedsregister.
 export const STOPS: Record<StopId, Stop> = {
-  skjaerhalden: { id: 'skjaerhalden', name: 'Skjærhalden', position: [59.0247, 11.0395], onSandoy: false, vehicleBookingRequired: true, quayId: 'NSR:Quay:3173' },
-  lauer: { id: 'lauer', name: 'Lauer', position: [59.0111, 11.0145], onSandoy: false, quayId: 'NSR:Quay:3194' },
+  skjaerhalden: { id: 'skjaerhalden', name: 'Skjærhalden', position: [59.024645, 11.037479], onSandoy: false, vehicleBookingRequired: true, quayId: 'NSR:Quay:3173' },
+  lauer: { id: 'lauer', name: 'Lauer', position: [59.011478, 11.017289], onSandoy: false, quayId: 'NSR:Quay:3194' },
   herfol: { id: 'herfol', name: 'Herføl', position: [59.002, 11.0568], onSandoy: false, vehicleBookingRequired: true, quayId: 'NSR:Quay:3187' },
   nedgarden: { id: 'nedgarden', name: 'Nedgården', position: [59.0168, 11.0639], onSandoy: true, vehicleBookingRequired: true, quayId: 'NSR:Quay:3183' },
   sanne: { id: 'sanne', name: 'Sanne', position: [59.028, 11.0946], onSandoy: false, quayId: 'NSR:Quay:3211' },
   gravningsund: { id: 'gravningsund', name: 'Gravningsund', position: [59.0242, 11.0999], onSandoy: true, quayId: 'NSR:Quay:3206' },
-  mako: { id: 'mako', name: 'Makø', position: [59.036, 11.105], onSandoy: false, quayId: 'NSR:Quay:3217' },
+  mako: { id: 'mako', name: 'Makø', position: [59.044636, 11.111624], onSandoy: false, quayId: 'NSR:Quay:3217' },
 }
 
 export const BOOKING_URL = 'https://ostfold-kollektiv.no/bestilling-hvalerferga'
