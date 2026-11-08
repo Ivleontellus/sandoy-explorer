@@ -354,9 +354,11 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     name: 'Ankervillaen (Sølyst)',
     type: 'historie',
     position: [59.02091, 11.08708],
-    note: 'Sommervilla ved Gravningsund, bygd av haldenseren Christian August Anker i 1886. Den regnes som en av de første hyttene på Hvaler. Privat eiendom.',
-    source: 'Riksantikvaren (Kulturminnesøk)',
-    sources: [{ label: 'Kulturminnesøk: Sølyst (Ankervillaen)', url: 'https://kulturminnesok.no/ra/lokalitet/325041' }],
+    note: 'Sommervilla ved Gravningsund, bygd av haldenseren Christian August Anker i 1886. Den regnes som en av de første hyttene på Hvaler. Privat eiendom.\n\nTakket være Anker fikk Gravningsund telefon tidlig. Allerede på 1880-tallet sørget han for en telefonlinje som gikk via Sverige og krysset Sekken ved Møren, på nordøstspissen av Søndre Sandøy. Etter hvert gikk det to kabler over Sekken, noen hundre meter fra hverandre. Den andre gikk over ved Reiertangen og koblet sundet til Strömstad.\n\nDa krigen kom, hadde Gravningsund fortsatt telefon til Sverige. Det varte ikke lenge. Så snart tyskerne oppdaget den ulovlige sjøkabelen, ble den kuttet.',
+    source: 'Riksantikvaren (Kulturminnesøk) · Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler',
+    sources: [
+      { label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' },
+      { label: 'Kulturminnesøk: Sølyst (Ankervillaen)', url: 'https://kulturminnesok.no/ra/lokalitet/325041' }],
   },
   {
     id: 'h-torine',
