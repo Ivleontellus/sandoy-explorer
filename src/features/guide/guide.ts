@@ -128,7 +128,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     type: 'overnatting',
     position: [59.00849, 11.08255],
     note: 'Familievennlig teltplass ved sandstranda i Stuevika, ca. 20 minutter å gå fra fergekaia på Nedgården. Nytt, flott sanitæranlegg med dusj, tilpasset funksjonshemmede.\n\nNår du leier teltplass, får du en hylle i kjøleskap og en i fryser, og strøm til lading av enkelt utstyr. All camping må bestilles på forhånd.',
-    website: 'https://onlinebooking.camp/stuevikateltplass',
+    website: 'https://campio.no/nb/campsite/stuevika-teltplass?rid=63f8711ca3aa360025d90e40',
     source: 'Visit Fredrikstad & Hvaler · OpenStreetMap · lokalkunnskap',
   },
   {
