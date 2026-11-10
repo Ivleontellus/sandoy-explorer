@@ -532,6 +532,14 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     note: 'Oppslagstavle med lokal info. Utsalgssted for Søndre Tidende.',
     source: 'Lokalkunnskap',
   },
+  {
+    id: 'p-grendehuset',
+    name: 'Søndre Sandøy grendehus',
+    type: 'annet',
+    position: [59.015991, 11.06906],
+    note: 'Øyas samlingssted, drevet av Foreningen Søndre Sandøy Grendehus. Her holdes blant annet basar, og huset kan leies til selskaper og arrangementer. Følg med på oppslagstavla for hva som skjer.',
+    source: 'Lokalkunnskap · Enhetsregisteret · Kartverket',
+  },
   // Kultur og historie
   {
     id: 'h-lokkeberg-skole',
