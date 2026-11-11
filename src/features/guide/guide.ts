@@ -527,12 +527,11 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   {
     id: 'h-cubaflagget',
-    name: 'Cuba-flagget i Gravningsund',
+    name: 'Cuba-flagget på Sildeholmen',
     type: 'historie',
-    position: [59.02466, 11.09657],
-    approximate: true,
-    note: 'Sommeren 1969 vaiet Cubas revolusjonsflagg over en av holmene i Gravningsund. Ifølge Halden Arbeiderblad gikk det rykter om at eieren av holmen hadde søkt Cubas ambassade om lov til å bruke flagget, og fått ja.\n\nAvisen spøkte med at det kanskje skjedde mens Finn Gustavsen ferievikarierte som ambassadør, og slo fast at Castro hadde okkupert en holme i det aristokratiske Gravningsund.\n\nAvisen sier ikke hvilken holme det var, så merket står bare omtrent. Vet du hvilken, si gjerne fra.',
-    source: 'Halden Arbeiderblad 1969',
+    position: [59.02725, 11.0979],
+    note: 'Sommeren 1969 vaiet Cubas revolusjonsflagg over Sildeholmen i Gravningsund. Ifølge Halden Arbeiderblad gikk det rykter om at eieren av holmen hadde søkt Cubas ambassade om lov til å bruke flagget, og fått ja.\n\nAvisen spøkte med at det kanskje skjedde mens Finn Gustavsen ferievikarierte som ambassadør, og slo fast at Castro hadde okkupert en holme i det aristokratiske Gravningsund.\n\nAvisen sier ikke hvilken holme det var, men folk på øya husker det: Flagget hang fra flaggstangen ved den sørligste hytta på Sildeholmen.',
+    source: 'Halden Arbeiderblad 1969 · Fortalt av Frode',
     sources: [{ label: 'Sommer-aristokratiske Gravningsund blir folketomt til vinteren, Halden Arbeiderblad 16. august 1969, s. 6', url: 'https://www.nb.no/items/ea26daf0072f8fabc3c5d98cf42778e3' }],
   },
   {
