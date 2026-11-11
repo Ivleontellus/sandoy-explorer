@@ -191,6 +191,18 @@ export const GUIDE_SPOTS: GuideSpot[] = [
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
   {
+    id: 'h-fanden',
+    name: 'Fanden på jordet',
+    type: 'historie',
+    position: [59.0185, 11.1063],
+    approximate: true,
+    note: 'Tidlig på 1970-tallet hadde zoologiprofessor Arne Semb-Johansson hytte her i Gjøkvika. Han kombinerte gjerne ferie og forskning, og noen somre studerte han paddene på øya. Det betydde at han av og til krøp rundt på jordene om natta med en kraftig hodelykt.\n\nEn natt møtte han Ludvik Børresen, som bodde ved krysset mellom Buvikveien og Gjøkvikveien. Børresen hadde fått seg et glass eller fire, og plutselig ble han blendet av et sterkt lys nede fra bakken.\n\nDagen etter var han både bakfull og fortsatt skremt, og han hadde et klart budskap til alle han møtte: Nå skulle han slutte å drikke, for i natt hadde han møtt fanden selv på jordet. Det løftet holdt nok ikke så lenge.\n\nBørresen er den samme som jobbet ti år i steinbruddet ved Sekken.',
+    source: 'Fortalt av Frode · Store norske leksikon',
+    sources: [
+      { label: 'Store norske leksikon: Arne Semb-Johansson', url: 'https://snl.no/Arne_Semb-Johansson' },
+    ],
+  },
+  {
     id: 'h-grense-gjolertangen',
     name: 'Grensemerket på Gjølertangen',
     type: 'historie',
