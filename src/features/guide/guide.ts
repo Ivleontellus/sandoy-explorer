@@ -268,9 +268,8 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 't-store-eka',
     name: 'Store Eka',
     type: 'planter',
-    position: [59.0128, 11.0700],
-    approximate: true,
-    note: 'Navnet betyr trolig den store eika. På det gamle stedsnavnkartet står den ved Nedgårdslunden, ikke langt fra Løkkeberg.',
+    position: [59.01233, 11.07113],
+    note: 'Navnet betyr trolig den store eika. På det gamle stedsnavnkartet står den ved Nedgårdslunden, ikke langt fra Løkkeberg. Treet står ved Sanderødveien, sør for Løkkeberg.',
     source: 'Stedsnavnkart over Søndre Sandøy · Kartverket',
   },
   {
@@ -339,8 +338,8 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     id: 'h-oldtidshuset',
     name: 'Oldtidshuset på Skjelleren',
     type: 'historie',
-    position: [59.010334, 11.069659],
-    note: 'Sommeren 1941 ble en gammel hustuft på gården Skjelleren bygd opp igjen. Trelastagent og amatørarkeolog Hjalmar Johnsen ledet arbeidet, og en gruppe studenter gjorde jobben gratis på to uker. Fredrikstad og Omegns Historielag tok initiativet, mens De No Fa og Lilleborg Fabrikker betalte det meste av utgiftene.\n\nHuset ble kalt Oldtidshuset og hadde to rom. Det største var omtrent 4,5 x 4,5 meter, med åre og røykåpning, og det minste ble tolket som en kubås. Under arbeidet fant de flintavfall, en knokkel som trolig var fra ku, og en stridsøks av jern av vikingtidstype.\n\nSamme sommer la de også en stor bronsealderrøys på Rød tilbake i sin opprinnelige form.\n\nDet er avdekket rundt 300 hustufter på Hvaler, særlig på Kirkøy og Søndre Sandøy. Dette er den eneste som ble fullstendig restaurert.\n\nMen hvor gamle er tuftene? Johnsen var sikker på at de var fra bronsealderen, og i 1937 skrev han til og med en fortelling om bronsealderfolket som bygde husene sine på Hvaler. Det fikk mange til å undre seg, og arkeologen Sverre Marstrander, senere professor, kom for å se på tuftene. Han mente de var langt yngre, fra 1500-tallet, og knyttet dem til det store sildefisket mellom 1556 og 1587. Mye senere forsket arkeologen Anne-Sophie Hygen på hvalertuftene og tok doktorgraden på dem. Hun kom fram til noe annet enn både Johnsen og Marstrander. Gåten er ikke helt løst.\n\nTuftene er kulturminner, så la steinene ligge.\n\nVi vet ikke helt sikkert hvilken tuft som ble bygd opp igjen. Det gamle stedsnavnkartet over øya markerer en hvalertuft ved Skjelleren, og merket står der, men omtrentlig. Vet du mer, si gjerne fra.',
+    position: [59.00987, 11.06765],
+    note: 'Sommeren 1941 ble en gammel hustuft på gården Skjelleren bygd opp igjen. Trelastagent og amatørarkeolog Hjalmar Johnsen ledet arbeidet, og en gruppe studenter gjorde jobben gratis på to uker. Fredrikstad og Omegns Historielag tok initiativet, mens De No Fa og Lilleborg Fabrikker betalte det meste av utgiftene.\n\nHuset ble kalt Oldtidshuset og hadde to rom. Det største var omtrent 4,5 x 4,5 meter, med åre og røykåpning, og det minste ble tolket som en kubås. Under arbeidet fant de flintavfall, en knokkel som trolig var fra ku, og en stridsøks av jern av vikingtidstype.\n\nSamme sommer la de også en stor bronsealderrøys på Rød tilbake i sin opprinnelige form.\n\nDet er avdekket rundt 300 hustufter på Hvaler, særlig på Kirkøy og Søndre Sandøy. Dette er den eneste som ble fullstendig restaurert.\n\nMen hvor gamle er tuftene? Johnsen var sikker på at de var fra bronsealderen, og i 1937 skrev han til og med en fortelling om bronsealderfolket som bygde husene sine på Hvaler. Det fikk mange til å undre seg, og arkeologen Sverre Marstrander, senere professor, kom for å se på tuftene. Han mente de var langt yngre, fra 1500-tallet, og knyttet dem til det store sildefisket mellom 1556 og 1587. Mye senere forsket arkeologen Anne-Sophie Hygen på hvalertuftene og tok doktorgraden på dem. Hun kom fram til noe annet enn både Johnsen og Marstrander. Gåten er ikke helt løst.\n\nTuftene er kulturminner, så la steinene ligge.\n\nVi vet ikke helt sikkert hvilken tuft som ble bygd opp igjen. Riksantikvaren har registrert stedet som Hjalmar Johnsens tuft, øverst og lengst øst i en smal kløft mellom to bergkanter, og det er der merket står. Vet du mer, si gjerne fra.',
     source: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler · Den Nye Tid 1942 · Fredriksstad Blad 1974 og 1977 · Riksantikvaren · Hvaler kulturvernforening',
     sources: [
       { label: 'Nordre og Søndre Sandøy: tvillingøyer i østre Hvaler', url: 'https://www.nb.no/items/acf3b5e1696622d0aee152b766149a12' },
