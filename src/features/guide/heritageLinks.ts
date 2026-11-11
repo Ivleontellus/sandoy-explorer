@@ -1,8 +1,19 @@
 import { haversine } from '../details/geo'
 import type { HeritageSite } from '../heritage/heritageApi'
 
-/** Så nær må en kjent plass ligge et kulturminne for at de regnes som samme sted. */
-export const LINK_RADIUS_M = 40
+/** Så nær midtpunktet må en kjent plass ligge for at den regnes som samme sted som kulturminnet. */
+export const LINK_RADIUS_M = 20
+/**
+ * Plassen kan også ligge inne i selve lokaliteten, men bare når den er liten (ett minne, ikke et
+ * helt kulturmiljø som Gravningsund). Målt som lengste avstand fra midtpunktet til omrisset.
+ */
+export const SMALL_SITE_M = 80
+
+const dist = (a: [number, number], b: [number, number]) => haversine([a[1], a[0]], [b[1], b[0]])
+
+function rings(site: HeritageSite): number[][][] {
+  return site.geometry.type === 'Polygon' ? [site.geometry.coordinates[0]] : site.geometry.coordinates.map((p) => p[0])
+}
 
 function insideRing(lat: number, lon: number, ring: number[][]): boolean {
   let inside = false
@@ -14,17 +25,16 @@ function insideRing(lat: number, lon: number, ring: number[][]): boolean {
   return inside
 }
 
-function insideSite([lat, lon]: [number, number], site: HeritageSite): boolean {
-  const polygons = site.geometry.type === 'Polygon' ? [site.geometry.coordinates] : site.geometry.coordinates
-  return polygons.some((p) => insideRing(lat, lon, p[0]))
+function isSmall(site: HeritageSite): boolean {
+  return rings(site).every((r) => r.every(([lon, lat]) => dist(site.centroid, [lat, lon]) <= SMALL_SITE_M))
 }
 
-/** Kulturminner som ligger der plassen står: i lokaliteten eller nær midtpunktet. */
+/** Kulturminner som ligger der plassen står: helt ved midtpunktet, eller inne i et lite kulturminne. */
 export function heritageAt(position: [number, number], sites: HeritageSite[]): HeritageSite[] {
   return sites.filter(
     (s) =>
-      haversine([position[1], position[0]], [s.centroid[1], s.centroid[0]]) <= LINK_RADIUS_M ||
-      insideSite(position, s),
+      dist(position, s.centroid) <= LINK_RADIUS_M ||
+      (isSmall(s) && rings(s).some((r) => insideRing(position[0], position[1], r))),
   )
 }
 

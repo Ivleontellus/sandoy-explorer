@@ -14,22 +14,31 @@ const site = (id: string, centroid: [number, number], ring: number[][]): Heritag
   geometry: { type: 'MultiPolygon', coordinates: [[ring]] },
 })
 
-// Et lite kvadrat rundt (59.0, 11.0), ca. 110 x 60 m.
-const square = [[10.9995, 58.9995], [11.0005, 58.9995], [11.0005, 59.0005], [10.9995, 59.0005], [10.9995, 58.9995]]
-const varde = site('varde', [59.0, 11.0], square)
-const langt = site('langt', [59.01, 11.0], square.map(([x, y]) => [x, y + 0.01]))
+/** Kvadrat rundt (lat, lon) med halv side d grader. */
+const square = (lat: number, lon: number, d: number) => [
+  [lon - d, lat - d], [lon + d, lat - d], [lon + d, lat + d], [lon - d, lat + d], [lon - d, lat - d],
+]
+
+// Lite minne, ca. 55 x 110 m.
+const varde = site('varde', [59.0, 11.0], square(59.0, 11.0, 0.0005))
+// Stort kulturmiljø, flere hundre meter bredt.
+const miljo = site('miljo', [59.02, 11.0], square(59.02, 11.0, 0.005))
 
 describe('kulturminner på samme sted som historier', () => {
-  it('finner kulturminnet når plassen står nær midtpunktet', () => {
-    expect(heritageAt([59.0002, 11.0001], [varde, langt]).map((s) => s.id)).toEqual(['varde'])
+  it('kobler plassen til kulturminnet når den står ved midtpunktet', () => {
+    expect(heritageAt([59.0001, 11.0001], [varde, miljo]).map((s) => s.id)).toEqual(['varde'])
   })
 
-  it('finner kulturminnet når plassen står inne i lokaliteten, langt fra midtpunktet', () => {
+  it('kobler plassen når den står inne i et lite kulturminne, litt unna midtpunktet', () => {
     expect(heritageAt([59.0004, 11.0004], [varde]).map((s) => s.id)).toEqual(['varde'])
   })
 
-  it('lar kulturminner andre steder være', () => {
-    expect(heritageAt([59.005, 11.0], [varde, langt])).toEqual([])
-    expect([...coveredHeritageIds([{ position: [59.0, 11.0] }], [varde, langt])]).toEqual(['varde'])
+  it('kobler ikke et løsfunn 35 m unna til en annen plass', () => {
+    expect(heritageAt([59.0, 11.0006], [site('funn', [59.0, 11.0], square(59.0, 11.0, 0.00001))])).toEqual([])
+  })
+
+  it('kobler ikke plasser inne i et stort kulturmiljø', () => {
+    expect(heritageAt([59.022, 11.002], [miljo])).toEqual([])
+    expect([...coveredHeritageIds([{ position: [59.0, 11.0] }, { position: [59.022, 11.002] }], [varde, miljo])]).toEqual(['varde'])
   })
 })
