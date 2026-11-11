@@ -35,6 +35,10 @@ export function SettingsPanel({ mode, onMode, onShowWelcome, publishedCount, pub
         {BUILD_DATE ? ` · bygd ${new Date(BUILD_DATE).toLocaleDateString('nb-NO')}` : ''}. Kartdata: Kartverket,
         Riksantikvaren, NGU, OpenStreetMap og Østfold kollektivtrafikk.
       </p>
+      <p className="hint">
+        Vi teller besøk med GoatCounter, uten informasjonskapsler og uten å lagre hvem du er. Posisjonen din og egne
+        punkter sendes aldri.
+      </p>
 
       <h3>Modus</h3>
       <div className="mode-switch">
