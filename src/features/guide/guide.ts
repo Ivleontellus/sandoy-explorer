@@ -1,6 +1,6 @@
 import type { LineString } from 'geojson'
 import type { BestTimes, PoiCategory } from '../../data/model'
-import { GJOLERTANGEN_PHOTO, HERFOLSATA_PHOTO, LINNEKLEPPEN_PHOTO, LOSHYTTA_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
+import { GJOLERTANGEN_PHOTO, HERFOLSATA_PHOTO, KATEDRALEN_PHOTO, LINNEKLEPPEN_PHOTO, LOSHYTTA_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -188,6 +188,18 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     position: [59.007492, 11.085162],
     note: 'Fin hvit kvarts under mosen. Se og ta bilder, men la steinen ligge, så andre også kan oppleve den.',
     source: 'Lokalkunnskap',
+  },
+  {
+    id: 'g-katedralen',
+    name: 'Katedralen på Herføl',
+    type: 'geologi',
+    image: KATEDRALEN_PHOTO,
+    position: [58.988621, 11.051567],
+    note: 'En stor jettegryte sør på Herføl, som står igjen som en buet hvelving over en liten dam oppe på berget. Formen minner om et gotisk kirkevindu, og derfor heter den Katedralen. Noen kaller den Kjerka eller Hvalkjeften.\n\nJettegryter ble boret ut i fjellet av vann og stein som virvlet rundt i samme hull, mest under og like etter istiden. På sørvestsiden av Herføl finnes flere store jettegryter, men Katedralen er den mest spesielle.\n\nEt flott mål for en dagstur til Herføl, gjerne sammen med Røsset og Linnekleppen varde. Berget er glatt når det er vått.',
+    source: 'Visit Fredrikstad & Hvaler · Riksantikvaren · Lokalkunnskap',
+    sources: [
+      { label: 'Visit Fredrikstad & Hvaler: Øyhopping på Hvaler', url: 'https://wordpress.visitfredrikstadhvaler.com/?p=42203' },
+    ],
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
   {

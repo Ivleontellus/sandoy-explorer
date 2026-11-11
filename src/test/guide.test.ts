@@ -9,7 +9,7 @@ import { loadRoute, PREF_KEY } from '../features/ferry/route'
 const inArea = ([lat, lon]: [number, number]) =>
   lat > ISLAND_BOUNDS[0][0] - 0.01 && lat < ISLAND_BOUNDS[1][0] + 0.01 && lon > ISLAND_BOUNDS[0][1] - 0.01 && lon < ISLAND_BOUNDS[1][1] + 0.01
 
-const DAY_TRIPS = new Set(['s-mako', 'h-herfolsata', 'h-linnekleppen', 'h-loshytta-andholmen'])
+const DAY_TRIPS = new Set(['s-mako', 'h-herfolsata', 'h-linnekleppen', 'h-loshytta-andholmen', 'g-katedralen'])
 
 describe('Kjente plasser og turruter', () => {
   it('har unike id-er, gyldige kategorier og ligger ved øya', () => {

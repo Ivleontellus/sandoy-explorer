@@ -72,6 +72,12 @@ export const LOSHYTTA_PHOTO: SpeciesPhoto = {
   license: 'Brukt med tillatelse',
 }
 
+export const KATEDRALEN_PHOTO: SpeciesPhoto = {
+  file: 'katedralen-herfol.jpg',
+  photographer: 'Ole Erik Jegstad Yrvin',
+  license: 'Brukt med tillatelse',
+}
+
 export const SALTERIET_PHOTO: SpeciesPhoto = {
   file: 'salteriet.jpg',
   photographer: 'Stig Ulfsby',
