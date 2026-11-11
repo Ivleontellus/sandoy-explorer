@@ -66,6 +66,12 @@ export const LINNEKLEPPEN_PHOTO: SpeciesPhoto = {
   license: 'Brukt med tillatelse',
 }
 
+export const LOSHYTTA_PHOTO: SpeciesPhoto = {
+  file: 'loshytta-andholmen.jpg',
+  photographer: 'Ole Erik Jegstad Yrvin',
+  license: 'Brukt med tillatelse',
+}
+
 export const SALTERIET_PHOTO: SpeciesPhoto = {
   file: 'salteriet.jpg',
   photographer: 'Stig Ulfsby',

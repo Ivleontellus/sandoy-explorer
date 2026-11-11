@@ -1,6 +1,6 @@
 import type { LineString } from 'geojson'
 import type { BestTimes, PoiCategory } from '../../data/model'
-import { GJOLERTANGEN_PHOTO, HERFOLSATA_PHOTO, LINNEKLEPPEN_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
+import { GJOLERTANGEN_PHOTO, HERFOLSATA_PHOTO, LINNEKLEPPEN_PHOTO, LOSHYTTA_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -201,6 +201,20 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     sources: [
       { label: 'Kulturminnesøk: Herfølsåta', url: 'https://kulturminnesok.no/ra/lokalitet/51921' },
       { label: 'Kulturminnesøk: Langrøsset', url: 'https://kulturminnesok.no/ra/lokalitet/239730' },
+    ],
+  },
+  {
+    id: 'h-loshytta-andholmen',
+    name: 'Loshytta på Andholmen',
+    type: 'historie',
+    image: LOSHYTTA_PHOTO,
+    position: [58.99418, 11.06213],
+    approximate: true,
+    note: 'På toppen av Andholmen, ytterst på Herføl, står en liten hvit hytte med master og antenner. Den kalles Loshytta. Herfra er det vid utsikt over leia inn mot Hvaler.\n\nLosene på Hvaler hadde lenge et viktig utsiktspunkt med vaktstue på Herføl, som dekket innseilingen til Fredrikstad og Halden. I dag holder losene til på Skipstadsand, og losbåten ligger i Vikerhavn på Asmaløy.\n\nAndholmen har også en eldre historie. En gammel kvinne som var født her, fortalte at holmen en gang var bebygd med de samme gamle steinhusene som på Ekholmen. Steinene ble senere ryddet bort da de nye husene kom.',
+    source: 'Lokalhistoriewiki · Riksantikvaren (Kulturminnesøk) · Lokalkunnskap',
+    sources: [
+      { label: 'Lokalhistoriewiki: Losvesenet på Hvaler', url: 'https://lokalhistoriewiki.no/wiki/Losvesenet_p%C3%A5_Hvaler' },
+      { label: 'Kulturminnesøk: Andholmen', url: 'https://kulturminnesok.no/ra/lokalitet/32662' },
     ],
   },
   {
