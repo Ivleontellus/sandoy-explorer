@@ -576,7 +576,7 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Lokalkunnskap · makocafe.no · Kartverket',
   },
   { id: 'bod-fluge', name: 'Flugeboden', type: 'bod', position: [59.014024, 11.071091], note: 'Grønnsaker fra Svanekilen gård. Selvbetjent, i sommerhalvåret.', source: 'Lokalkunnskap' },
-  { id: 'bod-sando', name: 'Sandø boden', type: 'bod', position: [59.005976, 11.072325], note: 'Tekstiler og keramikk. Selvbetjent. Boden står ved gården som de som bor der kaller Sanderød.', source: 'Lokalkunnskap' },
+  { id: 'bod-sando', name: 'Sanderød boden', type: 'bod', position: [59.005976, 11.072325], note: 'Tekstiler og keramikk. Selvbetjent. Boden står ved gården Sanderød.', source: 'Lokalkunnskap' },
   { id: 'bod-kvale', name: 'Kvale boden', type: 'bod', position: [59.014832, 11.068728], note: 'Honning og grønnsaker. Selvbetjent.', source: 'Lokalkunnskap' },
   // Praktisk info
   {
