@@ -1,6 +1,6 @@
 import type { LineString } from 'geojson'
 import type { BestTimes, PoiCategory } from '../../data/model'
-import { GJOLERTANGEN_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
+import { GJOLERTANGEN_PHOTO, HERFOLSATA_PHOTO, LINNEKLEPPEN_PHOTO, PENSJONATET_PHOTO, SALTERIET_PHOTO, SANDOYSALTA_PLANTS, type Species, type SpeciesPhoto } from '../nature/species'
 import hjertestien from './hjertestien.json'
 import hovedveien from './hovedveien.json'
 import kloverstien from './kloverstien.json'
@@ -190,6 +190,32 @@ export const GUIDE_SPOTS: GuideSpot[] = [
     source: 'Lokalkunnskap',
   },
   // Historier: små merker på hus og steder. Tekstene er skrevet med egne ord fra kildene som er oppgitt.
+  {
+    id: 'h-herfolsata',
+    name: 'Herfølsåta (Røsset)',
+    type: 'historie',
+    image: HERFOLSATA_PHOTO,
+    position: [59.001828, 11.047241],
+    note: 'På toppen av åsen midt på Herføl ligger en stor gravrøys fra bronsealderen. Den heter Herfølsåta, men i dagligtale kalles den bare Røsset. Røysa er rundt 30 meter på tvers og 3 meter høy, og ganske flat på toppen.\n\nSlike røyser ble lagt over gravene til viktige folk for 2500 til 3500 år siden, gjerne på høye steder der de syntes godt fra sjøen. Ved røysa står det en informasjonstavle. Lenger sør på øya ligger flere gravrøyser, blant dem Langrøsset, som er nesten 100 meter langt.\n\nHerføl er en fin dagstur når du bor eller camper på Søndre Sandøy. Røysa er fredet, så ikke flytt eller ta med stein.',
+    source: 'Riksantikvaren (Kulturminnesøk) · Lokalkunnskap',
+    sources: [
+      { label: 'Kulturminnesøk: Herfølsåta', url: 'https://kulturminnesok.no/ra/lokalitet/51921' },
+      { label: 'Kulturminnesøk: Langrøsset', url: 'https://kulturminnesok.no/ra/lokalitet/239730' },
+    ],
+  },
+  {
+    id: 'h-linnekleppen',
+    name: 'Linnekleppen varde',
+    type: 'historie',
+    image: LINNEKLEPPEN_PHOTO,
+    position: [58.99088, 11.04958],
+    note: 'Ytterst på sørenden av Herføl står den hvitstripete varden på Linnekleppen. Varder som denne var sjømerker. De viste skipene hvor de var og hvor leia gikk, lenge før fyrlykter og GPS.\n\nLeia her ute var både viktig og farlig. I sjøen ved Linnekleppen er det funnet tre ankre, en liten kanon og andre gjenstander fra minst tre ulike skip, fra 1700- og 1800-tallet.\n\nVarden er et registrert kulturminne. Den ligger fint til som mål for en dagstur til Herføl, gjerne sammen med Røsset.',
+    source: 'Riksantikvaren (Kulturminnesøk)',
+    sources: [
+      { label: 'Kulturminnesøk: Linnekleppen varde', url: 'https://kulturminnesok.no/ra/lokalitet/224296' },
+      { label: 'Kulturminnesøk: funn ved Linnekleppen', url: 'https://kulturminnesok.no/ra/lokalitet/118400' },
+    ],
+  },
   {
     id: 'h-fanden',
     name: 'Fanden på jordet',

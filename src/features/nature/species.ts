@@ -11,10 +11,10 @@ export interface SpeciesPhoto {
   /** Filnavn i public/arter/. */
   file: string
   photographer: string
-  license: 'CC BY 4.0' | 'CC BY-NC 4.0' | 'CC BY-SA 3.0' | 'Fri bruk med navn'
-  licenseUrl: string
-  /** Funnet bildet hører til. */
-  sourceUrl: string
+  license: 'CC BY 4.0' | 'CC BY-NC 4.0' | 'CC BY-SA 3.0' | 'Fri bruk med navn' | 'Brukt med tillatelse'
+  licenseUrl?: string
+  /** Funnet eller siden bildet hører til. */
+  sourceUrl?: string
 }
 
 export interface Species {
@@ -52,6 +52,18 @@ export const PENSJONATET_PHOTO: SpeciesPhoto = {
   license: 'Fri bruk med navn',
   licenseUrl: 'https://stig.ulfsby.no/2011/04/bilder-sondre-sandoy-hvaler/',
   sourceUrl: 'https://stig.ulfsby.no/2011/04/bilder-sondre-sandoy-hvaler/',
+}
+
+export const HERFOLSATA_PHOTO: SpeciesPhoto = {
+  file: 'herfolsata.jpg',
+  photographer: 'Ole Erik Jegstad Yrvin',
+  license: 'Brukt med tillatelse',
+}
+
+export const LINNEKLEPPEN_PHOTO: SpeciesPhoto = {
+  file: 'linnekleppen-varde.jpg',
+  photographer: 'Ole Erik Jegstad Yrvin',
+  license: 'Brukt med tillatelse',
 }
 
 export const SALTERIET_PHOTO: SpeciesPhoto = {

@@ -12,8 +12,9 @@ const SPECIES_GROUPS: { label: string; groups: Species['group'][] }[] = [
 function PhotoCredit({ photo }: { photo: SpeciesPhoto }) {
   return (
     <p className="species-credit">
-      Foto: <a href={photo.sourceUrl} target="_blank" rel="noreferrer">{photo.photographer}</a>,{' '}
-      <a href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.license}</a>, nedskalert
+      Foto: {photo.sourceUrl ? <a href={photo.sourceUrl} target="_blank" rel="noreferrer">{photo.photographer}</a> : photo.photographer},{' '}
+      {photo.licenseUrl ? <a href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.license}</a> : photo.license.toLowerCase()}
+      {photo.licenseUrl ? ', nedskalert' : ''}
     </p>
   )
 }

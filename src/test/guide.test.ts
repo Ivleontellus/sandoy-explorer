@@ -9,15 +9,20 @@ import { loadRoute, PREF_KEY } from '../features/ferry/route'
 const inArea = ([lat, lon]: [number, number]) =>
   lat > ISLAND_BOUNDS[0][0] - 0.01 && lat < ISLAND_BOUNDS[1][0] + 0.01 && lon > ISLAND_BOUNDS[0][1] - 0.01 && lon < ISLAND_BOUNDS[1][1] + 0.01
 
+const DAY_TRIPS = new Set(['s-mako', 'h-herfolsata', 'h-linnekleppen'])
+
 describe('Kjente plasser og turruter', () => {
   it('har unike id-er, gyldige kategorier og ligger ved øya', () => {
     const ids = [...GUIDE_SPOTS.map((s) => s.id), ...GUIDE_TRAILS.map((t) => t.id)]
     expect(new Set(ids).size).toBe(ids.length)
     for (const s of GUIDE_SPOTS) {
       expect(POI_CATEGORIES[s.type], s.id).toBeDefined()
-      // Makø er en vanlig dagstur fra øya, så kafeen der får ligge litt utenfor.
-      const pos: [number, number] = s.id === 's-mako' ? [s.position[0] - 0.02, s.position[1]] : s.position
-      expect(inArea(pos), `${s.id} ${s.position}`).toBe(true)
+      // Makø og Herføl er vanlige dagsturer fra øya, så de får ligge litt utenfor.
+      if (DAY_TRIPS.has(s.id)) {
+        expect(Math.abs(s.position[0] - 59.01) < 0.05 && Math.abs(s.position[1] - 11.08) < 0.05, `${s.id} ${s.position}`).toBe(true)
+        continue
+      }
+      expect(inArea(s.position), `${s.id} ${s.position}`).toBe(true)
     }
   })
 
