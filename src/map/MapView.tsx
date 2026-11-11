@@ -1,5 +1,6 @@
 import 'leaflet/dist/leaflet.css'
 import L, { type Map as LeafletMap } from 'leaflet'
+import { useMemo } from 'react'
 import type { Position } from 'geojson'
 import { MapContainer, Marker, ScaleControl, TileLayer, Tooltip, useMapEvents } from 'react-leaflet'
 import type { MapFeature } from '../data/model'
@@ -7,6 +8,7 @@ import { SunOverlay } from '../features/sun/SunOverlay'
 import { DrawLine, EditLine } from './DrawTools'
 import { FeatureLayers } from './FeatureLayers'
 import { GuideLayer } from '../features/guide/GuideLayer'
+import { coveredHeritageIds } from '../features/guide/heritageLinks'
 import type { GuideTrail, ResolvedSpot } from '../features/guide/guide'
 import { HeritageLayer } from '../features/heritage/HeritageLayer'
 import type { HeritageSite } from '../features/heritage/heritageApi'
@@ -68,6 +70,8 @@ function ClickHandler({ mode, onMapClick, onSelect }: Pick<Props, 'mode' | 'onMa
 }
 
 export function MapView(props: Props) {
+  const shownSpots = useMemo(() => (props.showSpots ? props.guideSpots.filter((s) => !s.hidden) : []), [props.showSpots, props.guideSpots])
+  const coveredHeritage = useMemo(() => coveredHeritageIds(shownSpots, props.heritageSites), [shownSpots, props.heritageSites])
   const basemap = BASEMAPS.find((b) => b.id === props.basemapId) ?? BASEMAPS[0]
   const { mode, editing } = props
 
@@ -99,6 +103,7 @@ export function MapView(props: Props) {
 
       <HeritageLayer
         sites={props.heritageSites}
+        hiddenIds={coveredHeritage}
         selectedId={props.selectedPublic?.kind === 'heritage' ? props.selectedPublic.id : null}
         interactive={mode === 'browse'}
         onSelect={(id) => props.onSelectPublic({ kind: 'heritage', id })}
@@ -113,7 +118,7 @@ export function MapView(props: Props) {
         <GuideLayer
           showTrails={props.showTrails}
           trails={props.guideTrails}
-          spots={props.showSpots ? props.guideSpots.filter((s) => !s.hidden) : []}
+          spots={shownSpots}
           selectedId={props.selectedPublic?.kind === 'guide' ? props.selectedPublic.id : null}
           interactive={mode === 'browse'}
           canEdit={props.canEdit}

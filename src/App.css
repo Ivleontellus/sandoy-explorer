@@ -1289,6 +1289,21 @@ a.button.website {
   border-color: var(--green);
   color: #fff;
 }
+.heritage-here {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin: 10px 0;
+  padding: 8px 10px;
+  border-left: 3px solid #6d4c41;
+  background: var(--surface-2, rgba(109, 76, 65, 0.07));
+  border-radius: 6px;
+  font-size: 14px;
+}
+.heritage-here .link {
+  text-align: left;
+}
 .story-sources {
   margin: 8px 0;
   padding: 0;

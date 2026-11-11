@@ -3,6 +3,7 @@ import { PlaceConditions } from '../conditions/PlaceConditions'
 import { LinkedText, WebsiteButton } from '../common/Links'
 import { PublishedPhotos } from '../photos/PhotoGallery'
 import { PlacePhoto, SpeciesCard } from '../nature/NaturePanel'
+import type { HeritageSite } from '../heritage/heritageApi'
 
 const PUBLISHED_BASE = `${import.meta.env.BASE_URL}data/`
 import { GUIDE_ATTRIBUTION, GUIDE_UNPLACED, SPOT_GROUPS, groupOf, type GuideSpot, type GuideTrail, type ResolvedSpot, type SpotGroup } from './guide'
@@ -119,9 +120,12 @@ interface DetailProps {
   onClose: () => void
   /** Redigeringsmodus: vis flytt/skjul/kopier-knapper. */
   canEdit: boolean
+  /** Registrerte kulturminner på samme sted som plassen. */
+  heritage?: HeritageSite[]
+  onOpenHeritage?: (id: string) => void
 }
 
-export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPickInMap, onResetPosition, onHide, onClose, canEdit }: DetailProps) {
+export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPickInMap, onResetPosition, onHide, onClose, canEdit, heritage, onOpenHeritage }: DetailProps) {
   const isTrail = 'lengthKm' in item
   return (
     <div className="panel-section">
@@ -192,6 +196,16 @@ export function GuideDetails({ item, onCreatePoi, onDrawTrail, onCopyTrail, onPi
           </p>
           {item.type !== 'historie' && <PlaceConditions lat={item.position[0]} lon={item.position[1]} bestTimes={item.bestTimes} />}
           {item.approximate && !item.moved && <p className="warning">Plasseringen er omtrentlig{canEdit ? '. Dra markøren i kartet eller trykk «Velg i kartet»' : ''}.</p>}
+          {heritage && heritage.length > 0 && onOpenHeritage && (
+            <div className="heritage-here">
+              <strong>Kulturminne her</strong>
+              {heritage.map((h) => (
+                <button key={h.id} type="button" className="link" onClick={() => onOpenHeritage(h.id)}>
+                  ⚑ {h.name || 'Uten navn'} (Riksantikvaren)
+                </button>
+              ))}
+            </div>
+          )}
           {item.sources && (
             <ul className="story-sources">
               {item.sources.map((s) => (

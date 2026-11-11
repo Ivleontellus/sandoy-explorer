@@ -44,6 +44,8 @@ export function GuideLayer({ showTrails, trails, spots, selectedId, interactive,
             key={s.id}
             position={s.position}
             icon={guideIcon(s.type, selected, s.approximate && !s.moved)}
+            // Over kulturminner og bygninger, så historien ikke gjemmer seg bak et annet merke.
+            zIndexOffset={selected ? 2000 : 1000}
             interactive={interactive}
             draggable={selected && interactive && canEdit && !s.published}
             eventHandlers={{

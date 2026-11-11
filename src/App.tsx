@@ -37,6 +37,7 @@ import {
   type SpotGroup,
 } from './features/guide/guide'
 import { GuideDetails, SpotList, TrailList } from './features/guide/GuidePanel'
+import { heritageAt } from './features/guide/heritageLinks'
 import { NaturePanel } from './features/nature/NaturePanel'
 import { SunPanel } from './features/sun/SunPanel'
 import { finishDrawing } from './map/DrawTools'
@@ -522,6 +523,8 @@ export default function App() {
         key={selectedGuide.id}
         item={selectedGuide}
         canEdit={canEdit}
+        heritage={'position' in selectedGuide ? heritageAt(selectedGuide.position, heritage.sites) : []}
+        onOpenHeritage={(id) => selectPublic({ kind: 'heritage', id })}
         onClose={() => setSelectedPublic(null)}
         onDrawTrail={startDrawTrail}
         onCopyTrail={(trail) => {

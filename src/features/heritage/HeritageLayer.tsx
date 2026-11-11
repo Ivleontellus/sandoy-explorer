@@ -7,6 +7,8 @@ import type { HeritageSite } from './heritageApi'
 interface Props {
   sites: HeritageSite[]
   selectedId: string | null
+  /** Kulturminner som har en historie på samme sted: markøren skjules, omrisset vises fortsatt. */
+  hiddenIds?: Set<string>
   interactive: boolean
   onSelect: (id: string) => void
 }
@@ -16,14 +18,14 @@ export const HERITAGE_MIN_ZOOM = 15.5
 const OUTLINE_MIN_ZOOM = 16
 
 /** Offentlige kulturminner: markør i sentroiden, og omriss av lokaliteten når man er zoomet inn. */
-export function HeritageLayer({ sites, selectedId, interactive, onSelect }: Props) {
+export function HeritageLayer({ sites, selectedId, hiddenIds, interactive, onSelect }: Props) {
   const map = useMap()
   const [zoom, setZoom] = useState(map.getZoom())
   useMapEvents({ zoomend: () => setZoom(map.getZoom()) })
 
   return (
     <>
-      {sites.filter((s) => zoom >= HERITAGE_MIN_ZOOM || s.id === selectedId).map((s) => {
+      {sites.filter((s) => (zoom >= HERITAGE_MIN_ZOOM && !hiddenIds?.has(s.id)) || s.id === selectedId).map((s) => {
         const selected = s.id === selectedId
         return (
           <Marker
